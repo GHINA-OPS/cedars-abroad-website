@@ -1,0 +1,1731 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AI-Enhanced Balanced Scorecard - Cedars Abroad Certificate Program">
+</head>
+<body>
+<title>AI-Enhanced Balanced Scorecard</title>
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f5f7f9;
+    --surface:#ffffff;
+    --surface-2:#eef1f5;
+    --rail:#12151c;
+    --rail-ink:#c7cdd8;
+    --rail-ink-dim:#7b8496;
+    --ink:#12151c;
+    --ink-2:#4c5361;
+    --ink-muted:#868f9e;
+    --border:rgba(18,21,28,0.10);
+    --grid:#e4e7ec;
+    --accent:#2a78d6;
+    --accent-wash:rgba(42,120,214,0.10);
+    --accent-ink:#1c5cab;
+    --good:#0ca30c;
+    --good-ink:#006300;
+    --bad:#d03b3b;
+    --p-financial:#4a3aa7;
+    --p-customer:#1baf7a;
+    --p-process:#c05a1f;
+    --p-learning:#c23f7b;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --page:#0c0e12;
+      --surface:#161920;
+      --surface-2:#1d212a;
+      --rail:#0a0c10;
+      --rail-ink:#dfe3ea;
+      --rail-ink-dim:#8891a0;
+      --ink:#f1f3f6;
+      --ink-2:#b7bfcc;
+      --ink-muted:#7e8796;
+      --border:rgba(255,255,255,0.10);
+      --grid:#262b34;
+      --accent:#4d93e8;
+      --accent-wash:rgba(77,147,232,0.16);
+      --accent-ink:#8fc0f5;
+      --good:#3fc23f;
+      --good-ink:#5fd65f;
+      --bad:#e66767;
+      --p-financial:#9085e9;
+      --p-customer:#2fd99a;
+      --p-process:#e08a4c;
+      --p-learning:#e878ab;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#0c0e12; --surface:#161920; --surface-2:#1d212a; --rail:#0a0c10;
+    --rail-ink:#dfe3ea; --rail-ink-dim:#8891a0; --ink:#f1f3f6; --ink-2:#b7bfcc; --ink-muted:#7e8796;
+    --border:rgba(255,255,255,0.10); --grid:#262b34; --accent:#4d93e8; --accent-wash:rgba(77,147,232,0.16);
+    --accent-ink:#8fc0f5; --good:#3fc23f; --good-ink:#5fd65f; --bad:#e66767;
+    --p-financial:#9085e9; --p-customer:#2fd99a; --p-process:#e08a4c; --p-learning:#e878ab;
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --page:#f5f7f9; --surface:#ffffff; --surface-2:#eef1f5; --rail:#12151c;
+    --rail-ink:#c7cdd8; --rail-ink-dim:#7b8496; --ink:#12151c; --ink-2:#4c5361; --ink-muted:#868f9e;
+    --border:rgba(18,21,28,0.10); --grid:#e4e7ec; --accent:#2a78d6; --accent-wash:rgba(42,120,214,0.10);
+    --accent-ink:#1c5cab; --good:#0ca30c; --good-ink:#006300; --bad:#d03b3b;
+    --p-financial:#4a3aa7; --p-customer:#1baf7a; --p-process:#c05a1f; --p-learning:#c23f7b;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+
+  .app{display:flex;min-height:100vh;width:100%;}
+
+  /* ---------- Rail ---------- */
+  .rail{
+    width:240px;flex:none;background:var(--rail);color:var(--rail-ink);
+    display:flex;flex-direction:column;padding:22px 14px;gap:4px;
+    position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;
+  }
+  .rail-brand{padding:4px 10px 18px;}
+  .rail-brand .k{font-family:var(--serif);font-size:19px;line-height:1.15;color:#fff;letter-spacing:.2px;}
+  .rail-brand .s{display:block;margin-top:5px;font-size:11px;color:var(--rail-ink-dim);text-transform:uppercase;letter-spacing:.08em;}
+  .rail-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--rail-ink-dim);padding:14px 10px 6px;}
+  .rail-item{
+    display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;cursor:pointer;
+    border:1px solid transparent;background:transparent;color:var(--rail-ink);text-align:left;font-family:var(--sans);
+    font-size:13.5px;width:100%;
+  }
+  .rail-item:hover{background:rgba(255,255,255,0.06);}
+  .rail-item.active{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.10);}
+  .rail-dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--dot,#888);}
+  .rail-item .lbl{flex:1;}
+  .rail-item .cnt{font-size:10.5px;color:var(--rail-ink-dim);font-variant-numeric:tabular-nums;}
+  .rail-item.active .cnt{color:var(--rail-ink);}
+  .rail-foot{margin-top:auto;padding:10px;font-size:11px;color:var(--rail-ink-dim);line-height:1.5;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;}
+  .rail-data-btn{margin-top:12px;width:100%;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--sans);}
+  .rail-data-btn:hover{opacity:.9;}
+  .data-banner{display:none;align-items:center;justify-content:space-between;gap:14px;background:var(--accent-wash);border:1px solid var(--border);border-radius:10px;padding:10px 16px;margin-bottom:22px;font-size:12.5px;color:var(--ink-2);}
+  .data-banner.show{display:flex;}
+  .data-banner button{flex:none;}
+
+  /* ---------- Data modal ---------- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(8,10,14,0.55);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .modal-overlay.hidden{display:none;}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;max-width:540px;width:100%;max-height:88vh;overflow-y:auto;padding:26px 28px;box-shadow:0 24px 70px rgba(0,0,0,0.35);}
+  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:2px;}
+  .modal-head h3{margin:0;font-size:17px;}
+  .modal-close{background:none;border:none;color:var(--ink-muted);font-size:22px;line-height:1;cursor:pointer;padding:2px 6px;flex:none;}
+  .modal-close:hover{color:var(--ink);}
+  .modal p.hint{font-size:13px;color:var(--ink-2);line-height:1.55;margin:8px 0 16px;}
+  .file-drop{border:1.5px dashed var(--border);border-radius:10px;padding:20px;text-align:center;margin-bottom:6px;background:var(--surface-2);}
+  .file-drop input[type=file]{display:block;margin:0 auto;font-size:12.5px;max-width:100%;}
+  .file-drop .fd-label{font-size:12.5px;color:var(--ink-muted);margin-bottom:10px;}
+  .data-status{font-size:12.5px;border-radius:8px;padding:10px 12px;margin:14px 0 4px;background:var(--surface-2);color:var(--ink-2);min-height:16px;line-height:1.5;}
+  .data-status.ok{background:rgba(12,163,12,0.12);color:var(--good-ink);}
+  .data-status.err{background:rgba(208,59,59,0.12);color:var(--bad);}
+  .modal-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .modal hr{border:none;border-top:1px solid var(--border);margin:18px 0;}
+  .modal .tpl-cols{font-size:11.5px;color:var(--ink-muted);background:var(--surface-2);border-radius:8px;padding:10px 12px;line-height:1.6;margin-top:4px;}
+  .modal .tpl-cols code{font-family:ui-monospace,Consolas,monospace;background:var(--border);padding:1px 4px;border-radius:4px;}
+
+  /* ---------- Stage ---------- */
+  .stage{flex:1;min-width:0;padding:34px 40px 64px;max-width:1180px;}
+  .panel{display:none;animation:fade .22s ease;}
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-muted);margin:0 0 8px;}
+  h1.page-title{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.2;margin:0 0 10px;text-wrap:balance;}
+  p.page-sub{font-size:15px;color:var(--ink-2);max-width:62ch;line-height:1.55;margin:0 0 28px;}
+
+  .badge-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:3px 10px 3px 8px;border-radius:100px;border:1px solid var(--border);color:var(--ink-2);background:var(--surface);}
+  .badge-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--dot,var(--accent));}
+
+  /* ---------- Overview hero map ---------- */
+  .map-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px 30px;margin-bottom:28px;}
+  .map-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:640px;margin:0 auto;}
+  .map-node{
+    border-radius:10px;padding:16px 18px;cursor:pointer;border:1px solid var(--border);background:var(--surface-2);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .map-node:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.08);}
+  .map-node .mn-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  .map-node .mn-dot{width:9px;height:9px;border-radius:50%;background:var(--dot);}
+  .map-node .mn-name{font-size:14.5px;font-weight:600;}
+  .map-node .mn-q{font-size:12.5px;color:var(--ink-2);line-height:1.4;}
+  .map-center{grid-column:1 / -1;text-align:center;padding:6px 0 2px;font-family:var(--serif);font-size:14.5px;color:var(--ink-muted);}
+
+  /* ---------- Overview perspective summary cards ---------- */
+  .ov-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:30px;}
+  .ov-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;cursor:pointer;}
+  .ov-card:hover{border-color:var(--dot);}
+  .ov-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .ov-head .name{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;}
+  .ov-head .dot{width:9px;height:9px;border-radius:50%;background:var(--dot);}
+  .ov-head .arrow{color:var(--ink-muted);font-size:13px;}
+  .ov-sparks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .ov-spark-name{font-size:10.5px;color:var(--ink-muted);margin-bottom:2px;}
+  .ov-spark-val{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;}
+
+  .teaser{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--accent-wash);border:1px solid var(--border);border-radius:12px;padding:16px 20px;}
+  .teaser p{margin:0;font-size:13.5px;color:var(--ink-2);max-width:56ch;}
+  .btn{border:1px solid var(--border);background:var(--surface);color:var(--ink);font-family:var(--sans);font-size:13px;font-weight:600;padding:9px 16px;border-radius:8px;cursor:pointer;white-space:nowrap;}
+  .btn:hover{border-color:var(--accent);color:var(--accent-ink);}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn.primary:hover{opacity:.92;color:#fff;}
+
+  /* ---------- KPI cards ---------- */
+  .kpi-list{display:flex;flex-direction:column;gap:18px;}
+  .kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;}
+  .kpi-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:6px;}
+  .kpi-name{font-size:17px;font-weight:700;margin:0 0 4px;}
+  .kpi-def{font-size:13.5px;color:var(--ink-2);line-height:1.55;max-width:64ch;margin:0;}
+  .kpi-body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;margin-top:16px;align-items:start;}
+  @media (max-width: 860px){ .kpi-body{grid-template-columns:1fr;} }
+
+  .stat-col{display:flex;flex-direction:column;gap:14px;}
+  .stat-block{display:flex;flex-direction:column;}
+  .stat-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);margin-bottom:3px;}
+  .stat-value{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em;}
+  .stat-delta{font-size:12.5px;font-weight:600;margin-top:2px;}
+  .stat-delta.good{color:var(--good-ink);}
+  .stat-delta.bad{color:var(--bad);}
+  .forecast-block{border-top:1px solid var(--border);padding-top:12px;}
+  .forecast-range{font-size:11.5px;color:var(--ink-muted);margin-top:2px;}
+  .technique{font-size:12px;color:var(--ink-2);background:var(--surface-2);border-radius:8px;padding:10px 12px;line-height:1.5;}
+  .technique b{color:var(--ink);font-weight:600;}
+
+  .chart-wrap{position:relative;}
+  .chart-wrap svg{width:100%;height:auto;display:block;}
+  .legend{display:flex;gap:16px;margin-top:8px;font-size:11.5px;color:var(--ink-2);}
+  .legend-item{display:flex;align-items:center;gap:6px;}
+  .legend-item .lw{width:14px;height:2px;background:var(--ink-2);display:inline-block;}
+  .legend-item .lw.dash{background:none;border-top:2px dashed var(--accent);}
+  .chart-tip{
+    position:absolute;pointer-events:none;background:var(--rail);color:var(--rail-ink);border-radius:7px;
+    padding:7px 10px;font-size:11.5px;line-height:1.45;box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    opacity:0;transform:translate(-50%,-100%);transition:opacity .08s ease;white-space:nowrap;z-index:5;top:0;left:0;
+  }
+  .chart-tip.show{opacity:1;}
+  .chart-tip .tt{color:#fff;font-weight:700;}
+  .chart-tip .ta{color:var(--rail-ink-dim);}
+
+  /* ---------- Methodology ---------- */
+  .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:30px;}
+  .why-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+  .why-card .wn{font-family:var(--serif);font-size:13px;color:var(--accent-ink);margin-bottom:8px;}
+  .why-card h3{font-size:15.5px;margin:0 0 8px;}
+  .why-card p{font-size:13.5px;color:var(--ink-2);line-height:1.55;margin:0;}
+
+  .flow{display:flex;align-items:stretch;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:30px;overflow-x:auto;}
+  .flow-node{flex:1;min-width:190px;padding:0 14px;}
+  .flow-node .fn-persp{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);margin-bottom:6px;}
+  .flow-node .fn-title{font-size:14px;font-weight:700;margin-bottom:4px;}
+  .flow-node .fn-desc{font-size:12.5px;color:var(--ink-2);line-height:1.5;}
+  .flow-arrow{flex:none;width:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink-muted);font-size:10.5px;text-align:center;gap:4px;}
+  .flow-arrow svg{width:40px;height:14px;}
+
+  .sim{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 26px;margin-bottom:30px;}
+  .sim h3{margin:0 0 4px;font-size:16px;}
+  .sim .sim-note{font-size:12px;color:var(--ink-muted);margin:0 0 18px;}
+  .sim-controls{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px;}
+  .sim-slider-row label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:8px;}
+  .sim-slider-row label .v{color:var(--accent-ink);font-variant-numeric:tabular-nums;}
+  input[type=range]{width:100%;accent-color:var(--accent);}
+  .sim-results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+  .sim-tile{background:var(--surface-2);border-radius:10px;padding:14px 16px;}
+  .sim-tile .st-label{font-size:11px;color:var(--ink-muted);margin-bottom:6px;}
+  .sim-tile .st-vals{display:flex;align-items:baseline;gap:8px;}
+  .sim-tile .st-base{font-size:13px;color:var(--ink-muted);text-decoration:line-through;font-variant-numeric:tabular-nums;}
+  .sim-tile .st-new{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;}
+  .sim-tile .st-delta{font-size:12px;font-weight:600;margin-top:3px;}
+  .sim-narrative{font-size:13.5px;line-height:1.6;color:var(--ink-2);background:var(--accent-wash);border-radius:10px;padding:14px 16px;}
+  .sim-reset{margin-top:14px;}
+
+  /* ---------- Certificate slide deck ---------- */
+  .deck-shell{max-width:1000px;margin:0 auto;}
+  .deck-viewport{position:relative;width:100%;aspect-ratio:1280/720;border-radius:10px;overflow:hidden;background:#0b0d10;box-shadow:0 16px 50px rgba(0,0,0,0.25);}
+  .deck-viewport:fullscreen{width:100vw;height:100vh;border-radius:0;}
+  .deck-stage{position:absolute;top:0;left:0;width:1280px;height:720px;transform-origin:top left;}
+  .dslide{position:absolute;inset:0;display:none;font-family:var(--sans);}
+  .dslide.active{display:block;}
+  .dslide .d-accent{position:absolute;top:0;left:0;right:0;height:8px;}
+  .dslide .d-kicker{position:absolute;left:60px;top:44px;font-size:13px;font-weight:700;letter-spacing:.08em;}
+  .dslide .d-heading{position:absolute;left:60px;top:80px;right:60px;font-family:var(--serif);font-weight:400;font-size:32px;color:#12151c;line-height:1.2;}
+  .dslide .d-heading.no-kicker{top:44px;}
+  .dslide .d-bullets{position:absolute;left:68px;top:172px;right:70px;bottom:70px;margin:0;padding:0;list-style:none;overflow:auto;}
+  .dslide .d-bullets li{position:relative;padding-left:24px;margin-bottom:16px;font-size:19px;line-height:1.55;color:#4c5361;}
+  .dslide .d-bullets li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:#9aa3b2;}
+  .dslide .d-bullets li b{color:#12151c;font-weight:700;}
+  .dslide .d-footleft{position:absolute;left:60px;bottom:26px;font-size:12px;color:#8a93a3;font-weight:600;}
+  .dslide .d-pageno{position:absolute;right:60px;bottom:26px;font-size:12px;color:#8a93a3;font-variant-numeric:tabular-nums;}
+  .dslide.d-title,.dslide.d-section{color:#fff;}
+  .dslide .d-t-eyebrow{position:absolute;left:0;right:0;top:225px;text-align:center;font-size:14px;font-weight:700;letter-spacing:.14em;color:#a9bde3;}
+  .dslide .d-t-title{position:absolute;left:80px;right:80px;top:266px;text-align:center;font-family:var(--serif);font-weight:400;font-size:52px;line-height:1.15;}
+  .dslide .d-t-subtitle{position:absolute;left:80px;right:80px;top:392px;text-align:center;font-size:21px;color:#c7d6ee;}
+  .dslide .d-t-footer{position:absolute;left:120px;right:120px;top:520px;text-align:center;font-size:14px;color:#8fa2c4;}
+  .dslide .d-sec-eyebrow{position:absolute;left:0;right:0;top:298px;text-align:center;font-size:16px;font-weight:700;letter-spacing:.16em;color:rgba(255,255,255,0.85);}
+  .dslide .d-sec-title{position:absolute;left:80px;right:80px;top:340px;text-align:center;font-family:var(--serif);font-weight:400;font-size:46px;line-height:1.2;}
+  .deck-controls{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .deck-count{font-size:12.5px;color:var(--ink-muted);font-variant-numeric:tabular-nums;min-width:60px;text-align:center;}
+  .deck-jump{width:52px;border:1px solid var(--border);border-radius:8px;padding:8px 6px;font-size:13px;text-align:center;background:var(--surface);color:var(--ink);}
+  .deck-sep{width:1px;height:22px;background:var(--border);margin:0 2px;}
+
+  ::selection{background:var(--accent-wash);}
+
+  @media (max-width: 900px){
+    .app{flex-direction:column;}
+    .rail{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap;padding:14px;align-items:center;}
+    .rail-brand{padding:0 10px 0 0;}
+    .rail-group-label{display:none;}
+    .rail-item{width:auto;}
+    .rail-foot{display:none;}
+    .stage{padding:24px 18px 48px;}
+    .map-grid, .ov-grid, .why-grid, .sim-controls, .sim-results{grid-template-columns:1fr;}
+    .kpi-body{grid-template-columns:1fr;}
+    .flow{flex-direction:column;}
+    .flow-arrow{width:100%;height:34px;flex-direction:row;}
+    .flow-arrow svg{transform:rotate(90deg);}
+  }
+</style>
+
+<div class="app">
+  <nav class="rail" id="rail"></nav>
+  <main class="stage">
+    <section id="sec-overview" class="panel"></section>
+    <section id="sec-financial" class="panel"></section>
+    <section id="sec-customer" class="panel"></section>
+    <section id="sec-process" class="panel"></section>
+    <section id="sec-learning" class="panel"></section>
+    <section id="sec-methodology" class="panel"></section>
+    <section id="sec-slides" class="panel"></section>
+  </main>
+</div>
+
+<div class="modal-overlay hidden" id="dataModalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dataModalTitle">
+    <div class="modal-head">
+      <h3 id="dataModalTitle">Load your data</h3>
+      <button class="modal-close" id="dataModalClose" type="button" aria-label="Close">&times;</button>
+    </div>
+    <p class="hint">Upload your own quarterly results and every chart, forecast, and confidence range on this dashboard recomputes live using a simple trend-regression model — the same technique described throughout the demo. Use the provided template so the app can read your columns.</p>
+    <div class="file-drop">
+      <div class="fd-label">Choose a filled-in template — <b>.xlsx</b> or <b>.csv</b></div>
+      <input type="file" id="dataFileInput" accept=".xlsx,.csv">
+    </div>
+    <div class="data-status" id="dataStatus">No file loaded — showing built-in sample data.</div>
+    <div class="modal-actions">
+      <button class="btn" id="resetDataBtn" type="button">Reset to sample data</button>
+      <button class="btn" id="downloadCsvBtn" type="button">Download current data (.csv)</button>
+    </div>
+    <hr>
+    <p class="hint" style="margin-top:0;">Template layout (12 rows, one per KPI, in this exact order — Financial, Customer, Internal Process, Learning &amp; Growth):</p>
+    <div class="tpl-cols"><code>Perspective</code> · <code>KPI</code> · <code>Definition</code> · <code>Unit</code> · <code>Direction</code> · <code>AI Technique</code> · <code>Q1</code>…<code>Q8</code> (8 quarters of actuals)<br>Plus a <code>Start quarter</code> cell (e.g. <code>2024-Q3</code>) anywhere above the table.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var QUARTERS = ["2024-Q3","2024-Q4","2025-Q1","2025-Q2","2025-Q3","2025-Q4","2026-Q1","2026-Q2","2026-Q3","2026-Q4","2027-Q1","2027-Q2"];
+var HIST_N = 8;
+var currentTab = "overview";
+
+function parseQuarterLabel(s){
+  if (!s) return null;
+  var m = /^\s*(\d{4})\s*-?\s*[Qq]\s*([1-4])\s*$/.exec(String(s));
+  if (!m) return null;
+  return {y: parseInt(m[1],10), q: parseInt(m[2],10)};
+}
+function genQuarters(start, count){
+  var y = start.y, q = start.q, out = [];
+  for (var i=0;i<count;i++){
+    out.push(y+"-Q"+q);
+    q++; if (q>4){ q=1; y++; }
+  }
+  return out;
+}
+function linregForecast(hist){
+  var n = hist.length;
+  var sumX=0,sumY=0,sumXY=0,sumXX=0;
+  for (var i=0;i<n;i++){ sumX+=i; sumY+=hist[i]; sumXY+=i*hist[i]; sumXX+=i*i; }
+  var denom = (n*sumXX - sumX*sumX) || 1;
+  var slope = (n*sumXY - sumX*sumY) / denom;
+  var intercept = (sumY - slope*sumX)/n;
+  var residSq = 0;
+  for (var j=0;j<n;j++){ var yhat0 = intercept + slope*j; residSq += Math.pow(hist[j]-yhat0,2); }
+  var se = Math.sqrt(residSq / Math.max(1, n-2));
+  var fVal=[], fLow=[], fHigh=[];
+  for (var k=0;k<4;k++){
+    var x = n+k;
+    var yhat = intercept + slope*x;
+    var half = se*(1.1 + 0.45*k) + Math.abs(yhat)*0.01;
+    if (half <= 0) half = Math.max(Math.abs(yhat)*0.05, 0.1);
+    fVal.push(yhat); fLow.push(yhat-half); fHigh.push(yhat+half);
+  }
+  return {fVal:fVal, fLow:fLow, fHigh:fHigh};
+}
+
+var PERSPECTIVES = [
+  {key:"financial", label:"Financial", short:"Financial", cssVar:"--p-financial",
+   question:"Are our strategic choices delivering results shareholders and lenders can see?",
+   mapQ:"Are we financially strong?"},
+  {key:"customer", label:"Customer", short:"Customer", cssVar:"--p-customer",
+   question:"Are we creating value the market recognizes, and will customers stay?",
+   mapQ:"Do customers see value in us?"},
+  {key:"process", label:"Internal Process", short:"Process", cssVar:"--p-process",
+   question:"Are our operations efficient and reliable enough to support the strategy?",
+   mapQ:"Where must we excel operationally?"},
+  {key:"learning", label:"Learning & Growth", short:"L&G", cssVar:"--p-learning",
+   question:"Do our people and culture have the capacity to deliver tomorrow's strategy?",
+   mapQ:"Can we keep improving and adapting?"}
+];
+
+var KPIS = [
+  // ---- Financial ----
+  {id:"revgrowth", persp:"financial", name:"Revenue Growth Rate", unit:"%", dec:1, higher:true,
+   def:"Year-over-year growth in total revenue — the clearest signal of top-line momentum and market demand.",
+   hist:[4.1,4.6,5.0,5.3,5.8,6.4,6.9,7.3],
+   fVal:[7.6,7.9,8.2,8.4], fLow:[7.0,6.9,6.7,6.4], fHigh:[8.2,8.9,9.7,10.4],
+   tech:"Time-series forecasting trained on five years of revenue history, adjusted for seasonality."},
+  {id:"opmargin", persp:"financial", name:"Operating Margin", unit:"%", dec:1, higher:true,
+   def:"Operating income as a share of revenue — how efficiently sales convert into profit before financing and tax.",
+   hist:[18.2,18.6,18.4,19.1,19.5,19.3,19.8,20.2],
+   fVal:[20.5,20.7,20.9,21.1], fLow:[20.1,20.0,19.9,19.7], fHigh:[20.9,21.4,21.9,22.5],
+   tech:"Regression model linking margin to leading cost and pricing indicators."},
+  {id:"roic", persp:"financial", name:"Return on Invested Capital (ROIC)", unit:"%", dec:1, higher:true,
+   def:"Profit generated per dollar of capital deployed — the truest test of whether growth is creating value.",
+   hist:[11.0,11.3,11.1,11.6,12.0,12.2,12.5,12.9],
+   fVal:[13.1,13.4,13.6,13.9], fLow:[12.6,12.6,12.5,12.3], fHigh:[13.6,14.2,14.7,15.5],
+   tech:"Ensemble model blending capital-efficiency trend with the investment pipeline."},
+
+  // ---- Customer ----
+  {id:"csat", persp:"customer", name:"Customer Satisfaction (CSAT/NPS Index)", unit:"", dec:0, higher:true,
+   def:"A blended satisfaction and loyalty score from post-interaction surveys — the earliest read on retention and advocacy.",
+   hist:[61,63,62,65,67,66,69,71],
+   fVal:[72,73,75,76], fLow:[69,68,68,67], fHigh:[75,78,82,85],
+   tech:"NLP sentiment analysis on support tickets and survey comments feeds the trend model."},
+  {id:"retention", persp:"customer", name:"Customer Retention Rate", unit:"%", dec:1, higher:true,
+   def:"Share of customers retained period over period — the direct link between experience and recurring revenue.",
+   hist:[88.1,88.4,88.0,88.9,89.3,89.1,89.8,90.2],
+   fVal:[90.5,90.7,90.9,91.1], fLow:[90.0,89.9,89.8,89.6], fHigh:[91.0,91.5,92.0,92.6],
+   tech:"Account-level churn-propensity scoring aggregated into a portfolio forecast."},
+  {id:"share", persp:"customer", name:"Market Share", unit:"%", dec:1, higher:true,
+   def:"Company revenue as a share of total addressable market — competitive position, not just internal performance.",
+   hist:[14.2,14.3,14.5,14.6,14.8,14.9,15.1,15.3],
+   fVal:[15.5,15.6,15.8,16.0], fLow:[15.1,15.0,15.0,14.9], fHigh:[15.9,16.2,16.6,17.1],
+   tech:"Competitive signal tracking (pricing, share-of-search) blended into a share-trend model."},
+
+  // ---- Process ----
+  {id:"cycletime", persp:"process", name:"Cycle Time", unit:"d", dec:1, higher:false,
+   def:"Average days to complete a core operating process end-to-end — shorter cycles mean faster delivery, lower cost.",
+   hist:[12.4,12.0,11.6,11.3,10.8,10.5,10.1,9.7],
+   fVal:[9.4,9.1,8.8,8.6], fLow:[9.0,8.5,8.0,7.6], fHigh:[9.8,9.7,9.6,9.6],
+   tech:"Process-mining on workflow logs identifies bottlenecks and projects throughput gains."},
+  {id:"defect", persp:"process", name:"Defect / Error Rate", unit:"%", dec:1, higher:false,
+   def:"Share of units or transactions requiring rework — a direct proxy for quality and downstream customer impact.",
+   hist:[2.6,2.4,2.5,2.2,2.0,1.9,1.7,1.6],
+   fVal:[1.5,1.4,1.3,1.2], fLow:[1.3,1.1,0.9,0.8], fHigh:[1.7,1.7,1.7,1.6],
+   tech:"Anomaly detection on quality-control sensor data flags drift before defects spike."},
+  {id:"pipeline", persp:"process", name:"Innovation Pipeline Throughput", unit:"", dec:0, higher:true,
+   def:"New ideas advanced to piloting each quarter — the leading indicator of future products and improvements.",
+   hist:[6,7,7,8,9,9,10,11],
+   fVal:[12,12,13,14], fLow:[10,10,10,10], fHigh:[14,15,16,18],
+   tech:"A classification model scores and ranks pipeline submissions by likelihood of success."},
+
+  // ---- Learning & Growth ----
+  {id:"engagement", persp:"learning", name:"Employee Engagement Score", unit:"", dec:0, higher:true,
+   def:"A composite pulse-survey score capturing motivation, alignment, and intent to stay — the earliest culture signal.",
+   hist:[68,69,67,70,71,70,71,70],
+   fVal:[69,68,70,71], fLow:[65,63,64,64], fHigh:[73,73,76,78],
+   tech:"Engagement-survey and attrition-risk NLP model trained on pulse-survey free text."},
+  {id:"training", persp:"learning", name:"Training Hours per Employee", unit:"h", dec:1, higher:true,
+   def:"Average hours of formal skills development per employee per quarter — capacity built for future needs.",
+   hist:[8.2,8.5,8.4,9.0,9.3,9.1,9.6,9.8],
+   fVal:[10.0,10.2,10.4,10.6], fLow:[9.5,9.5,9.5,9.4], fHigh:[10.5,10.9,11.3,11.8],
+   tech:"Skills-gap analysis matches role requirements against individual training records."},
+  {id:"empretention", persp:"learning", name:"Employee Retention Rate", unit:"%", dec:1, higher:true,
+   def:"Share of employees retained period over period — the cost and continuity consequence of engagement.",
+   hist:[91.5,91.8,91.2,92.0,92.3,91.9,92.5,92.1],
+   fVal:[91.8,91.5,91.9,92.3], fLow:[91.0,90.5,90.6,90.8], fHigh:[92.6,92.5,93.2,93.8],
+   tech:"Predictive attrition model scores flight risk from engagement, tenure, and workload data."}
+];
+
+function kpisFor(perspKey){ return KPIS.filter(function(k){return k.persp===perspKey;}); }
+function fmt(v,k){ return v.toFixed(k.dec) + (k.unit||""); }
+
+// ---------------- Chart builder ----------------
+var TIP_ID_SEQ = 0;
+function buildChart(k, compact){
+  var W = compact ? 200 : 480, H = compact ? 74 : 200;
+  var ml = compact ? 4 : 40, mr = compact ? 4 : 12, mt = compact ? 4 : 14, mb = compact ? 4 : 24;
+  var pw = W - ml - mr, ph = H - mt - mb;
+  var total = HIST_N + k.fVal.length;
+  var allVals = k.hist.concat(k.fLow, k.fHigh, k.fVal);
+  var min = Math.min.apply(null, allVals), max = Math.max.apply(null, allVals);
+  var pad = (max - min) * 0.18 || Math.abs(max) * 0.1 || 1;
+  min -= pad; max += pad;
+  function xAt(i){ return ml + (i/(total-1)) * pw; }
+  function yAt(v){ return mt + ph - ((v-min)/(max-min)) * ph; }
+
+  var histPath = "";
+  for (var i=0;i<HIST_N;i++){ histPath += (i===0?"M":"L") + xAt(i).toFixed(1) + " " + yAt(k.hist[i]).toFixed(1) + " "; }
+
+  var forePath = "M" + xAt(HIST_N-1).toFixed(1) + " " + yAt(k.hist[HIST_N-1]).toFixed(1) + " ";
+  for (var j=0;j<k.fVal.length;j++){ forePath += "L" + xAt(HIST_N+j).toFixed(1) + " " + yAt(k.fVal[j]).toFixed(1) + " "; }
+
+  var bandPts = [[xAt(HIST_N-1), yAt(k.hist[HIST_N-1])]];
+  for (var j2=0;j2<k.fHigh.length;j2++){ bandPts.push([xAt(HIST_N+j2), yAt(k.fHigh[j2])]); }
+  for (var j3=k.fLow.length-1;j3>=0;j3--){ bandPts.push([xAt(HIST_N+j3), yAt(k.fLow[j3])]); }
+  bandPts.push([xAt(HIST_N-1), yAt(k.hist[HIST_N-1])]);
+  var bandPath = bandPts.map(function(p,idx){ return (idx===0?"M":"L") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ") + " Z";
+
+  var svg = '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+k.name+' trend chart">';
+
+  if (!compact){
+    // gridlines + y ticks
+    var ticks = 4;
+    for (var t=0;t<=ticks;t++){
+      var v = min + (max-min)*(t/ticks);
+      var y = yAt(v);
+      svg += '<line x1="'+ml+'" y1="'+y.toFixed(1)+'" x2="'+(W-mr)+'" y2="'+y.toFixed(1)+'" stroke="var(--grid)" stroke-width="1"/>';
+      svg += '<text x="'+(ml-6)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="8" fill="var(--ink-muted)" font-family="var(--sans)">'+v.toFixed(k.dec)+'</text>';
+    }
+    // divider between actual and forecast
+    var dx = (xAt(HIST_N-1)+xAt(HIST_N))/2;
+    svg += '<line x1="'+dx.toFixed(1)+'" y1="'+mt+'" x2="'+dx.toFixed(1)+'" y2="'+(mt+ph)+'" stroke="var(--ink-muted)" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>';
+    // x labels (every other to avoid crowding)
+    for (var xi=0; xi<total; xi+=2){
+      svg += '<text x="'+xAt(xi).toFixed(1)+'" y="'+(H-6)+'" text-anchor="middle" font-size="8" fill="var(--ink-muted)" font-family="var(--sans)">'+QUARTERS[xi]+'</text>';
+    }
+  }
+
+  svg += '<path d="'+bandPath+'" fill="var(--accent)" fill-opacity="0.12" stroke="none"/>';
+  svg += '<path d="'+histPath.trim()+'" fill="none" stroke="var(--ink-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+  svg += '<path d="'+forePath.trim()+'" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 4"/>';
+
+  // end markers
+  svg += '<circle cx="'+xAt(HIST_N-1).toFixed(1)+'" cy="'+yAt(k.hist[HIST_N-1]).toFixed(1)+'" r="'+(compact?2.5:4)+'" fill="var(--ink-2)" stroke="var(--surface)" stroke-width="2"/>';
+  var lastF = k.fVal[k.fVal.length-1];
+  svg += '<circle cx="'+xAt(total-1).toFixed(1)+'" cy="'+yAt(lastF).toFixed(1)+'" r="'+(compact?2.5:4)+'" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"/>';
+
+  if (!compact){
+    svg += '<text x="'+xAt(total-1).toFixed(1)+'" y="'+(yAt(lastF)-9).toFixed(1)+'" text-anchor="end" font-size="9.5" font-weight="700" fill="var(--accent-ink)" font-family="var(--sans)">'+fmt(lastF,k)+'</text>';
+
+    // hover hit targets
+    for (var hi=0; hi<total; hi++){
+      var isHist = hi < HIST_N;
+      var val = isHist ? k.hist[hi] : k.fVal[hi-HIST_N];
+      var y2 = yAt(val);
+      var label = isHist ? "Actual" : "AI forecast";
+      var extra = isHist ? "" : (" · range " + k.fLow[hi-HIST_N].toFixed(k.dec) + "–" + k.fHigh[hi-HIST_N].toFixed(k.dec) + (k.unit||""));
+      svg += '<circle class="hit" data-q="'+QUARTERS[hi]+'" data-label="'+label+'" data-val="'+fmt(val,k)+'" data-extra="'+extra+'" cx="'+xAt(hi).toFixed(1)+'" cy="'+y2.toFixed(1)+'" r="9" fill="transparent" style="cursor:crosshair"/>';
+    }
+  }
+
+  svg += '</svg>';
+  return svg;
+}
+
+function wireHover(wrap){
+  var tip = document.createElement("div");
+  tip.className = "chart-tip";
+  wrap.appendChild(tip);
+  var hits = wrap.querySelectorAll(".hit");
+  hits.forEach(function(h){
+    h.addEventListener("mouseenter", function(e){ showTip(e); });
+    h.addEventListener("mousemove", function(e){ showTip(e); });
+    h.addEventListener("mouseleave", function(){ tip.classList.remove("show"); });
+  });
+  function showTip(e){
+    var t = e.target;
+    var rect = wrap.getBoundingClientRect();
+    var x = e.clientX - rect.left, y = e.clientY - rect.top;
+    tip.innerHTML = '<div class="tt">'+t.getAttribute("data-q")+' · '+t.getAttribute("data-val")+'</div><div class="ta">'+t.getAttribute("data-label")+t.getAttribute("data-extra")+'</div>';
+    tip.style.left = x + "px";
+    tip.style.top = (y-8) + "px";
+    tip.classList.add("show");
+  }
+}
+
+// ---------------- KPI card ----------------
+function kpiCard(k){
+  var delta = k.hist[HIST_N-1] - k.hist[HIST_N-2];
+  var deltaGood = k.higher ? delta >= 0 : delta <= 0;
+  var deltaSign = delta >= 0 ? "+" : "";
+  var deltaArrow = delta >= 0 ? "▲" : "▼";
+  var lastF = k.fVal[k.fVal.length-1], lowF = k.fLow[k.fLow.length-1], highF = k.fHigh[k.fHigh.length-1];
+
+  var html = '<div class="kpi-card">';
+  html += '  <div class="kpi-head"><div><h3 class="kpi-name">'+k.name+'</h3><p class="kpi-def">'+k.def+'</p></div></div>';
+  html += '  <div class="kpi-body">';
+  html += '    <div class="chart-wrap" data-chart="'+k.id+'"></div>';
+  html += '    <div class="stat-col">';
+  html += '      <div class="stat-block"><span class="stat-label">Latest actual ('+QUARTERS[HIST_N-1]+')</span><span class="stat-value">'+fmt(k.hist[HIST_N-1],k)+'</span><span class="stat-delta '+(deltaGood?"good":"bad")+'">'+deltaArrow+' '+deltaSign+delta.toFixed(k.dec)+(k.unit||"")+' vs prior quarter</span></div>';
+  html += '      <div class="stat-block forecast-block"><span class="stat-label">AI forecast ('+QUARTERS[total_(k)-1]+')</span><span class="stat-value" style="color:var(--accent-ink)">'+fmt(lastF,k)+'</span><span class="forecast-range">Confidence range '+lowF.toFixed(k.dec)+'–'+highF.toFixed(k.dec)+(k.unit||"")+'</span></div>';
+  html += '      <div class="technique"><b>AI technique:</b> '+k.tech+'</div>';
+  html += '    </div>';
+  html += '  </div>';
+  html += '  <div class="legend"><span class="legend-item"><span class="lw"></span>Actual</span><span class="legend-item"><span class="lw dash"></span>AI forecast (shaded = confidence range)</span></div>';
+  html += '</div>';
+  return html;
+}
+function total_(k){ return HIST_N + k.fVal.length; }
+
+function renderPerspectivePanel(persp){
+  var meta = PERSPECTIVES.filter(function(p){return p.key===persp;})[0];
+  var list = kpisFor(persp);
+  var html = '<p class="eyebrow">Perspective '+(PERSPECTIVES.indexOf(meta)+1)+' of 4</p>';
+  html += '<h1 class="page-title">'+meta.label+'</h1>';
+  html += '<p class="page-sub">'+meta.question+'</p>';
+  html += '<div class="kpi-list">';
+  list.forEach(function(k){ html += kpiCard(k); });
+  html += '</div>';
+  var sec = document.getElementById("sec-"+persp);
+  sec.innerHTML = html;
+  list.forEach(function(k){
+    var wrap = sec.querySelector('[data-chart="'+k.id+'"]');
+    wrap.innerHTML = buildChart(k,false);
+    wireHover(wrap);
+  });
+}
+
+// ---------------- Overview ----------------
+function renderOverview(){
+  var html = '<p class="eyebrow">Executive walkthrough</p>';
+  html += '<h1 class="page-title">AI-Enhanced Balanced Scorecard</h1>';
+  html += '<p class="page-sub">A live look at how artificial intelligence turns each Balanced Scorecard perspective from a quarterly report card into a forward-looking instrument panel — with visible confidence ranges, not false precision.</p>';
+
+  html += '<div class="data-banner'+(DATA_SOURCE?' show':'')+'"><span>'+(DATA_SOURCE?('Showing data loaded from <b>'+DATA_SOURCE+'</b> · quarters '+QUARTERS[0]+' to '+QUARTERS[HIST_N-1]+' actual, forecast through '+QUARTERS[QUARTERS.length-1]+'.'):'')+'</span><button class="btn" id="ovResetDataBtn" type="button">Reset to sample data</button></div>';
+
+  html += '<div class="map-wrap"><div class="map-grid">';
+  PERSPECTIVES.forEach(function(p){
+    html += '<div class="map-node" data-goto="'+p.key+'" style="--dot:var('+p.cssVar+')"><div class="mn-top"><span class="mn-dot"></span><span class="mn-name">'+p.label+'</span></div><div class="mn-q">'+p.mapQ+'</div></div>';
+  });
+  html += '</div><div class="map-center">Vision &amp; Strategy — connected by four perspectives, four AI forecasts each</div></div>';
+
+  html += '<div class="ov-grid">';
+  PERSPECTIVES.forEach(function(p){
+    var list = kpisFor(p.key);
+    html += '<div class="ov-card" data-goto="'+p.key+'" style="--dot:var('+p.cssVar+')">';
+    html += '  <div class="ov-head"><span class="name"><span class="dot"></span>'+p.label+'</span><span class="arrow">View →</span></div>';
+    html += '  <div class="ov-sparks">';
+    list.forEach(function(k){
+      html += '<div><div class="ov-spark-name">'+k.name+'</div><div class="ov-spark-val" data-mini="'+k.id+'"></div><div class="chart-wrap" data-minichart="'+k.id+'"></div></div>';
+    });
+    html += '  </div></div>';
+  });
+  html += '</div>';
+
+  html += '<div class="teaser"><p>See how AI links these four views together — forecasting methods, cross-perspective pattern detection, and a live what-if strategy simulator.</p><button class="btn primary" data-goto="methodology">Open AI Methodology</button></div>';
+
+  var sec = document.getElementById("sec-overview");
+  sec.innerHTML = html;
+
+  KPIS.forEach(function(k){
+    var mv = sec.querySelector('[data-mini="'+k.id+'"]');
+    if (mv) mv.textContent = fmt(k.hist[HIST_N-1],k);
+    var mc = sec.querySelector('[data-minichart="'+k.id+'"]');
+    if (mc) mc.innerHTML = buildChart(k, true);
+  });
+
+  sec.querySelectorAll("[data-goto]").forEach(function(el){
+    el.addEventListener("click", function(){ selectTab(el.getAttribute("data-goto")); });
+  });
+  var ovReset = document.getElementById("ovResetDataBtn");
+  if (ovReset) ovReset.addEventListener("click", resetToSampleData);
+}
+
+// ---------------- Methodology ----------------
+function renderMethodology(){
+  var html = '<p class="eyebrow">How it works</p>';
+  html += '<h1 class="page-title">How AI Enhances the Balanced Scorecard</h1>';
+  html += '<p class="page-sub">Four shifts turn the BSC from a quarterly scoreboard into a running strategic instrument.</p>';
+
+  html += '<div class="why-grid">';
+  html += '<div class="why-card"><div class="wn">Leading, not just lagging</div><h3>From report card to radar</h3><p>Traditional scorecards report what already happened. AI models blend historical results with leading signals — survey language, workflow logs, market data — to forecast where each metric is headed next quarter, with a visible confidence range instead of false precision.</p></div>';
+  html += '<div class="why-card"><div class="wn">Always current</div><h3>Real-time vs. quarterly roll-ups</h3><p>Instead of a manual quarterly close, AI pipelines continuously ingest operational data. Every trend and forecast on this dashboard can refresh as new data arrives, rather than waiting for the next reporting cycle.</p></div>';
+  html += '<div class="why-card"><div class="wn">Cross-perspective</div><h3>Pattern detection across the map</h3><p>The four perspectives are not independent. AI can automatically surface correlations that quarterly reporting typically misses until they show up in the financials — see the example below.</p></div>';
+  html += '<div class="why-card"><div class="wn">Decision support</div><h3>Scenario simulation</h3><p>"What-if" models let leadership pressure-test a strategic bet — more training investment, more automation — before committing budget. Try the simulator below.</p></div>';
+  html += '</div>';
+
+  html += '<h2 style="font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 4px;">Example: a cross-perspective early warning</h2>';
+  html += '<p style="font-size:13px;color:var(--ink-muted);margin:0 0 14px;">Pattern detected across the last 8 quarters of scorecard data</p>';
+  html += '<div class="flow">';
+  html += flowNode("learning","Employee Engagement","Engagement growth has flattened over the last two quarters (Q7–Q8).","var(--p-learning)");
+  html += flowArrow("~1 quarter lag");
+  html += flowNode("customer","Customer Satisfaction","AI flags a correlated softening in the CSAT forecast beginning next quarter.","var(--p-customer)");
+  html += flowArrow("~2 quarter lag");
+  html += flowNode("financial","Revenue Growth","Left unaddressed, the model projects a measurable deceleration in revenue growth.","var(--p-financial)");
+  html += '</div>';
+
+  html += renderSimulator();
+
+  document.getElementById("sec-methodology").innerHTML = html;
+  wireSimulator();
+}
+
+function flowNode(perspKey,title,desc,color){
+  var meta = PERSPECTIVES.filter(function(p){return p.key===perspKey;})[0];
+  return '<div class="flow-node"><div class="fn-persp" style="color:'+color+'">'+meta.label+'</div><div class="fn-title">'+title+'</div><div class="fn-desc">'+desc+'</div></div>';
+}
+function flowArrow(label){
+  return '<div class="flow-arrow"><svg viewBox="0 0 40 14"><line x1="0" y1="7" x2="32" y2="7" stroke="var(--ink-muted)" stroke-width="2"/><polygon points="32,2 40,7 32,12" fill="var(--ink-muted)"/></svg>'+label+'</div>';
+}
+
+function renderSimulator(){
+  var html = '<div class="sim">';
+  html += '<h3>What-if strategy simulator</h3>';
+  html += '<p class="sim-note">Illustrative model for teaching purposes — coefficients are simplified, not fitted to real data. Adjust planned investment and watch the AI forecast recompute downstream.</p>';
+  html += '<div class="sim-controls">';
+  html += '<div class="sim-slider-row"><label>Training investment <span class="v" id="trainVal">+0%</span></label><input type="range" id="trainSlider" min="-20" max="40" step="5" value="0"></div>';
+  html += '<div class="sim-slider-row"><label>Process automation investment <span class="v" id="autoVal">+0%</span></label><input type="range" id="autoSlider" min="-20" max="40" step="5" value="0"></div>';
+  html += '</div>';
+  html += '<div class="sim-results">';
+  html += '<div class="sim-tile"><div class="st-label">Employee Engagement (avg. next 4Q)</div><div class="st-vals"><span class="st-base" id="engBase"></span><span class="st-new" id="engNew"></span></div><div class="st-delta" id="engDelta"></div></div>';
+  html += '<div class="sim-tile"><div class="st-label">Customer CSAT (avg. next 4Q)</div><div class="st-vals"><span class="st-base" id="csatBase"></span><span class="st-new" id="csatNew"></span></div><div class="st-delta" id="csatDelta"></div></div>';
+  html += '<div class="sim-tile"><div class="st-label">Revenue Growth (avg. next 4Q)</div><div class="st-vals"><span class="st-base" id="revBase"></span><span class="st-new" id="revNew"></span></div><div class="st-delta" id="revDelta"></div></div>';
+  html += '</div>';
+  html += '<p class="sim-narrative" id="simNarrative"></p>';
+  html += '<button class="btn sim-reset" id="simReset">Reset sliders</button>';
+  html += '</div>';
+  return html;
+}
+
+function avg(arr){ return arr.reduce(function(a,b){return a+b;},0)/arr.length; }
+
+function wireSimulator(){
+  var engK = KPIS.filter(function(k){return k.id==="engagement";})[0];
+  var csatK = KPIS.filter(function(k){return k.id==="csat";})[0];
+  var revK = KPIS.filter(function(k){return k.id==="revgrowth";})[0];
+  var baseEng = avg(engK.fVal), baseCsat = avg(csatK.fVal), baseRev = avg(revK.fVal);
+
+  var trainSlider = document.getElementById("trainSlider");
+  var autoSlider = document.getElementById("autoSlider");
+  var trainVal = document.getElementById("trainVal");
+  var autoVal = document.getElementById("autoVal");
+
+  function fmtSigned(v,dec,unit){ var s=v>=0?"+":""; return s+v.toFixed(dec)+(unit||""); }
+
+  function recompute(){
+    var t = parseFloat(trainSlider.value), a = parseFloat(autoSlider.value);
+    trainVal.textContent = fmtSigned(t,0,"%");
+    autoVal.textContent = fmtSigned(a,0,"%");
+
+    var engDelta = t * 0.05;
+    var csatDelta = engDelta * 0.5 + a * 0.03;
+    var revDelta = csatDelta * 0.15 + a * 0.02;
+
+    var newEng = baseEng + engDelta, newCsat = baseCsat + csatDelta, newRev = baseRev + revDelta;
+
+    document.getElementById("engBase").textContent = baseEng.toFixed(0);
+    document.getElementById("engNew").textContent = newEng.toFixed(0);
+    document.getElementById("engDelta").innerHTML = deltaHtml(engDelta,0,"");
+
+    document.getElementById("csatBase").textContent = baseCsat.toFixed(0);
+    document.getElementById("csatNew").textContent = newCsat.toFixed(0);
+    document.getElementById("csatDelta").innerHTML = deltaHtml(csatDelta,0,"");
+
+    document.getElementById("revBase").textContent = baseRev.toFixed(1)+"%";
+    document.getElementById("revNew").textContent = newRev.toFixed(1)+"%";
+    document.getElementById("revDelta").innerHTML = deltaHtml(revDelta,1,"pt");
+
+    var narrative;
+    if (t===0 && a===0){
+      narrative = "Move a slider to simulate a strategic investment. The AI model projects how a change in training or automation spend ripples through engagement, customer satisfaction, and ultimately revenue growth over the next four quarters.";
+    } else {
+      narrative = "A "+fmtSigned(t,0,"%")+" change in training investment and "+fmtSigned(a,0,"%")+" in automation investment is projected to move Employee Engagement by "+fmtSigned(engDelta,1,"pts")+", cascading to "+fmtSigned(csatDelta,1,"pts")+" in Customer CSAT and "+fmtSigned(revDelta,2,"pts")+" in Revenue Growth over the next four quarters (simulated).";
+    }
+    document.getElementById("simNarrative").textContent = narrative;
+  }
+  function deltaHtml(v,dec,suffix){
+    if (Math.abs(v) < Math.pow(10,-dec)/2) return '<span style="color:var(--ink-muted)">No change</span>';
+    var good = v >= 0;
+    return '<span class="'+(good?"good":"bad")+'" style="color:'+(good?"var(--good-ink)":"var(--bad)")+'">'+(good?"▲":"▼")+' '+fmtSigned(v,dec,suffix?(" "+suffix):"")+'</span>';
+  }
+
+  trainSlider.addEventListener("input", recompute);
+  autoSlider.addEventListener("input", recompute);
+  document.getElementById("simReset").addEventListener("click", function(){
+    trainSlider.value = 0; autoSlider.value = 0; recompute();
+  });
+  recompute();
+}
+
+// ---------------- Nav / tabs ----------------
+var TABS = [
+  {key:"overview", label:"Overview", cnt:""},
+  {key:"financial", label:"Financial", cnt:"3 KPIs", dot:"--p-financial"},
+  {key:"customer", label:"Customer", cnt:"3 KPIs", dot:"--p-customer"},
+  {key:"process", label:"Internal Process", cnt:"3 KPIs", dot:"--p-process"},
+  {key:"learning", label:"Learning & Growth", cnt:"3 KPIs", dot:"--p-learning"},
+  {key:"methodology", label:"AI Methodology", cnt:""},
+  {key:"slides", label:"Certificate Deck", cnt:"90 slides"}
+];
+
+function renderRail(){
+  var html = '<div class="rail-brand"><span class="k">BSC · AI</span><span class="s">Executive Simulation</span><button class="rail-data-btn" id="openDataModalBtn" type="button">Load your data</button></div>';
+  html += '<div class="rail-group-label">Scorecard</div>';
+  TABS.slice(0,1).forEach(function(t){ html += railItem(t); });
+  html += '<div class="rail-group-label">Perspectives</div>';
+  TABS.slice(1,5).forEach(function(t){ html += railItem(t); });
+  html += '<div class="rail-group-label">Insight</div>';
+  TABS.slice(5,6).forEach(function(t){ html += railItem(t); });
+  html += '<div class="rail-group-label">Certificate</div>';
+  TABS.slice(6).forEach(function(t){ html += railItem(t); });
+  html += '<div class="rail-foot">Simulated data for training purposes. Figures are illustrative, not live business results.</div>';
+  document.getElementById("rail").innerHTML = html;
+  document.querySelectorAll(".rail-item").forEach(function(el){
+    el.addEventListener("click", function(){ selectTab(el.getAttribute("data-tab")); });
+  });
+}
+function railItem(t){
+  var dotStyle = t.dot ? ' style="--dot:var('+t.dot+')"' : ' style="--dot:var(--accent)"';
+  return '<button class="rail-item" data-tab="'+t.key+'"'+dotStyle+'><span class="rail-dot"></span><span class="lbl">'+t.label+'</span><span class="cnt">'+t.cnt+'</span></button>';
+}
+
+function selectTab(key){
+  currentTab = key;
+  document.querySelectorAll(".panel").forEach(function(p){ p.classList.remove("active"); });
+  document.getElementById("sec-"+key).classList.add("active");
+  document.querySelectorAll(".rail-item").forEach(function(el){
+    el.classList.toggle("active", el.getAttribute("data-tab")===key);
+  });
+  document.querySelector(".stage").scrollTo(0,0);
+  window.scrollTo(0,0);
+  if (key === "slides" && typeof deckFit === "function"){
+    deckFit();
+    setTimeout(deckFit, 60);
+  }
+}
+
+// ---------------- Data import (own Excel / CSV) ----------------
+var DATA_SOURCE = null; // filename string once custom data is loaded, else null
+var ORIGINAL_KPIS = JSON.parse(JSON.stringify(KPIS));
+var ORIGINAL_QUARTERS = QUARTERS.slice();
+
+function rerenderAll(){
+  renderRail();
+  renderOverview();
+  ["financial","customer","process","learning"].forEach(renderPerspectivePanel);
+  renderMethodology();
+  selectTab(currentTab);
+}
+
+function resetToSampleData(){
+  KPIS = JSON.parse(JSON.stringify(ORIGINAL_KPIS));
+  QUARTERS = ORIGINAL_QUARTERS.slice();
+  DATA_SOURCE = null;
+  rerenderAll();
+  setStatus("Restored the built-in sample data.", "");
+}
+
+function setStatus(msg, cls){
+  var el = document.getElementById("dataStatus");
+  if (!el) return;
+  el.textContent = msg;
+  el.className = "data-status" + (cls ? " " + cls : "");
+}
+
+// ---- CSV ----
+function parseCSV(text){
+  var rows = [], field = "", row = [], inQuotes = false, i = 0, len = text.length;
+  while (i < len){
+    var ch = text[i];
+    if (inQuotes){
+      if (ch === '"'){
+        if (text[i+1] === '"'){ field += '"'; i += 2; continue; }
+        inQuotes = false; i++; continue;
+      }
+      field += ch; i++; continue;
+    } else {
+      if (ch === '"'){ inQuotes = true; i++; continue; }
+      if (ch === ','){ row.push(field); field = ""; i++; continue; }
+      if (ch === '\r'){ i++; continue; }
+      if (ch === '\n'){ row.push(field); rows.push(row); row = []; field = ""; i++; continue; }
+      field += ch; i++; continue;
+    }
+  }
+  row.push(field); rows.push(row);
+  return rows;
+}
+
+function datasetFromRows(rows){
+  // rows: array of arrays of string/number cells (0-indexed row & col)
+  var headerRowIdx = -1, colOf = {};
+  for (var r=0; r<rows.length; r++){
+    for (var c=0; c<rows[r].length; c++){
+      if (String(rows[r][c]==null?"":rows[r][c]).trim().toLowerCase() === "perspective"){ headerRowIdx = r; break; }
+    }
+    if (headerRowIdx >= 0) break;
+  }
+  if (headerRowIdx < 0) throw new Error("Could not find the header row (a cell containing \"Perspective\"). Use the provided template layout.");
+  var hrow = rows[headerRowIdx];
+  for (var c2=0; c2<hrow.length; c2++){
+    var v = String(hrow[c2]==null?"":hrow[c2]).trim().toLowerCase();
+    if (v === "perspective") colOf.persp = c2;
+    else if (v === "kpi") colOf.kpi = c2;
+    else if (v === "unit") colOf.unit = c2;
+    else if (v === "direction") colOf.dir = c2;
+    else if (v === "q1") colOf.q1 = c2;
+  }
+  if (colOf.q1 === undefined) throw new Error("Could not find the \"Q1\" column in the header row.");
+
+  var dataRows = [];
+  for (var r2=headerRowIdx+1; r2<rows.length; r2++){
+    var row2 = rows[r2] || [];
+    var blank = true;
+    for (var bi=0; bi<row2.length; bi++){ if (String(row2[bi]==null?"":row2[bi]).trim() !== ""){ blank=false; break; } }
+    if (blank) continue;
+    var vals = [], ok = true;
+    for (var q=0; q<8; q++){
+      var raw = row2[colOf.q1+q];
+      var num = (typeof raw === "number") ? raw : parseFloat(raw);
+      if (raw === undefined || raw === null || String(raw).trim() === "" || isNaN(num)) { ok = false; break; }
+      vals.push(num);
+    }
+    if (!ok) continue;
+    dataRows.push({
+      persp: colOf.persp !== undefined ? String(row2[colOf.persp]||"").trim() : "",
+      kpi: colOf.kpi !== undefined ? String(row2[colOf.kpi]||"").trim() : "",
+      unit: colOf.unit !== undefined ? String(row2[colOf.unit]||"").trim() : undefined,
+      dir: colOf.dir !== undefined ? String(row2[colOf.dir]||"").trim() : undefined,
+      vals: vals
+    });
+    if (dataRows.length === 12) break;
+  }
+
+  var startLabel = null;
+  for (var r3=0; r3<rows.length; r3++){
+    var row3 = rows[r3] || [];
+    for (var c3=0; c3<row3.length; c3++){
+      if (row3[c3] != null && /start\s*quarter/i.test(String(row3[c3]))){
+        for (var k2=c3+1; k2<row3.length; k2++){
+          if (row3[k2] != null && String(row3[k2]).trim() !== ""){ startLabel = String(row3[k2]).trim(); break; }
+        }
+      }
+      if (startLabel) break;
+    }
+    if (startLabel) break;
+  }
+  return {rows: dataRows, startLabel: startLabel};
+}
+
+// ---- Minimal ZIP + XLSX reader (no external libraries) ----
+function u16(b,o){ return b[o] | (b[o+1]<<8); }
+function u32(b,o){ return (b[o] | (b[o+1]<<8) | (b[o+2]<<16) | (b[o+3]<<24)) >>> 0; }
+
+function readZipEntries(bytes){
+  var maxBack = Math.min(bytes.length, 65557);
+  var eocd = -1;
+  for (var i = bytes.length-22; i >= bytes.length-maxBack; i--){
+    if (i < 0) break;
+    if (bytes[i]===0x50 && bytes[i+1]===0x4b && bytes[i+2]===0x05 && bytes[i+3]===0x06){ eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error("This doesn't look like a valid .xlsx file (no zip end-of-directory marker).");
+  var total = u16(bytes, eocd+10);
+  var cdOffset = u32(bytes, eocd+16);
+  var entries = {};
+  var offset = cdOffset;
+  for (var e=0; e<total; e++){
+    if (u32(bytes, offset) !== 0x02014b50) break;
+    var method = u16(bytes, offset+10);
+    var compSize = u32(bytes, offset+20);
+    var fnameLen = u16(bytes, offset+28);
+    var extraLen = u16(bytes, offset+30);
+    var commentLen = u16(bytes, offset+32);
+    var localHeaderOffset = u32(bytes, offset+42);
+    var nameBytes = bytes.subarray(offset+46, offset+46+fnameLen);
+    var name = new TextDecoder("utf-8").decode(nameBytes);
+    var lhFnameLen = u16(bytes, localHeaderOffset+26);
+    var lhExtraLen = u16(bytes, localHeaderOffset+28);
+    var dataStart = localHeaderOffset + 30 + lhFnameLen + lhExtraLen;
+    entries[name] = {method: method, data: bytes.subarray(dataStart, dataStart+compSize)};
+    offset += 46 + fnameLen + extraLen + commentLen;
+  }
+  return entries;
+}
+
+async function inflateEntryToText(entry){
+  if (entry.method === 0) return new TextDecoder("utf-8").decode(entry.data);
+  if (entry.method !== 8) throw new Error("Unsupported compression in this .xlsx file.");
+  if (typeof DecompressionStream === "undefined") throw new Error("This browser can't read compressed .xlsx files — please upload the .csv version instead.");
+  var ds = new DecompressionStream("deflate-raw");
+  var stream = new Blob([entry.data]).stream().pipeThrough(ds);
+  var buf = await new Response(stream).arrayBuffer();
+  return new TextDecoder("utf-8").decode(buf);
+}
+
+function parseSharedStrings(xmlText){
+  var doc = new DOMParser().parseFromString(xmlText, "application/xml");
+  var siNodes = doc.getElementsByTagName("si");
+  var out = [];
+  for (var i=0; i<siNodes.length; i++){
+    var tNodes = siNodes[i].getElementsByTagName("t");
+    var text = "";
+    for (var j=0; j<tNodes.length; j++){ text += tNodes[j].textContent; }
+    out.push(text);
+  }
+  return out;
+}
+
+function colToIndex(ref){
+  var m = /^([A-Z]+)(\d+)$/.exec(ref);
+  if (!m) return null;
+  var colStr = m[1], col = 0;
+  for (var i=0; i<colStr.length; i++){ col = col*26 + (colStr.charCodeAt(i)-64); }
+  return {col: col-1, row: parseInt(m[2],10)};
+}
+
+function sheetXmlToRows(xmlText, sharedStrings){
+  var doc = new DOMParser().parseFromString(xmlText, "application/xml");
+  var rowEls = doc.getElementsByTagName("row");
+  var rows = [];
+  for (var i=0; i<rowEls.length; i++){
+    var rNum = parseInt(rowEls[i].getAttribute("r"), 10);
+    var cells = rowEls[i].getElementsByTagName("c");
+    var rowArr = rows[rNum-1] || (rows[rNum-1] = []);
+    for (var j=0; j<cells.length; j++){
+      var c = cells[j];
+      var ref = c.getAttribute("r");
+      if (!ref) continue;
+      var pos = colToIndex(ref);
+      if (!pos) continue;
+      var type = c.getAttribute("t");
+      var val = null;
+      if (type === "s"){
+        var vEl = c.getElementsByTagName("v")[0];
+        if (vEl){ var idx = parseInt(vEl.textContent,10); val = sharedStrings[idx] !== undefined ? sharedStrings[idx] : ""; }
+      } else if (type === "inlineStr"){
+        var isEl = c.getElementsByTagName("is")[0];
+        val = isEl ? isEl.textContent : "";
+      } else if (type === "str"){
+        var vEl2 = c.getElementsByTagName("v")[0];
+        val = vEl2 ? vEl2.textContent : "";
+      } else {
+        var vEl3 = c.getElementsByTagName("v")[0];
+        val = vEl3 ? parseFloat(vEl3.textContent) : null;
+      }
+      rowArr[pos.col] = val;
+    }
+  }
+  for (var k=0; k<rows.length; k++){ if (!rows[k]) rows[k] = []; }
+  return rows;
+}
+
+function rowsHaveHeader(rows){
+  for (var r=0; r<rows.length; r++){
+    for (var c=0; c<(rows[r]||[]).length; c++){
+      if (typeof rows[r][c] === "string" && rows[r][c].trim().toLowerCase() === "perspective") return true;
+    }
+  }
+  return false;
+}
+
+async function parseXlsxFile(file){
+  var buf = await file.arrayBuffer();
+  var bytes = new Uint8Array(buf);
+  var entries = readZipEntries(bytes);
+  var sharedStrings = [];
+  if (entries["xl/sharedStrings.xml"]){
+    sharedStrings = parseSharedStrings(await inflateEntryToText(entries["xl/sharedStrings.xml"]));
+  }
+  var sheetNames = Object.keys(entries).filter(function(n){ return /^xl\/worksheets\/sheet\d+\.xml$/.test(n); }).sort();
+  if (!sheetNames.length) throw new Error("No worksheet found inside this .xlsx file.");
+  for (var i=0; i<sheetNames.length; i++){
+    var rows = sheetXmlToRows(await inflateEntryToText(entries[sheetNames[i]]), sharedStrings);
+    if (rowsHaveHeader(rows)) return datasetFromRows(rows);
+  }
+  throw new Error("Could not find a sheet with a \"Perspective\" header row. Use the provided template.");
+}
+
+function applyDataset(dataset, sourceLabel){
+  if (dataset.rows.length !== 12){
+    throw new Error("Expected 12 complete KPI rows (8 numeric quarters each) below the header, found " + dataset.rows.length + ". Check the layout still matches the template.");
+  }
+  var startObj = parseQuarterLabel(dataset.startLabel) || {y:2024, q:3};
+  var newQuarters = genQuarters(startObj, 12);
+  var newKpis = JSON.parse(JSON.stringify(KPIS));
+  for (var i=0; i<12; i++){
+    var row = dataset.rows[i];
+    var k = newKpis[i];
+    k.hist = row.vals.slice(0,8);
+    var hasFrac = k.hist.some(function(v){ return Math.abs(v - Math.round(v)) > 0.001; });
+    k.dec = hasFrac ? 1 : 0;
+    if (row.unit !== undefined && row.unit !== "") k.unit = row.unit;
+    if (row.dir) k.higher = !/lower/i.test(row.dir);
+    var fc = linregForecast(k.hist);
+    k.fVal = fc.fVal; k.fLow = fc.fLow; k.fHigh = fc.fHigh;
+  }
+  KPIS = newKpis;
+  QUARTERS = newQuarters;
+  DATA_SOURCE = sourceLabel;
+  rerenderAll();
+}
+
+async function handleDataFile(file){
+  setStatus("Reading " + file.name + "…", "");
+  try {
+    var dataset;
+    if (/\.csv$/i.test(file.name)){
+      dataset = datasetFromRows(parseCSV(await file.text()));
+    } else if (/\.xlsx$/i.test(file.name)){
+      dataset = await parseXlsxFile(file);
+    } else {
+      throw new Error("Please choose a .xlsx or .csv file.");
+    }
+    applyDataset(dataset, file.name);
+    setStatus("Loaded 12 indicators from " + file.name + " — quarters " + QUARTERS[0] + " to " + QUARTERS[HIST_N-1] + " (actual), AI forecast through " + QUARTERS[QUARTERS.length-1] + ".", "ok");
+  } catch (err){
+    setStatus("Could not load this file: " + err.message, "err");
+  }
+}
+
+function downloadCurrentDataCsv(){
+  function esc(s){ s = String(s==null?"":s); return /[",\n]/.test(s) ? '"'+s.replace(/"/g,'""')+'"' : s; }
+  var lines = [];
+  lines.push("Start quarter," + QUARTERS[0]);
+  lines.push("");
+  lines.push("Perspective,KPI,Definition,Unit,Direction,AI Technique,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8");
+  KPIS.forEach(function(k){
+    var perspLabel = PERSPECTIVES.filter(function(p){ return p.key===k.persp; })[0].label;
+    var fields = [perspLabel,k.name,k.def,k.unit,(k.higher?"Higher is better":"Lower is better"),k.tech].map(esc).concat(k.hist.map(String));
+    lines.push(fields.join(","));
+  });
+  var blob = new Blob([lines.join("\r\n")], {type:"text/csv;charset=utf-8"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = "bsc_ai_data.csv";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+
+function wireDataModal(){
+  var overlay = document.getElementById("dataModalOverlay");
+  function openModal(){ overlay.classList.remove("hidden"); }
+  function closeModal(){ overlay.classList.add("hidden"); }
+  document.body.addEventListener("click", function(e){
+    if (e.target && e.target.id === "openDataModalBtn") openModal();
+  });
+  document.getElementById("dataModalClose").addEventListener("click", closeModal);
+  overlay.addEventListener("click", function(e){ if (e.target === overlay) closeModal(); });
+  document.getElementById("dataFileInput").addEventListener("change", function(e){
+    var file = e.target.files[0];
+    if (file) handleDataFile(file);
+  });
+  document.getElementById("resetDataBtn").addEventListener("click", function(){
+    resetToSampleData();
+    setStatus("Restored the built-in sample data.", "");
+  });
+  document.getElementById("downloadCsvBtn").addEventListener("click", downloadCurrentDataCsv);
+}
+
+// ---------------- Certificate slide deck ----------------
+var DECK_PART_NAME = {0:"AI-Enhanced Balanced Scorecard", 1:"Part 1 — BSC Foundations", 2:"Part 2 — AI Enhancement", 3:"Part 3 — Hands-On Practicum"};
+var DECK_PART_COLOR = {0:"#12151c", 1:"#1f2937", 2:"#2a78d6", 3:"#1baf7a"};
+var DECK_PERSP_COLOR = {financial:"#4a3aa7", customer:"#1baf7a", process:"#c05a1f", learning:"#c23f7b"};
+var DECK_PERSP_LABEL = {financial:"FINANCIAL PERSPECTIVE", customer:"CUSTOMER PERSPECTIVE", process:"INTERNAL PROCESS PERSPECTIVE", learning:"LEARNING & GROWTH PERSPECTIVE"};
+
+var SLIDES = [
+{type:"title", part:0, eyebrow:"EXECUTIVE CERTIFICATE PROGRAM", title:"AI-Enhanced Balanced Scorecard", subtitle:"From Lagging Indicators to Predictive Strategy", footer:"A practical program on measurement, strategy, and artificial intelligence"},
+{type:"content", part:0, title:"Welcome & Course Objectives", bullets:[
+  "Understand the Balanced Scorecard as a strategic management system",
+  "Learn all 12 core indicators across the 4 perspectives",
+  "See how AI turns lagging reports into predictive signals",
+  "Practice forecasting and what-if analysis on your own data",
+  "Leave with a working template and tool you can use immediately"]},
+{type:"content", part:0, title:"Agenda", bullets:[
+  "Part 1::The Balanced Scorecard Foundations",
+  "Part 2::How AI Enhances the Balanced Scorecard",
+  "Part 3::Hands-On Practicum with the AI Scorecard Simulator",
+  "Throughout::discussion, worked examples, and live exercises",
+  "Close::key takeaways and certificate of completion"]},
+{type:"content", part:0, title:"Why This Matters Now", bullets:[
+  "Strategy execution still fails in most organizations — measurement is often the reason",
+  "Data volume and velocity have outgrown quarterly reporting cycles",
+  "AI forecasting is now accessible, not just for data science teams",
+  "Boards and investors increasingly expect forward-looking, evidence-based reporting"]},
+{type:"content", part:0, title:"Learning Outcomes — By the End of Today", bullets:[
+  "Explain the 4 BSC perspectives and their cause-and-effect logic",
+  "Define all 12 financial and non-financial indicators used in this program",
+  "Describe 4 ways artificial intelligence enhances scorecard measurement",
+  "Upload real data and interpret an AI-generated forecast and confidence range",
+  "Run a what-if scenario to support a strategic decision"]},
+
+{type:"section", part:1, eyebrow:"PART 1", title:"The Balanced Scorecard Foundations"},
+{type:"content", part:1, title:"The Problem With Financial-Only Measurement", bullets:[
+  "Financial results are lagging indicators — they report the past",
+  "Profit alone does not explain why performance changed",
+  "Short-term financial focus can undermine long-term capability",
+  "Investors, customers, and employees all need line of sight into value creation"]},
+{type:"content", part:1, title:"Origins of the Balanced Scorecard", bullets:[
+  "Developed by Robert Kaplan and David Norton, Harvard Business Review, 1992",
+  "A response to companies over-managing short-term financial results",
+  "Evolved from a measurement tool into a full strategic management system",
+  "Adopted in some form by a majority of large global organizations"]},
+{type:"content", part:1, title:"What Is the Balanced Scorecard?", bullets:[
+  "A framework that translates strategy into a coherent set of performance measures",
+  "Balances financial results with the drivers that create them",
+  "Organizes measures into 4 linked perspectives",
+  "Connects day-to-day operations to long-term strategic objectives"]},
+{type:"content", part:1, title:"The Core Idea: Strategy Translated Into Measures", bullets:[
+  "“If you can not measure it, you can not manage it”",
+  "Every objective needs a measure, a target, and an initiative",
+  "Measures should tell the story of the strategy",
+  "The scorecard is a management system, not just a report"]},
+{type:"content", part:1, title:"The Four Perspectives", bullets:[
+  "Financial::are we creating value shareholders and lenders can see?",
+  "Customer::are we creating value the market recognizes?",
+  "Internal Process::are we operationally excellent where it matters?",
+  "Learning & Growth::do we have the people and capability to keep improving?"]},
+{type:"content", part:1, title:"Cause-and-Effect Logic Across Perspectives", bullets:[
+  "Learning & Growth capability enables better Internal Processes",
+  "Better Internal Processes improve the Customer experience",
+  "A stronger Customer relationship drives Financial results",
+  "The perspectives form a chain, not four separate scorecards"]},
+{type:"content", part:1, title:"The Strategy Map Concept", bullets:[
+  "A one-page visual of how objectives connect across perspectives",
+  "Makes the organization's theory of value creation explicit",
+  "Helps leaders spot missing links in the strategy",
+  "Used to communicate strategy consistently across the organization"]},
+{type:"content", part:1, title:"Four Components of Every Perspective", bullets:[
+  "Objectives::what we are trying to achieve",
+  "Measures (KPIs)::how we will track progress",
+  "Targets::the level of performance we are aiming for",
+  "Initiatives::the actions that will get us there"]},
+{type:"content", part:1, title:"Leading vs. Lagging Indicators", bullets:[
+  "Lagging indicators report outcomes after the fact, for example revenue",
+  "Leading indicators predict future outcomes, for example engagement or pipeline",
+  "A balanced scorecard needs both types, across all 4 perspectives",
+  "AI, covered in Part 2, is especially powerful for leading indicators"]},
+
+{type:"content", part:1, persp:"financial", title:"Financial Perspective — Purpose", bullets:[
+  "Guiding question::are our strategic choices delivering results shareholders and lenders can see?",
+  "Tests whether strategy is translating into financial performance",
+  "Anchors the top of most strategy maps",
+  "Necessary, but not sufficient, on its own"]},
+{type:"content", part:1, persp:"financial", title:"Financial Perspective — Typical Objectives", bullets:[
+  "Grow revenue and expand into new markets",
+  "Improve profitability and cost structure",
+  "Improve asset utilization and capital efficiency",
+  "Manage risk appropriately for the strategy"]},
+{type:"content", part:1, persp:"financial", title:"KPI: Revenue Growth Rate", bullets:[
+  "Definition::year-over-year growth in total revenue",
+  "Why it matters::the clearest signal of top-line momentum and market demand",
+  "Unit::percent (%) — higher is better",
+  "AI technique used::time-series forecasting on historical revenue, adjusted for seasonality"]},
+{type:"content", part:1, persp:"financial", title:"KPI: Operating Margin", bullets:[
+  "Definition::operating income as a share of revenue",
+  "Why it matters::shows how efficiently sales convert into profit",
+  "Unit::percent (%) — higher is better",
+  "AI technique used::regression linking margin to leading cost and pricing indicators"]},
+{type:"content", part:1, persp:"financial", title:"KPI: Return on Invested Capital (ROIC)", bullets:[
+  "Definition::profit generated per dollar of capital deployed",
+  "Why it matters::tests whether growth is actually creating value",
+  "Unit::percent (%) — higher is better",
+  "AI technique used::ensemble model blending capital efficiency trend with the investment pipeline"]},
+{type:"content", part:1, persp:"financial", title:"Financial Perspective — Common Pitfalls", bullets:[
+  "Treating financial measures as the whole scorecard",
+  "Setting targets disconnected from the strategy map",
+  "Over-optimizing short-term profit at the expense of capability",
+  "Ignoring the customer, process, and people drivers behind the numbers"]},
+
+{type:"content", part:1, persp:"customer", title:"Customer Perspective — Purpose", bullets:[
+  "Guiding question::are we creating value the market recognizes, and will customers stay?",
+  "Tests whether the value proposition is actually working",
+  "Bridges internal capability to financial outcomes",
+  "Forces clarity on who the target customer is"]},
+{type:"content", part:1, persp:"customer", title:"Customer Perspective — Typical Objectives", bullets:[
+  "Improve customer satisfaction and loyalty",
+  "Increase retention and share of wallet",
+  "Grow market share in target segments",
+  "Strengthen brand and customer trust"]},
+{type:"content", part:1, persp:"customer", title:"KPI: Customer Satisfaction (CSAT / NPS Index)", bullets:[
+  "Definition::a blended satisfaction and loyalty score from post-interaction surveys",
+  "Why it matters::the earliest read on whether customers will stay and advocate",
+  "Unit::index score — higher is better",
+  "AI technique used::NLP sentiment analysis on support tickets and survey comments"]},
+{type:"content", part:1, persp:"customer", title:"KPI: Customer Retention Rate", bullets:[
+  "Definition::share of customers retained period over period",
+  "Why it matters::the direct link between experience and recurring revenue",
+  "Unit::percent (%) — higher is better",
+  "AI technique used::account-level churn-propensity scoring aggregated into a forecast"]},
+{type:"content", part:1, persp:"customer", title:"KPI: Market Share", bullets:[
+  "Definition::company revenue as a share of total addressable market",
+  "Why it matters::reflects competitive position, not just internal performance",
+  "Unit::percent (%) — higher is better",
+  "AI technique used::competitive signal tracking blended into a share-trend model"]},
+{type:"content", part:1, persp:"customer", title:"Customer Perspective — Common Pitfalls", bullets:[
+  "Measuring satisfaction without linking it to retention or revenue",
+  "Chasing market share without profitability discipline",
+  "Treating all customers as equally valuable",
+  "Survey fatigue diluting data quality"]},
+
+{type:"content", part:1, persp:"process", title:"Internal Process Perspective — Purpose", bullets:[
+  "Guiding question::are our operations efficient and reliable enough to support the strategy?",
+  "Identifies the internal processes that most affect customers and financials",
+  "Often the most operational, day-to-day perspective",
+  "Connects capability investment to customer outcomes"]},
+{type:"content", part:1, persp:"process", title:"Internal Process Perspective — Typical Objectives", bullets:[
+  "Improve operational efficiency and cycle time",
+  "Improve quality and reduce defects and errors",
+  "Build a strong innovation pipeline",
+  "Strengthen regulatory and risk compliance"]},
+{type:"content", part:1, persp:"process", title:"KPI: Cycle Time / Process Efficiency", bullets:[
+  "Definition::average days to complete a core operating process end-to-end",
+  "Why it matters::shorter cycles mean faster delivery and lower cost to serve",
+  "Unit::days — lower is better",
+  "AI technique used::process mining on workflow logs to identify bottlenecks"]},
+{type:"content", part:1, persp:"process", title:"KPI: Defect / Error Rate", bullets:[
+  "Definition::share of units or transactions requiring rework",
+  "Why it matters::a direct proxy for quality and downstream customer impact",
+  "Unit::percent (%) — lower is better",
+  "AI technique used::anomaly detection on quality-control data, flags drift early"]},
+{type:"content", part:1, persp:"process", title:"KPI: Innovation Pipeline Throughput", bullets:[
+  "Definition::number of new ideas advanced to piloting each quarter",
+  "Why it matters::a leading indicator of future products and improvements",
+  "Unit::count — higher is better",
+  "AI technique used::classification model scores and ranks pipeline submissions"]},
+{type:"content", part:1, persp:"process", title:"Internal Process Perspective — Common Pitfalls", bullets:[
+  "Optimizing a process in isolation from customer impact",
+  "Measuring activity instead of outcomes",
+  "Under-investing in the innovation pipeline",
+  "Treating quality as a compliance checkbox, not a driver"]},
+
+{type:"content", part:1, persp:"learning", title:"Learning & Growth Perspective — Purpose", bullets:[
+  "Guiding question::do our people and culture have the capacity to deliver tomorrow's strategy?",
+  "The enabling perspective — foundation for the other three",
+  "Often the most underinvested and hardest to measure",
+  "A leading indicator for everything downstream"]},
+{type:"content", part:1, persp:"learning", title:"Learning & Growth Perspective — Typical Objectives", bullets:[
+  "Build employee engagement and a strong culture",
+  "Close critical skills gaps through training",
+  "Improve retention of key talent",
+  "Build leadership and innovation capability"]},
+{type:"content", part:1, persp:"learning", title:"KPI: Employee Engagement Score", bullets:[
+  "Definition::composite pulse-survey score of motivation, alignment, and intent to stay",
+  "Why it matters::the earliest signal of culture health, ahead of customer and financial shifts",
+  "Unit::index score — higher is better",
+  "AI technique used::engagement-survey and attrition-risk NLP model on free text"]},
+{type:"content", part:1, persp:"learning", title:"KPI: Training Hours per Employee", bullets:[
+  "Definition::average hours of formal skills development per employee per quarter",
+  "Why it matters::capacity being built for future capability needs",
+  "Unit::hours — higher is better",
+  "AI technique used::skills-gap analysis matching role requirements to training records"]},
+{type:"content", part:1, persp:"learning", title:"KPI: Employee Retention Rate", bullets:[
+  "Definition::share of employees retained period over period",
+  "Why it matters::the cost and continuity consequence of engagement and culture",
+  "Unit::percent (%) — higher is better",
+  "AI technique used::predictive attrition model scoring flight risk"]},
+{type:"content", part:1, persp:"learning", title:"Learning & Growth Perspective — Common Pitfalls", bullets:[
+  "Cutting training investment first in a downturn",
+  "Treating engagement scores as HR-only metrics",
+  "Ignoring early warning signs of disengagement",
+  "Underestimating the lag before effects show up downstream"]},
+
+{type:"content", part:1, title:"Financial vs. Non-Financial Measures — Why Balance Matters", bullets:[
+  "Financial::Revenue Growth Rate, Operating Margin, Return on Invested Capital",
+  "Customer::CSAT / NPS Index, Customer Retention Rate, Market Share",
+  "Internal Process::Cycle Time, Defect / Error Rate, Innovation Pipeline Throughput",
+  "Learning & Growth::Employee Engagement, Training Hours, Employee Retention",
+  "3 financial, 9 non-financial — most of the predictive power sits upstream"]},
+
+{type:"section", part:2, eyebrow:"PART 2", title:"How AI Enhances the Balanced Scorecard"},
+{type:"content", part:2, title:"The Limits of Traditional BSC Reporting", bullets:[
+  "Most scorecards are updated quarterly, by hand",
+  "Reports describe what already happened, not what is coming",
+  "Each perspective is often analyzed in isolation",
+  "Insights arrive too late to change the outcome"]},
+{type:"content", part:2, title:"What AI Adds — Four Shifts", bullets:[
+  "From lagging to leading, predictive indicators",
+  "From quarterly manual reporting to real-time data integration",
+  "From siloed perspectives to cross-perspective pattern detection",
+  "From static plans to scenario simulation and what-if analysis"]},
+{type:"content", part:2, title:"Shift 1: From Lagging to Leading Indicators", bullets:[
+  "AI models blend historical results with leading signals",
+  "Produces a forecast for the next 2 to 4 quarters, not just a history chart",
+  "Shows a visible confidence range instead of false precision",
+  "Lets leaders act before a result is locked in"]},
+{type:"content", part:2, title:"Shift 2: Real-Time Data Integration", bullets:[
+  "AI pipelines continuously ingest operational data",
+  "Replaces the manual quarterly roll-up with a living dashboard",
+  "Every KPI's trend and forecast can refresh as new data arrives",
+  "Frees analyst time from data-gathering to decision support"]},
+{type:"content", part:2, title:"Shift 3: Pattern Detection Across Perspectives", bullets:[
+  "The 4 perspectives are not independent — they form a chain",
+  "AI can surface correlations that humans miss across silos",
+  "Example::an engagement dip can predict a customer satisfaction dip",
+  "Which can predict a revenue deceleration one to two quarters later"]},
+{type:"content", part:2, title:"Shift 4: Scenario Simulation (What-If Analysis)", bullets:[
+  "Model the projected effect of a strategic investment before committing",
+  "Adjust an input, such as training spend, and see the projected cascade",
+  "Supports evidence-based budget and resourcing decisions",
+  "Turns the scorecard from a report into a decision-support tool"]},
+{type:"content", part:2, title:"A Plain-English Primer on AI Techniques", bullets:[
+  "You do not need to be a data scientist to use these tools",
+  "Every technique in this program is explainable in one sentence",
+  "Each technique is matched to the type of data and question involved",
+  "This section gives you the vocabulary to question any AI vendor"]},
+{type:"content", part:2, title:"Technique: Time-Series Forecasting", bullets:[
+  "Learns the trend and seasonal pattern in historical numbers",
+  "Projects that pattern forward into future periods",
+  "Best for::steadily trending measures like revenue and margin",
+  "Used for::Revenue Growth Rate"]},
+{type:"content", part:2, title:"Technique: Regression on Leading Indicators", bullets:[
+  "Finds the statistical relationship between a result and its known drivers",
+  "Projects the result forward using current driver values",
+  "Best for::measures with clear, quantifiable causes",
+  "Used for::Operating Margin, Market Share"]},
+{type:"content", part:2, title:"Technique: NLP / Sentiment Analysis", bullets:[
+  "Reads free-text data, such as survey comments and support tickets, at scale",
+  "Converts language into a quantified sentiment or risk score",
+  "Best for::measures rooted in human feedback",
+  "Used for::Customer Satisfaction, Employee Engagement"]},
+{type:"content", part:2, title:"Technique: Anomaly Detection", bullets:[
+  "Learns what “normal” looks like in operational data",
+  "Flags unusual deviations before they become visible problems",
+  "Best for::quality and process measures",
+  "Used for::Defect / Error Rate"]},
+{type:"content", part:2, title:"Technique: Classification Models", bullets:[
+  "Sorts items into categories based on learned patterns",
+  "Scores and ranks items by likelihood of a defined outcome",
+  "Best for::pipeline and portfolio-style measures",
+  "Used for::Innovation Pipeline Throughput"]},
+{type:"content", part:2, title:"Technique: Ensemble Models", bullets:[
+  "Combines multiple models to produce a more robust forecast",
+  "Reduces the risk of any single model's blind spot",
+  "Best for::complex measures with multiple drivers",
+  "Used for::Return on Invested Capital (ROIC)"]},
+{type:"content", part:2, title:"Technique: Predictive Attrition / Churn Models", bullets:[
+  "Scores individual accounts or employees by risk of leaving",
+  "Aggregates individual scores into a portfolio-level forecast",
+  "Best for::retention-style measures",
+  "Used for::Customer Retention Rate, Employee Retention Rate"]},
+{type:"content", part:2, title:"Understanding Confidence Intervals", bullets:[
+  "Every AI forecast in this program shows a range, not one number",
+  "A wider range means more uncertainty further into the future",
+  "Executives should manage the range, not just the midpoint",
+  "A forecast without a confidence range should raise questions"]},
+{type:"content", part:2, persp:"financial", title:"AI Applied — Financial Perspective", bullets:[
+  "Revenue Growth Rate::time-series forecasting",
+  "Operating Margin::regression on leading cost and pricing indicators",
+  "ROIC::ensemble model blending efficiency trend and investment pipeline",
+  "All three feed the same confidence-ranged forecast approach"]},
+{type:"content", part:2, persp:"customer", title:"AI Applied — Customer Perspective", bullets:[
+  "CSAT / NPS::NLP sentiment analysis on tickets and surveys",
+  "Retention Rate::account-level churn-propensity scoring",
+  "Market Share::competitive signal tracking",
+  "Together, an early-warning system for the customer relationship"]},
+{type:"content", part:2, persp:"process", title:"AI Applied — Internal Process Perspective", bullets:[
+  "Cycle Time::process mining on workflow logs",
+  "Defect Rate::anomaly detection on quality-control data",
+  "Pipeline Throughput::classification and ranking of submissions",
+  "Together, a real-time operational health check"]},
+{type:"content", part:2, persp:"learning", title:"AI Applied — Learning & Growth Perspective", bullets:[
+  "Engagement Score::survey plus attrition-risk NLP",
+  "Training Hours::skills-gap analysis against role requirements",
+  "Retention Rate::predictive attrition scoring",
+  "Often the earliest warning system in the entire scorecard"]},
+{type:"content", part:2, title:"Case Example: A Cross-Perspective Early Warning", bullets:[
+  "Employee engagement growth flattens for two consecutive quarters",
+  "AI flags a correlated softening in the customer satisfaction forecast about one quarter later",
+  "Left unaddressed, the model projects a measurable revenue deceleration about two quarters later",
+  "Quarterly manual reporting typically catches this only after it shows up in the financials"]},
+{type:"content", part:2, title:"Case Example: Scenario Simulation for Investment Decisions", bullets:[
+  "Question::should we increase training investment before the next budget cycle?",
+  "Simulate a defined percentage increase in training spend",
+  "The model projects the effect on engagement, then satisfaction, then revenue growth",
+  "The decision is supported by a projected, quantified cascade — not a guess"]},
+{type:"content", part:2, title:"Data Requirements — What AI Needs to Work Well", bullets:[
+  "Consistent historical data, ideally 2 or more years, by quarter",
+  "Clean, comparable definitions of each measure over time",
+  "A named owner accountable for each data source",
+  "A defined direction, higher or lower is better, for every measure"]},
+{type:"content", part:2, title:"Data Quality & Governance Considerations", bullets:[
+  "“Garbage in, garbage out” still applies to AI",
+  "Document data sources and any changes in definition over time",
+  "Establish a review cadence for model outputs, not just model inputs",
+  "Assign accountability for acting on AI-flagged signals"]},
+{type:"content", part:2, title:"Human-in-the-Loop: AI Recommends, Executives Decide", bullets:[
+  "AI forecasts are inputs to judgment, not a replacement for it",
+  "Context AI cannot see::competitive moves, regulation, culture",
+  "The confidence range is a prompt for a conversation, not an answer",
+  "Best practice::pair every AI signal with a named decision owner"]},
+{type:"content", part:2, title:"Risks & Limitations of AI-Generated Forecasts", bullets:[
+  "Models trained on the past can miss genuine structural change",
+  "Small data histories produce wide, less useful confidence ranges",
+  "Correlation across perspectives is not automatically causation",
+  "Over-fitting can make a model look confident and still be wrong"]},
+{type:"content", part:2, title:"Avoiding Over-Reliance & Model Bias", bullets:[
+  "Regularly compare forecasts to actual outcomes and recalibrate",
+  "Watch for bias inherited from historical data, for example past hiring patterns",
+  "Keep more than one perspective's worth of evidence before major decisions",
+  "Maintain a standing process to question and retire underperforming models"]},
+{type:"content", part:2, title:"Change Management: The Executive's Role Shifts", bullets:[
+  "From reviewing what happened to steering what happens next",
+  "From an annual or quarterly cadence to continuous monitoring",
+  "From single-perspective ownership to cross-perspective conversations",
+  "From opinion-led debate to evidence-and-range-informed debate"]},
+{type:"content", part:2, title:"Building an AI-Ready Scorecard — Readiness Checklist", bullets:[
+  "Do we have 2+ years of consistent quarterly data per KPI?",
+  "Does every measure have a named owner and a clear direction?",
+  "Do we have a forum where cross-perspective patterns get discussed?",
+  "Do we have a process for acting on, not just viewing, AI signals?"]},
+{type:"content", part:2, title:"Part 2 Summary — Key Takeaways", bullets:[
+  "AI does not replace the Balanced Scorecard — it sharpens it",
+  "Four shifts::leading indicators, real-time data, cross-perspective patterns, scenario simulation",
+  "Every forecast should come with a plain-English technique and a confidence range",
+  "The executive's job becomes steering the range, not just reading the number"]},
+
+{type:"section", part:3, eyebrow:"PART 3", title:"Hands-On Practicum"},
+{type:"content", part:3, title:"Introducing the AI Scorecard Simulator", bullets:[
+  "A live, interactive dashboard built for this program",
+  "Covers all 12 indicators across the 4 BSC perspectives",
+  "Shows 8 quarters of history and an AI-generated forecast for each",
+  "Lets you load your own department's data and see live predictions"]},
+{type:"content", part:3, title:"Tool Walkthrough — Overview Tab", bullets:[
+  "A strategy-map-style view of all 4 perspectives",
+  "Summary card and mini-trend for every KPI at a glance",
+  "One click into any perspective for full detail",
+  "A live banner shows whether you are viewing sample or your own data"]},
+{type:"content", part:3, persp:"financial", title:"Tool Walkthrough — Financial Perspective Tab", bullets:[
+  "Revenue Growth Rate, Operating Margin, Return on Invested Capital",
+  "Each KPI card::definition, chart, latest actual, AI forecast, technique",
+  "The trend arrow shows direction; color shows good or bad for that KPI",
+  "Hover any point on the chart for the exact quarter and value"]},
+{type:"content", part:3, persp:"customer", title:"Tool Walkthrough — Customer Perspective Tab", bullets:[
+  "CSAT / NPS Index, Customer Retention Rate, Market Share",
+  "Same structure as Financial — consistency by design",
+  "Watch for early softening ahead of a financial perspective change",
+  "Confidence ranges widen further into the forecast — that is expected"]},
+{type:"content", part:3, persp:"process", title:"Tool Walkthrough — Internal Process Tab", bullets:[
+  "Cycle Time, Defect / Error Rate, Innovation Pipeline Throughput",
+  "Two of the three KPIs are “lower is better” — check the trend arrow direction",
+  "Often the fastest-moving, most operational signals",
+  "Small improvements here compound into customer and financial gains"]},
+{type:"content", part:3, persp:"learning", title:"Tool Walkthrough — Learning & Growth Tab", bullets:[
+  "Employee Engagement Score, Training Hours per Employee, Retention Rate",
+  "Often the earliest mover in the entire scorecard",
+  "Worth checking first when other perspectives show unexplained softening",
+  "The most human, and most frequently under-measured, perspective"]},
+{type:"content", part:3, title:"Reading a KPI Chart", bullets:[
+  "Solid line::actual historical results, 8 quarters",
+  "Dashed line::AI forecast, next 2 to 4 quarters",
+  "Shaded band::confidence range around the forecast",
+  "Vertical divider::where “actual” ends and “AI forecast” begins"]},
+{type:"content", part:3, title:"Tool Walkthrough — AI Methodology Tab", bullets:[
+  "Plain-language explanation of the 4 shifts covered in Part 2",
+  "A worked cross-perspective early-warning example",
+  "The live what-if strategy simulator",
+  "Your reference page during the exercises"]},
+{type:"content", part:3, title:"Tool Walkthrough — The What-If Strategy Simulator", bullets:[
+  "Adjust training investment and automation investment sliders",
+  "Watch engagement, customer satisfaction, and revenue growth recompute live",
+  "A narrative sentence explains the projected cascade in plain language",
+  "Clearly labeled as an illustrative teaching model, not a live business system"]},
+{type:"content", part:3, title:"Preparing Your Data — The Excel / CSV Template", bullets:[
+  "Provided as both a .xlsx and a .csv file",
+  "One row per indicator, 12 rows, in a fixed order",
+  "Blue cells are for your data; everything else is reference text",
+  "A “Start quarter” cell anchors all the quarter labels in the tool"]},
+{type:"content", part:3, title:"Template Structure — Column by Column", bullets:[
+  "Perspective, KPI, Definition, Unit, Direction, AI Technique::reference columns",
+  "Q1 through Q8::eight quarters of your actual results",
+  "Direction::“Higher is better” or “Lower is better” controls the trend color",
+  "Keep the row order and layout exactly as provided"]},
+{type:"content", part:3, title:"Step-by-Step: Loading Your Data", bullets:[
+  "Open “Load your data” in the simulator's left-hand panel",
+  "Choose your filled-in .xlsx or .csv file",
+  "The tool reads it, recomputes all 12 forecasts, and redraws every chart",
+  "A status message confirms what was loaded, or explains what to fix"]},
+{type:"content", part:3, title:"Interpreting Your Results", bullets:[
+  "Compare your actual trend direction to the higher/lower-is-better rule",
+  "Look at how wide the confidence range is — wider means less certainty",
+  "Check whether a Learning & Growth or Process signal leads a Customer or Financial one",
+  "Use “Reset to sample data” any time to compare against the demo baseline"]},
+{type:"content", part:3, title:"Exercise 1 — Load and Explore", bullets:[
+  "Load your own department's data using the provided template",
+  "Identify the KPI with the strongest predicted trend",
+  "Identify the KPI with the widest confidence range, and discuss why",
+  "Report back::one predictive signal you did not expect"]},
+{type:"content", part:3, title:"Exercise 2 — Run a What-If Scenario", bullets:[
+  "Open the What-If Strategy Simulator on the AI Methodology tab",
+  "Set a training and automation investment scenario for your team",
+  "Read the projected cascade across engagement, CSAT, and revenue growth",
+  "Report back::would you approve this investment based on the projection?"]},
+{type:"content", part:3, title:"Exercise 3 — Spot a Cross-Perspective Pattern", bullets:[
+  "Compare your Learning & Growth trends to your Customer trends",
+  "Look for a leading indicator that moved before a downstream one",
+  "Discuss what action, if any, the pattern suggests",
+  "Report back::one cross-perspective link relevant to your team"]},
+{type:"content", part:3, title:"Discussion — Group Debrief Questions", bullets:[
+  "Which of the 12 indicators is most under-measured in your organization today?",
+  "Where would a one-quarter earlier warning have changed a past decision?",
+  "What data would you need to run this properly for your own team?",
+  "Who should own acting on an AI-flagged signal in your organization?"]},
+
+{type:"content", part:0, title:"Key Takeaways", bullets:[
+  "The Balanced Scorecard balances financial and non-financial measurement across 4 perspectives",
+  "12 indicators, 3 per perspective, connected by cause-and-effect logic",
+  "AI adds leading indicators, real-time data, cross-perspective patterns, and scenario simulation",
+  "The tool and template from this program are yours to use immediately"]},
+{type:"title", part:0, eyebrow:"CERTIFICATE OF COMPLETION", title:"Thank You", subtitle:"AI-Enhanced Balanced Scorecard — Executive Certificate Program", footer:"Your AI Scorecard Simulator link and data template have been provided"}
+];
+
+function deckEsc(s){
+  return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function deckBulletHtml(b){
+  var idx = b.indexOf("::");
+  if (idx >= 0){
+    return "<li><b>"+deckEsc(b.slice(0,idx))+": </b>"+deckEsc(b.slice(idx+2))+"</li>";
+  }
+  return "<li>"+deckEsc(b)+"</li>";
+}
+function deckSlideHtml(s, i){
+  if (s.type === "title"){
+    var h = '<div class="dslide d-title" style="background:'+DECK_PART_COLOR[s.part]+'">';
+    if (s.eyebrow) h += '<div class="d-t-eyebrow">'+deckEsc(s.eyebrow)+'</div>';
+    h += '<div class="d-t-title">'+deckEsc(s.title)+'</div>';
+    if (s.subtitle) h += '<div class="d-t-subtitle">'+deckEsc(s.subtitle)+'</div>';
+    if (s.footer) h += '<div class="d-t-footer">'+deckEsc(s.footer)+'</div>';
+    h += '<div class="d-pageno" style="color:rgba(255,255,255,0.5)">'+(i+1)+' / '+SLIDES.length+'</div></div>';
+    return h;
+  }
+  if (s.type === "section"){
+    var h2 = '<div class="dslide d-section" style="background:'+DECK_PART_COLOR[s.part]+'">';
+    h2 += '<div class="d-sec-eyebrow">'+deckEsc(s.eyebrow)+'</div>';
+    h2 += '<div class="d-sec-title">'+deckEsc(s.title)+'</div>';
+    h2 += '<div class="d-pageno" style="color:rgba(255,255,255,0.6)">'+(i+1)+' / '+SLIDES.length+'</div></div>';
+    return h2;
+  }
+  var accent = s.persp ? DECK_PERSP_COLOR[s.persp] : DECK_PART_COLOR[s.part];
+  var h3 = '<div class="dslide" style="background:#fff">';
+  h3 += '<div class="d-accent" style="background:'+accent+'"></div>';
+  if (s.persp){
+    h3 += '<div class="d-kicker" style="color:'+accent+'">'+deckEsc(DECK_PERSP_LABEL[s.persp])+'</div>';
+    h3 += '<div class="d-heading">'+deckEsc(s.title)+'</div>';
+  } else {
+    h3 += '<div class="d-heading no-kicker">'+deckEsc(s.title)+'</div>';
+  }
+  h3 += '<ul class="d-bullets">'+s.bullets.map(deckBulletHtml).join("")+'</ul>';
+  h3 += '<div class="d-footleft">'+deckEsc(DECK_PART_NAME[s.part])+'</div>';
+  h3 += '<div class="d-pageno">'+(i+1)+' / '+SLIDES.length+'</div></div>';
+  return h3;
+}
+
+var deckCurrent = 0;
+function deckFit(){
+  var vp = document.getElementById("deckViewport");
+  var stage = document.getElementById("deckStage");
+  if (!vp || !stage) return;
+  var isFS = document.fullscreenElement === vp;
+  var scale;
+  if (isFS){
+    scale = Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.left = "50%"; stage.style.top = "50%";
+    stage.style.transform = "translate(-50%,-50%) scale("+scale+")";
+  } else {
+    scale = vp.clientWidth/1280;
+    stage.style.left = "0"; stage.style.top = "0";
+    stage.style.transform = "scale("+scale+")";
+  }
+}
+
+function renderSlidesPanel(){
+  var html = '<p class="eyebrow">Certificate deck</p>';
+  html += '<h1 class="page-title">Certificate Slide Deck</h1>';
+  html += '<p class="page-sub">All 90 slides from the executive program — BSC foundations, how AI enhances the scorecard, and the hands-on practicum — presentable directly from this tab.</p>';
+  html += '<div class="deck-shell">';
+  html += '<div class="deck-viewport" id="deckViewport"><div class="deck-stage" id="deckStage">';
+  html += SLIDES.map(deckSlideHtml).join("");
+  html += '</div></div>';
+  html += '<div class="deck-controls">';
+  html += '<button class="btn" id="deckHome" type="button">Home</button>';
+  html += '<button class="btn" id="deckP1" type="button">Part 1</button>';
+  html += '<button class="btn" id="deckP2" type="button">Part 2</button>';
+  html += '<button class="btn" id="deckP3" type="button">Part 3</button>';
+  html += '<div class="deck-sep"></div>';
+  html += '<button class="btn" id="deckPrev" type="button">&larr; Prev</button>';
+  html += '<span class="deck-count" id="deckCount">1 / '+SLIDES.length+'</span>';
+  html += '<button class="btn" id="deckNext" type="button">Next &rarr;</button>';
+  html += '<div class="deck-sep"></div>';
+  html += '<input class="deck-jump" id="deckJumpInput" type="number" min="1" max="'+SLIDES.length+'" placeholder="#">';
+  html += '<button class="btn" id="deckJumpBtn" type="button">Go</button>';
+  html += '<div class="deck-sep"></div>';
+  html += '<button class="btn primary" id="deckFull" type="button">Fullscreen</button>';
+  html += '</div></div>';
+
+  document.getElementById("sec-slides").innerHTML = html;
+  wireDeck();
+}
+
+function wireDeck(){
+  var slideEls = Array.prototype.slice.call(document.querySelectorAll("#deckStage .dslide"));
+  function deckRender(){
+    slideEls.forEach(function(el,i){ el.classList.toggle("active", i===deckCurrent); });
+    document.getElementById("deckCount").textContent = (deckCurrent+1)+" / "+SLIDES.length;
+    document.getElementById("deckPrev").disabled = deckCurrent===0;
+    document.getElementById("deckNext").disabled = deckCurrent===SLIDES.length-1;
+  }
+  function deckGoTo(i){ deckCurrent = Math.max(0, Math.min(SLIDES.length-1, i)); deckRender(); }
+  function deckFirstOfPart(p){
+    for (var i=0;i<SLIDES.length;i++){ if (SLIDES[i].part===p && SLIDES[i].type==="section") return i; }
+    for (var j=0;j<SLIDES.length;j++){ if (SLIDES[j].part===p) return j; }
+    return 0;
+  }
+  document.getElementById("deckPrev").addEventListener("click", function(){ deckGoTo(deckCurrent-1); });
+  document.getElementById("deckNext").addEventListener("click", function(){ deckGoTo(deckCurrent+1); });
+  document.getElementById("deckHome").addEventListener("click", function(){ deckGoTo(0); });
+  document.getElementById("deckP1").addEventListener("click", function(){ deckGoTo(deckFirstOfPart(1)); });
+  document.getElementById("deckP2").addEventListener("click", function(){ deckGoTo(deckFirstOfPart(2)); });
+  document.getElementById("deckP3").addEventListener("click", function(){ deckGoTo(deckFirstOfPart(3)); });
+  document.getElementById("deckJumpBtn").addEventListener("click", function(){
+    var v = parseInt(document.getElementById("deckJumpInput").value, 10);
+    if (!isNaN(v)) deckGoTo(v-1);
+  });
+  document.getElementById("deckJumpInput").addEventListener("keydown", function(e){
+    if (e.key === "Enter") document.getElementById("deckJumpBtn").click();
+  });
+  document.getElementById("deckFull").addEventListener("click", function(){
+    var vp = document.getElementById("deckViewport");
+    if (document.fullscreenElement){ document.exitFullscreen(); }
+    else if (vp.requestFullscreen){ vp.requestFullscreen(); }
+  });
+  document.addEventListener("fullscreenchange", deckFit);
+  window.addEventListener("resize", function(){ if (currentTab === "slides") deckFit(); });
+  window.addEventListener("keydown", function(e){
+    if (currentTab !== "slides") return;
+    var tag = (document.activeElement && document.activeElement.tagName) || "";
+    if (tag === "INPUT") return;
+    if (e.key === "ArrowRight" || e.key === "PageDown"){ deckGoTo(deckCurrent+1); e.preventDefault(); }
+    else if (e.key === "ArrowLeft" || e.key === "PageUp"){ deckGoTo(deckCurrent-1); e.preventDefault(); }
+  });
+
+  deckRender();
+  deckFit();
+  if (typeof ResizeObserver !== "undefined"){
+    var ro = new ResizeObserver(function(){ deckFit(); });
+    ro.observe(document.getElementById("deckViewport"));
+  }
+}
+
+// ---------------- Init ----------------
+wireDataModal();
+renderRail();
+renderOverview();
+["financial","customer","process","learning"].forEach(renderPerspectivePanel);
+renderMethodology();
+renderSlidesPanel();
+selectTab("overview");
+
+})();
+</script>
+
+
+</body>
+</html>
