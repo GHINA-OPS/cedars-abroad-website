@@ -566,6 +566,78 @@ section {
   text-decoration: underline;
 }
 
+/* AI Applications */
+.project-showcase {
+  display: grid;
+  grid-template-columns: 0.9fr 1.4fr;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--white);
+}
+
+.project-media {
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+  display: flex;
+  align-items: flex-end;
+  padding: 28px;
+  min-height: 240px;
+}
+
+.project-media-badge {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.16);
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.project-body {
+  padding: 40px 44px;
+}
+
+.project-body h3 {
+  font-size: 1.5rem;
+  color: var(--green-dark);
+  margin-bottom: 6px;
+}
+
+.project-subtitle {
+  color: var(--red);
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-bottom: 14px;
+}
+
+.project-body > p:not(.project-subtitle) {
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+
+.project-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.badge {
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+@media (max-width: 720px) {
+  .project-showcase {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* How it works */
 .how-section {
   background-color: var(--off-white);
