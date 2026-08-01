@@ -205,6 +205,64 @@
   .sim-ending .ending-msg{font-size:14.5px;color:var(--ink-2);line-height:1.65;max-width:56ch;margin:0 auto;text-align:left;}
   .sim-ending .ending-msg + .ending-msg{margin-top:12px;}
 
+  /* Case study chatbot */
+  .chat-layout{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:start;}
+
+  .chat-sidebar{display:flex;flex-direction:column;gap:14px;position:sticky;top:20px;}
+  .chat-side-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;}
+  .chat-side-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-muted);margin-bottom:10px;font-weight:700;}
+
+  .chat-progress{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .chat-progress li{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-muted);}
+  .chat-progress li .step-dot{flex:none;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;}
+  .chat-progress li.done{color:var(--ink-2);}
+  .chat-progress li.done .step-dot{background:var(--green);border-color:var(--green);color:#fff;}
+  .chat-progress li.active{color:var(--ink);font-weight:700;}
+  .chat-progress li.active .step-dot{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash);}
+
+  .chat-rating-num{font-family:var(--serif);font-size:30px;color:var(--accent);line-height:1;margin-bottom:10px;}
+  .chat-rating-detail{font-size:11.5px;color:var(--ink-muted);margin-top:8px;line-height:1.5;}
+
+  .chat-timer{font-family:var(--serif);font-size:26px;color:var(--ink);font-variant-numeric:tabular-nums;}
+
+  .chat-main{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;min-height:520px;}
+  .chat-window{flex:1;padding:22px;overflow-y:auto;max-height:560px;display:flex;flex-direction:column;gap:14px;}
+
+  .chat-bubble{max-width:78%;padding:12px 15px;border-radius:14px;font-size:13.5px;line-height:1.6;}
+  .chat-bubble.bot{align-self:flex-start;background:var(--surface-2);color:var(--ink);border-bottom-left-radius:4px;}
+  .chat-bubble.bot.model-answer{border:1px dashed var(--border);background:var(--green-wash);}
+  .chat-bubble.user{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:4px;}
+  .chat-bubble .bubble-tag{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.06em;opacity:.7;margin-bottom:4px;}
+
+  .chat-typing{align-self:flex-start;display:flex;gap:4px;padding:12px 15px;}
+  .chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--ink-muted);opacity:.5;animation:typingBounce 1s infinite;}
+  .chat-typing span:nth-child(2){animation-delay:.15s;}
+  .chat-typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes typingBounce{0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-4px);opacity:1;}}
+
+  .chat-input-area{border-top:1px solid var(--border);padding:16px 22px;background:var(--surface);}
+  .chat-mcq-options{display:grid;gap:8px;}
+  .chat-mcq-btn{text-align:left;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;font-family:var(--sans);font-size:13px;color:var(--ink);cursor:pointer;}
+  .chat-mcq-btn:hover:not(:disabled){border-color:var(--accent);}
+  .chat-mcq-btn:disabled{cursor:default;}
+  .chat-mcq-btn.correct{border-color:var(--green);background:var(--green-wash);}
+  .chat-mcq-btn.incorrect{border-color:var(--accent);background:var(--accent-wash);}
+
+  .chat-open-row{display:flex;gap:10px;align-items:flex-end;}
+  .chat-open-row textarea{flex:1;resize:none;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-family:var(--sans);font-size:13px;color:var(--ink);background:var(--surface);min-height:44px;max-height:120px;}
+  .chat-open-row textarea:focus{outline:none;border-color:var(--accent);}
+  .chat-open-row button{flex:none;}
+
+  .chat-continue-row{display:flex;justify-content:flex-end;}
+
+  .chat-hint{font-size:11.5px;color:var(--ink-muted);margin-bottom:8px;}
+
+  @media (max-width: 900px){
+    .chat-layout{grid-template-columns:1fr;}
+    .chat-sidebar{position:relative;top:0;flex-direction:row;flex-wrap:wrap;}
+    .chat-side-card{flex:1;min-width:150px;}
+  }
+
   ::selection{background:var(--accent-wash);}
 
   @media (max-width: 900px){
@@ -241,6 +299,7 @@
     <div class="rail-group-label">Practice</div>
     <button class="rail-item" data-tab="simulation"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Hiring Simulation</span></button>
     <button class="rail-item" data-tab="alignsim"><span class="rail-dot" style="--dot:var(--p-id)"></span><span class="lbl">AI-HR Alignment Simulator</span></button>
+    <button class="rail-item" data-tab="casechat"><span class="rail-dot" style="--dot:var(--p-dev)"></span><span class="lbl">Case Study Chatbot</span></button>
     <div class="rail-group-label">Wrap-Up</div>
     <button class="rail-item" data-tab="career"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Career Impact</span></button>
     <div class="rail-foot">Cedars Abroad<br>AI Training &amp; Certification</div>
@@ -417,6 +476,42 @@
 
       <div class="stage-nav">
         <a data-goto="simulation"><span class="lbl">Back</span><span class="val">← Hiring Simulation</span></a>
+        <a class="next" data-goto="casechat"><span class="lbl">Next</span><span class="val">Case Study Chatbot →</span></a>
+      </div>
+    </section>
+
+    <section id="panel-casechat" class="panel">
+      <p class="eyebrow">Practice · ~20 Minutes</p>
+      <h1 class="page-title">HR Case Study Chatbot</h1>
+      <p class="page-sub">Work through a live HR case with an in-chat coach — read the scenario, answer multiple-choice and short-answer questions as they come up, and track your rating on the left. Built for a full class session, about 20 minutes end to end.</p>
+
+      <div class="chat-layout">
+        <aside class="chat-sidebar">
+          <div class="chat-side-card">
+            <div class="chat-side-label">Case Progress</div>
+            <ul class="chat-progress" id="chatProgress"></ul>
+          </div>
+          <div class="chat-side-card">
+            <div class="chat-side-label">Case Rating</div>
+            <div class="chat-rating-num" id="chatRatingNum">—</div>
+            <div class="meter-track"><div class="meter-fill trust" id="chatRatingBar" style="width:0%"></div></div>
+            <div class="chat-rating-detail" id="chatRatingDetail">Answer questions to build your rating.</div>
+          </div>
+          <div class="chat-side-card">
+            <div class="chat-side-label">Time in Case</div>
+            <div class="chat-timer" id="chatTimer">00:00</div>
+            <div class="chat-rating-detail">Target: ~20 minutes</div>
+          </div>
+        </aside>
+
+        <div class="chat-main">
+          <div class="chat-window" id="chatWindow"></div>
+          <div class="chat-input-area" id="chatInputArea"></div>
+        </div>
+      </div>
+
+      <div class="stage-nav">
+        <a data-goto="alignsim"><span class="lbl">Back</span><span class="val">← AI-HR Alignment Simulator</span></a>
         <a class="next" data-goto="career"><span class="lbl">Next</span><span class="val">Career Impact →</span></a>
       </div>
     </section>
@@ -835,6 +930,310 @@
   }
 
   renderAlignStep();
+})();
+
+(function(){
+  "use strict";
+
+  var chatWindow = document.getElementById("chatWindow");
+  var inputArea = document.getElementById("chatInputArea");
+  var progressEl = document.getElementById("chatProgress");
+  var ratingNum = document.getElementById("chatRatingNum");
+  var ratingBar = document.getElementById("chatRatingBar");
+  var ratingDetail = document.getElementById("chatRatingDetail");
+  var timerEl = document.getElementById("chatTimer");
+  if (!chatWindow) return;
+
+  var GROUPS = ["Case Background", "Diagnose the Problem", "Propose a Fix", "Six Months Later", "Debrief & Rating"];
+
+  var TURNS = [
+    { type:"bot", group:0, text:"Hi — I'm your case coach for this session. We'll work through a real HR scenario together: I'll share context, ask a few questions along the way, and you'll build a Case Rating as we go. Should take about 20 minutes. Ready? Let's meet the company." },
+    { type:"bot", group:0, text:"Meridian Health Analytics is a 150-person healthcare data startup — solid reputation, growing fast. Its 12-person Data Science team is considered the core of the product." },
+    { type:"bot", group:0, text:"Over the last two quarters, Meridian lost 4 of those 12 data scientists — a 33% chunk of the team, against a company-wide average of about 8% annual turnover. Leadership is alarmed and has asked you, the new HR Business Partner, to figure out what's going on." },
+    { type:"bot", group:0, text:"Exit interviews mention a few recurring themes: “not much room to grow here,” “my manager and I barely talk,” and “I found something that pays better.” Let's start digging in." },
+
+    { type:"mcq", group:1,
+      prompt:"Based on those exit interview themes alone, which part of the talent lifecycle looks like the primary failure point?",
+      options:[
+        { label:"Talent Identification — Meridian is simply hiring the wrong people.", correct:false, feedback:"The exit comments aren't about fit or capability — nobody's saying they can't do the job. That points away from an identification problem." },
+        { label:"Talent Development — growth and feedback both fell short.", correct:false, feedback:"Growth and feedback are both development signals, and you're right that they matter here — but there's a third theme in the mix too. Worth holding more than one hypothesis at once." },
+        { label:"Talent Retention — compensation is the real issue.", correct:false, feedback:"Pay came up, and it matters — but treating it as the whole story means ignoring two other themes that showed up just as often." },
+        { label:"It's ambiguous — more than one stage is likely contributing.", correct:true, feedback:"Right instinct. “No growth” and “no feedback” both point at development, while “pays better” points at retention. Real cases rarely have one clean cause — treating this as single-cause would mean fixing only part of the problem." }
+      ]
+    },
+    { type:"bot", group:1, text:"Good — hold onto that instinct. Here's more data: Meridian's engagement survey shows the “career growth” score dropped from 7.2 to 5.1 over the last three quarters. And “manager check-in frequency” was cut roughly in half after a team reorg eight months ago." },
+    { type:"open", group:1,
+      prompt:"In 2–3 sentences: what's your hypothesis for what changed eight months ago, and why would it show up as a resignation wave months later instead of immediately?",
+      keywords:["reorg","span","manager","1:1","one-on-one","check-in","checkin","feedback","lag","later","delay","disengag"],
+      model:"Most case teams land here: the reorg likely widened each manager's span of control, cutting into 1:1 time and feedback. People don't usually quit the moment feedback drops — they disengage first, start looking quietly, and only leave once something else comes through. That lag is exactly why the resignation wave shows up months after the reorg, not right after it."
+    },
+
+    { type:"bot", group:2, text:"Leadership wants a plan by next quarter. Let's get concrete." },
+    { type:"mcq", group:2,
+      prompt:"What should you propose first?",
+      options:[
+        { label:"An across-the-board raise for the whole Data Science team.", correct:false, feedback:"Pay came up in exit interviews, but a blanket raise treats a mentioned symptom as the root cause — and it's expensive to reverse if it doesn't fix retention." },
+        { label:"Reinstate structured 1:1 manager check-ins and publish a clear growth/promotion path.", correct:true, feedback:"This targets what the data actually points to: reduced feedback and unclear growth. It's also something you can implement immediately without waiting on a budget cycle." },
+        { label:"Update the exit interview process to collect better data going forward.", correct:false, feedback:"Useful for the next crisis — but it doesn't do anything to stop the current one." },
+        { label:"Freeze hiring until turnover stabilizes.", correct:false, feedback:"This protects headcount numbers, not the people who are actually leaving. It doesn't address the cause at all." }
+      ]
+    },
+    { type:"bot", group:2, text:"Good call. One wrinkle: Finance says a blanket raise isn't in this quarter's budget — but manager training and a promotion framework can be funded right away." },
+    { type:"open", group:2,
+      prompt:"Three months from now, how would you know if this fix actually worked? Name at least one metric you'd track.",
+      keywords:["engagement","turnover","survey","promotion","check-in","checkin","retention","attrition"],
+      model:"Strong answers usually name at least one of: the engagement survey's career-growth score (should climb back up), voluntary turnover in the Data Science team (should trend back toward ~8%), or the internal promotion/movement rate (more people visibly moving up, not just staying in place)."
+    },
+
+    { type:"bot", group:3, text:"Fast-forward six months. Turnover in the team has dropped to 12%, and the engagement survey's growth score is climbing again. Then a senior data scientist resigns — citing pay." },
+    { type:"mcq", group:3,
+      prompt:"What's the right read on this one resignation?",
+      options:[
+        { label:"The whole plan failed — scrap it and start over.", correct:false, feedback:"One data point against a clear multi-month trend isn't a failed plan — reacting this way means abandoning something that's actually working." },
+        { label:"One data point doesn't invalidate a trend — but it's worth flagging compensation as the next thing to review.", correct:true, feedback:"Exactly the right instinct: trust the trend, but don't ignore a signal that keeps recurring. Compensation was mentioned back in the original exit interviews too — this is worth a closer look, not a full reversal." },
+        { label:"Ignore it completely — they were probably leaving anyway.", correct:false, feedback:"Dismissing it outright means you might miss a real early warning if pay complaints start showing up again." },
+        { label:"Immediately raise pay for the whole team to prevent more departures.", correct:false, feedback:"Same instinct as month one — reacting to a mentioned factor without checking if it's actually become the pattern yet." }
+      ]
+    },
+
+    { type:"bot", group:4, text:"That's the case. A few things worth carrying forward: exit-interview themes often span more than one talent-lifecycle stage at once. Effects lag their causes — a reorg's damage can take months to show up as resignations. And once you're managing a trend, single data points are signals to watch, not verdicts to act on alone." },
+    { type:"bot", group:4, text:"Nice work — here's your final Case Rating on the left. Feel free to restart and try different answers to see how the case responds." }
+  ];
+
+  var ti = 0;
+  var currentGroup = 0;
+  var mcqTotal = 0, mcqCorrect = 0, openTotal = 0, openScore = 0;
+  var startTime = Date.now();
+  var timerInterval = null;
+
+  function renderProgress(){
+    var html = "";
+    GROUPS.forEach(function(name, i){
+      var cls = i < currentGroup ? "done" : (i === currentGroup ? "active" : "");
+      var mark = i < currentGroup ? "✓" : (i + 1);
+      html += '<li class="' + cls + '"><span class="step-dot">' + (i < currentGroup ? "✓" : "") + '</span>' + name + '</li>';
+    });
+    progressEl.innerHTML = html;
+  }
+
+  function updateRating(){
+    var max = 3 + 2; // 3 MCQ points + 2 open points max
+    var score = mcqCorrect + openScore;
+    var pct = Math.round((score / max) * 100);
+    ratingNum.textContent = score.toFixed(1) + " / 5.0";
+    ratingBar.style.width = pct + "%";
+    var parts = [];
+    if (mcqTotal > 0) parts.push(mcqCorrect + "/" + mcqTotal + " multiple-choice correct");
+    if (openTotal > 0) parts.push(openScore.toFixed(1) + "/" + openTotal + " reflection score");
+    ratingDetail.textContent = parts.length ? parts.join(" · ") : "Answer questions to build your rating.";
+  }
+
+  function scrollToBottom(){
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }
+
+  function pushBubble(text, cls, tag){
+    var div = document.createElement("div");
+    div.className = "chat-bubble " + cls;
+    if (tag) div.innerHTML = '<span class="bubble-tag">' + tag + '</span>' + text;
+    else div.textContent = text;
+    chatWindow.appendChild(div);
+    scrollToBottom();
+    return div;
+  }
+
+  function showTyping(cb){
+    var t = document.createElement("div");
+    t.className = "chat-typing";
+    t.innerHTML = "<span></span><span></span><span></span>";
+    chatWindow.appendChild(t);
+    scrollToBottom();
+    setTimeout(function(){
+      t.remove();
+      cb();
+    }, 550 + Math.random() * 350);
+  }
+
+  function clearInputArea(){
+    inputArea.innerHTML = "";
+  }
+
+  function renderContinueButton(){
+    clearInputArea();
+    var row = document.createElement("div");
+    row.className = "chat-continue-row";
+    var btn = document.createElement("button");
+    btn.className = "sim-btn";
+    btn.textContent = "Continue";
+    btn.addEventListener("click", function(){
+      clearInputArea();
+      ti++;
+      next();
+    });
+    row.appendChild(btn);
+    inputArea.appendChild(row);
+  }
+
+  function next(){
+    if (ti >= TURNS.length){
+      finishCase();
+      return;
+    }
+    var turn = TURNS[ti];
+    if (turn.group !== undefined && turn.group !== currentGroup){
+      currentGroup = turn.group;
+    }
+    renderProgress();
+
+    if (turn.type === "bot"){
+      showTyping(function(){
+        pushBubble(turn.text, "bot");
+        ti++;
+        var atBoundary = ti >= TURNS.length || TURNS[ti].type !== "bot";
+        setTimeout(next, atBoundary ? 200 : 500);
+      });
+      return;
+    }
+
+    if (turn.type === "mcq"){
+      showTyping(function(){
+        pushBubble(turn.prompt, "bot");
+        renderMcqInput(turn);
+      });
+      return;
+    }
+
+    if (turn.type === "open"){
+      showTyping(function(){
+        pushBubble(turn.prompt, "bot");
+        renderOpenInput(turn);
+      });
+      return;
+    }
+  }
+
+  function renderMcqInput(turn){
+    clearInputArea();
+    var wrap = document.createElement("div");
+    wrap.className = "chat-mcq-options";
+    turn.options.forEach(function(opt, idx){
+      var btn = document.createElement("button");
+      btn.className = "chat-mcq-btn";
+      btn.textContent = opt.label;
+      btn.addEventListener("click", function(){ answerMcq(turn, idx); });
+      wrap.appendChild(btn);
+    });
+    inputArea.appendChild(wrap);
+  }
+
+  function answerMcq(turn, idx){
+    var opt = turn.options[idx];
+    var buttons = inputArea.querySelectorAll(".chat-mcq-btn");
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if (i === idx) b.classList.add(opt.correct ? "correct" : "incorrect");
+      else if (turn.options[i].correct) b.classList.add("correct");
+    });
+
+    pushBubble(opt.label, "user");
+    mcqTotal++;
+    if (opt.correct) mcqCorrect++;
+    updateRating();
+
+    setTimeout(function(){
+      showTyping(function(){
+        pushBubble(opt.feedback, "bot");
+        renderContinueButton();
+      });
+    }, 400);
+  }
+
+  function renderOpenInput(turn){
+    clearInputArea();
+    var hint = document.createElement("div");
+    hint.className = "chat-hint";
+    hint.textContent = "Type a short answer (at least a sentence or two), then send.";
+    inputArea.appendChild(hint);
+
+    var row = document.createElement("div");
+    row.className = "chat-open-row";
+    var ta = document.createElement("textarea");
+    ta.placeholder = "Type your answer here…";
+    var btn = document.createElement("button");
+    btn.className = "sim-btn";
+    btn.textContent = "Send";
+    btn.disabled = true;
+
+    ta.addEventListener("input", function(){
+      btn.disabled = ta.value.trim().split(/\s+/).filter(Boolean).length < 6;
+    });
+
+    btn.addEventListener("click", function(){ answerOpen(turn, ta.value.trim()); });
+
+    row.appendChild(ta);
+    row.appendChild(btn);
+    inputArea.appendChild(row);
+    ta.focus();
+  }
+
+  function answerOpen(turn, text){
+    pushBubble(text, "user");
+    clearInputArea();
+
+    var lower = text.toLowerCase();
+    var hit = turn.keywords.some(function(k){ return lower.indexOf(k) !== -1; });
+    var wordCount = text.split(/\s+/).filter(Boolean).length;
+    var points = hit ? 1 : (wordCount >= 12 ? 0.5 : 0.25);
+
+    openTotal++;
+    openScore += points;
+    updateRating();
+
+    setTimeout(function(){
+      showTyping(function(){
+        pushBubble(turn.model, "bot model-answer", "Model Answer / Discussion Points");
+        renderContinueButton();
+      });
+    }, 400);
+  }
+
+  function finishCase(){
+    currentGroup = GROUPS.length;
+    renderProgress();
+    clearInputArea();
+    var row = document.createElement("div");
+    row.className = "chat-continue-row";
+    var btn = document.createElement("button");
+    btn.className = "sim-btn ghost";
+    btn.textContent = "Restart Case";
+    btn.addEventListener("click", restartCase);
+    row.appendChild(btn);
+    inputArea.appendChild(row);
+  }
+
+  function restartCase(){
+    ti = 0;
+    currentGroup = 0;
+    mcqTotal = 0; mcqCorrect = 0; openTotal = 0; openScore = 0;
+    chatWindow.innerHTML = "";
+    updateRating();
+    renderProgress();
+    clearInputArea();
+    next();
+  }
+
+  function tickTimer(){
+    var elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var m = Math.floor(elapsed / 60);
+    var s = elapsed % 60;
+    timerEl.textContent = (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+  }
+
+  renderProgress();
+  updateRating();
+  timerInterval = setInterval(tickTimer, 1000);
+  tickTimer();
+  next();
 })();
 </script>
 </body>
