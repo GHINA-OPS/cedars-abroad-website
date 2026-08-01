@@ -142,6 +142,52 @@
   .cert-card h3{margin:0 0 6px;font-size:16px;}
   .cert-card p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.55;}
 
+  /* Simulation */
+  .sim-progress{display:flex;gap:6px;margin-bottom:24px;}
+  .sim-progress .sp-dot{flex:1;height:4px;border-radius:999px;background:var(--surface-2);}
+  .sim-progress .sp-dot.done{background:var(--green);}
+  .sim-progress .sp-dot.current{background:var(--accent);}
+
+  .sim-stage{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:30px 32px;}
+  .sim-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-ink);font-weight:700;margin:0 0 8px;}
+  .sim-title{font-size:19px;font-weight:700;margin:0 0 10px;}
+  .sim-context{background:var(--surface-2);border-radius:10px;padding:14px 16px;font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-bottom:18px;}
+  .sim-prompt{font-size:14.5px;color:var(--ink);font-weight:600;margin:0 0 16px;}
+
+  .sim-options{display:grid;gap:10px;margin-bottom:6px;}
+  .sim-option{
+    display:block;width:100%;text-align:left;background:var(--surface);border:1.5px solid var(--border);
+    border-radius:10px;padding:14px 16px;font-family:var(--sans);font-size:13.5px;color:var(--ink);
+    cursor:pointer;line-height:1.5;transition:border-color .15s ease,background .15s ease;
+  }
+  .sim-option:hover:not(:disabled){border-color:var(--accent);}
+  .sim-option:disabled{cursor:default;}
+  .sim-option.correct{border-color:var(--green);background:var(--green-wash);}
+  .sim-option.incorrect{border-color:var(--accent);background:var(--accent-wash);}
+  .sim-option .opt-mark{float:right;font-weight:700;}
+  .sim-option.correct .opt-mark{color:var(--green);}
+  .sim-option.incorrect .opt-mark{color:var(--accent);}
+
+  .sim-feedback{margin-top:16px;padding:14px 16px;border-radius:10px;font-size:13.5px;line-height:1.6;}
+  .sim-feedback.good{background:var(--green-wash);color:var(--ink-2);}
+  .sim-feedback.bad{background:var(--accent-wash);color:var(--ink-2);}
+  .sim-feedback b{color:var(--ink);}
+
+  .sim-continue{margin-top:20px;display:flex;justify-content:flex-end;}
+  .sim-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-family:var(--sans);font-size:13.5px;font-weight:700;cursor:pointer;}
+  .sim-btn:hover{opacity:.92;}
+  .sim-btn.ghost{background:transparent;color:var(--ink-2);border:1.5px solid var(--border);}
+
+  .sim-score{text-align:center;padding:10px 0 6px;}
+  .sim-score .score-num{font-family:var(--serif);font-size:52px;color:var(--accent);line-height:1;}
+  .sim-score .score-out{font-size:15px;color:var(--ink-muted);margin-top:4px;}
+  .sim-score .score-msg{font-size:14.5px;color:var(--ink-2);line-height:1.6;max-width:52ch;margin:16px auto 0;}
+  .sim-recap{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:8px;text-align:left;}
+  .sim-recap li{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-2);background:var(--surface-2);border-radius:8px;padding:10px 12px;}
+  .sim-recap li .tag{flex:none;font-weight:700;font-size:11px;padding:2px 8px;border-radius:999px;}
+  .sim-recap li.ok .tag{background:var(--green-wash);color:var(--green);}
+  .sim-recap li.no .tag{background:var(--accent-wash);color:var(--accent);}
+
   ::selection{background:var(--accent-wash);}
 
   @media (max-width: 900px){
@@ -175,6 +221,8 @@
     <button class="rail-item" data-tab="identification"><span class="rail-dot" style="--dot:var(--p-id)"></span><span class="lbl">Talent Identification</span></button>
     <button class="rail-item" data-tab="development"><span class="rail-dot" style="--dot:var(--p-dev)"></span><span class="lbl">Talent Development</span></button>
     <button class="rail-item" data-tab="retention"><span class="rail-dot" style="--dot:var(--p-ret)"></span><span class="lbl">Talent Retention</span></button>
+    <div class="rail-group-label">Practice</div>
+    <button class="rail-item" data-tab="simulation"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Hiring Simulation</span></button>
     <div class="rail-group-label">Wrap-Up</div>
     <button class="rail-item" data-tab="career"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Career Impact</span></button>
     <div class="rail-foot">Cedars Abroad<br>AI Training &amp; Certification</div>
@@ -323,6 +371,20 @@
 
       <div class="stage-nav">
         <a data-goto="development"><span class="lbl">Back</span><span class="val">← Talent Development</span></a>
+        <a class="next" data-goto="simulation"><span class="lbl">Next</span><span class="val">Try the Simulation →</span></a>
+      </div>
+    </section>
+
+    <section id="panel-simulation" class="panel">
+      <p class="eyebrow">Practice</p>
+      <h1 class="page-title">Hiring Simulation</h1>
+      <p class="page-sub">You're the HR coordinator hiring a Customer Success Associate. Make the calls — from writing the job description through the first week on the job — and see how you score.</p>
+
+      <div class="sim-progress" id="simProgress"></div>
+      <div class="sim-stage" id="simStage"></div>
+
+      <div class="stage-nav">
+        <a data-goto="retention"><span class="lbl">Back</span><span class="val">← Talent Retention</span></a>
         <a class="next" data-goto="career"><span class="lbl">Next</span><span class="val">Career Impact →</span></a>
       </div>
     </section>
@@ -377,6 +439,191 @@
   document.querySelectorAll("[data-goto]").forEach(function(el){
     el.addEventListener("click", function(){ selectTab(el.dataset.goto); });
   });
+})();
+
+(function(){
+  "use strict";
+
+  var STEPS = [
+    {
+      kicker: "Step 1 of 5 · Talent Identification",
+      title: "Write the job description",
+      context: "You're hiring a Customer Success Associate for a growing SaaS company. Before anything else, you need a job description candidates will actually apply to.",
+      prompt: "Which job description gives you the best shot at attracting the right candidates?",
+      options: [
+        { label: "“Rockstar wanted! We need a ninja who can wear a million hats and crush it 24/7.”", correct: false,
+          feedback: "Buzzword-heavy, vague postings attract fewer qualified applicants — candidates can't tell what the job actually involves, so the strongest ones self-select out." },
+        { label: "Clear title, 4-5 concrete responsibilities, required vs. “nice to have” skills, and a stated salary range.", correct: true,
+          feedback: "Specificity does the filtering for you. Candidates can self-assess fit before applying, which means a smaller, stronger, more relevant pool." },
+        { label: "“5+ years required” for an entry-level role paying entry-level wages.", correct: false,
+          feedback: "Mismatched requirements filter out good candidates and signal that the role wasn't thought through — a classic case of role design done after the fact, not before." }
+      ]
+    },
+    {
+      kicker: "Step 2 of 5 · Talent Identification",
+      title: "Screen the candidates",
+      context: "Three people applied. The job needs someone comfortable troubleshooting technical issues, calm under pressure, and able to communicate clearly with frustrated customers.",
+      prompt: "Based on the job requirements, who do you shortlist for an interview?",
+      options: [
+        { label: "Candidate A — 2 years in technical support, known for staying calm with upset customers, no direct SaaS experience.", correct: true,
+          feedback: "This is what structured screening looks like: matching the candidate's demonstrated strengths directly against the role's actual requirements, not just years of experience." },
+        { label: "Candidate B — 10 years as a sales director, no support or troubleshooting background, applied because they “need a change.”", correct: false,
+          feedback: "Impressive resume, wrong fit. Screening on seniority alone instead of role-relevant skills is a common and costly mistake." },
+        { label: "Candidate C — recent graduate with strong grades, no customer-facing or technical experience mentioned.", correct: false,
+          feedback: "Potential isn't nothing, but with two other candidates who already show the core skills the role needs, this isn't the strongest shortlist pick." }
+      ]
+    },
+    {
+      kicker: "Step 3 of 5 · Selection",
+      title: "Choose your interview question",
+      context: "Candidate A is in the interview. You have one question to really test how they handle the hardest part of this job.",
+      prompt: "Which question should you ask?",
+      options: [
+        { label: "“Do you have kids, or are you planning to?”", correct: false,
+          feedback: "This isn't just a bad question — asking about family or pregnancy plans is illegal in most hiring contexts and has nothing to do with job performance." },
+        { label: "“What's your favorite movie?”", correct: false,
+          feedback: "Harmless, but it tells you nothing about whether this person can do the job. Every interview question should be earning its place." },
+        { label: "“Tell me about a time you handled an angry customer. What did you actually do, and how did it end?”", correct: true,
+          feedback: "This is a structured behavioral question — it asks for a real example, not a hypothetical, which makes it a much stronger predictor of how they'll actually perform on the job." }
+      ]
+    },
+    {
+      kicker: "Step 4 of 5 · Selection",
+      title: "After the interview",
+      context: "Candidate A gave a strong, specific answer to your behavioral question. You're impressed.",
+      prompt: "What's the right next move?",
+      options: [
+        { label: "Extend the offer on the spot — the interview went well, no need to slow things down.", correct: false,
+          feedback: "One good interview isn't the whole picture. Skipping reference checks or a second conversation trades a small amount of speed for a much bigger hiring risk." },
+        { label: "Run a reference check or a short second interview before deciding.", correct: true,
+          feedback: "This closes the loop on selection: a strong interview plus a reference check that confirms the story is what separates a good hire from a lucky guess." },
+        { label: "Reject without giving a reason, just in case someone better applies later.", correct: false,
+          feedback: "Passing on a candidate who matches your requirements, on the chance someone theoretical shows up, usually just means restarting a costly process for no reason." }
+      ]
+    },
+    {
+      kicker: "Step 5 of 5 · Talent Development",
+      title: "The first week",
+      context: "You hired Candidate A. They start Monday.",
+      prompt: "What matters most in their first week on the job?",
+      options: [
+        { label: "Hand them a full ticket queue on day one — the best way to learn is by doing.", correct: false,
+          feedback: "Without structure first, this usually just produces early mistakes and a demoralized new hire — the opposite of what you want in week one." },
+        { label: "A structured onboarding plan with clear 30-60-90 day goals and a named point of contact.", correct: true,
+          feedback: "This is where identification hands off to development. A hire this well-screened deserves an onboarding plan that actually sets them up to succeed." },
+        { label: "No formal onboarding — they seemed sharp in the interview, they'll figure it out.", correct: false,
+          feedback: "Even strong hires need context: how the team works, what “good” looks like here, and who to ask. Skipping this is a leading cause of early turnover." }
+      ]
+    }
+  ];
+
+  var simStage = document.getElementById("simStage");
+  var simProgress = document.getElementById("simProgress");
+  if (!simStage) return;
+
+  var current = 0;
+  var answered = [];
+
+  function renderProgress(){
+    var dots = "";
+    for (var i = 0; i < STEPS.length; i++){
+      var cls = i < current ? "done" : (i === current ? "current" : "");
+      dots += '<div class="sp-dot ' + cls + '"></div>';
+    }
+    simProgress.innerHTML = dots;
+  }
+
+  function renderStep(){
+    if (current >= STEPS.length){
+      renderResults();
+      return;
+    }
+    renderProgress();
+    var step = STEPS[current];
+    var html = '<p class="sim-kicker">' + step.kicker + '</p>';
+    html += '<h3 class="sim-title">' + step.title + '</h3>';
+    html += '<div class="sim-context">' + step.context + '</div>';
+    html += '<p class="sim-prompt">' + step.prompt + '</p>';
+    html += '<div class="sim-options" id="simOptions"></div>';
+    html += '<div id="simFeedback"></div>';
+    html += '<div class="sim-continue" id="simContinue"></div>';
+    simStage.innerHTML = html;
+
+    var optWrap = document.getElementById("simOptions");
+    step.options.forEach(function(opt, idx){
+      var btn = document.createElement("button");
+      btn.className = "sim-option";
+      btn.innerHTML = opt.label;
+      btn.addEventListener("click", function(){ chooseOption(idx); });
+      optWrap.appendChild(btn);
+    });
+  }
+
+  function chooseOption(idx){
+    var step = STEPS[current];
+    var opt = step.options[idx];
+    var buttons = document.querySelectorAll("#simOptions .sim-option");
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if (i === idx) {
+        b.classList.add(opt.correct ? "correct" : "incorrect");
+        b.innerHTML += '<span class="opt-mark">' + (opt.correct ? "✓" : "✗") + '</span>';
+      } else if (step.options[i].correct) {
+        b.classList.add("correct");
+      }
+    });
+
+    var fb = document.getElementById("simFeedback");
+    fb.innerHTML = '<div class="sim-feedback ' + (opt.correct ? "good" : "bad") + '"><b>' +
+      (opt.correct ? "Good call. " : "Not quite. ") + '</b>' + opt.feedback + '</div>';
+
+    answered[current] = { title: step.title, correct: opt.correct };
+
+    var cont = document.getElementById("simContinue");
+    var btn = document.createElement("button");
+    btn.className = "sim-btn";
+    btn.textContent = (current === STEPS.length - 1) ? "See your results" : "Continue";
+    btn.addEventListener("click", function(){
+      current++;
+      renderStep();
+    });
+    cont.appendChild(btn);
+  }
+
+  function renderResults(){
+    renderProgress();
+    var score = answered.filter(function(a){ return a.correct; }).length;
+    var msg;
+    if (score === STEPS.length) {
+      msg = "Excellent — you made strong calls across the entire hiring lifecycle, from job description to onboarding. That's the instinct real HR work runs on.";
+    } else if (score >= 3) {
+      msg = "Solid work. You've got a good feel for the hiring process, with a couple of spots worth revisiting in the lessons above.";
+    } else {
+      msg = "Good first attempt. Review the Identification, Development, and Retention lessons above, then try the simulation again — the patterns will start clicking.";
+    }
+
+    var recap = "";
+    answered.forEach(function(a){
+      recap += '<li class="' + (a.correct ? "ok" : "no") + '"><span class="tag">' + (a.correct ? "Correct" : "Missed") + '</span><span>' + a.title + '</span></li>';
+    });
+
+    var html = '<div class="sim-score">';
+    html += '<div class="score-num">' + score + '/' + STEPS.length + '</div>';
+    html += '<div class="score-out">decisions made well</div>';
+    html += '<p class="score-msg">' + msg + '</p>';
+    html += '<ul class="sim-recap">' + recap + '</ul>';
+    html += '<div class="sim-continue" style="justify-content:center;margin-top:22px;"><button class="sim-btn ghost" id="simRestart">Restart Simulation</button></div>';
+    html += '</div>';
+    simStage.innerHTML = html;
+
+    document.getElementById("simRestart").addEventListener("click", function(){
+      current = 0;
+      answered = [];
+      renderStep();
+    });
+  }
+
+  renderStep();
 })();
 </script>
 </body>
