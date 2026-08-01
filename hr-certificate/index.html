@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Talent Lifecycle Certificate — Cedars Abroad</title>
+<meta name="description" content="A university-focused HR certificate covering the full talent lifecycle: identification, development, and retention.">
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f5f7f9;
+    --surface:#ffffff;
+    --surface-2:#eef1f5;
+    --rail:#12151c;
+    --rail-ink:#c7cdd8;
+    --rail-ink-dim:#7b8496;
+    --ink:#12151c;
+    --ink-2:#4c5361;
+    --ink-muted:#868f9e;
+    --border:rgba(18,21,28,0.10);
+    --grid:#e4e7ec;
+    --accent:#c8102e;
+    --accent-wash:rgba(200,16,46,0.10);
+    --accent-ink:#a10d25;
+    --green:#00654e;
+    --green-wash:rgba(0,101,78,0.10);
+    --p-id:#4a3aa7;
+    --p-dev:#00654e;
+    --p-ret:#c05a1f;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      color-scheme: dark;
+      --page:#0c0e12;
+      --surface:#161920;
+      --surface-2:#1d212a;
+      --rail:#0a0c10;
+      --rail-ink:#dfe3ea;
+      --rail-ink-dim:#8891a0;
+      --ink:#f1f3f6;
+      --ink-2:#b7bfcc;
+      --ink-muted:#7e8796;
+      --border:rgba(255,255,255,0.10);
+      --grid:#262b34;
+      --accent:#ff5470;
+      --accent-wash:rgba(255,84,112,0.14);
+      --accent-ink:#ff8fa3;
+      --green:#2bb491;
+      --green-wash:rgba(43,180,145,0.14);
+      --p-id:#9085e9;
+      --p-dev:#2fd99a;
+      --p-ret:#e08a4c;
+    }
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+
+  .app{display:flex;min-height:100vh;width:100%;}
+
+  .rail{
+    width:250px;flex:none;background:var(--rail);color:var(--rail-ink);
+    display:flex;flex-direction:column;padding:22px 14px;gap:4px;
+    position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;
+  }
+  .rail-brand{padding:4px 10px 18px;}
+  .rail-brand .k{font-family:var(--serif);font-size:19px;line-height:1.15;color:#fff;letter-spacing:.2px;}
+  .rail-brand .s{display:block;margin-top:5px;font-size:11px;color:var(--rail-ink-dim);text-transform:uppercase;letter-spacing:.08em;}
+  .rail-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--rail-ink-dim);padding:14px 10px 6px;}
+  .rail-item{
+    display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;cursor:pointer;
+    border:1px solid transparent;background:transparent;color:var(--rail-ink);text-align:left;font-family:var(--sans);
+    font-size:13.5px;width:100%;
+  }
+  .rail-item:hover{background:rgba(255,255,255,0.06);}
+  .rail-item.active{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.10);}
+  .rail-dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--dot,#888);}
+  .rail-item .lbl{flex:1;}
+  .rail-foot{margin-top:auto;padding:10px;font-size:11px;color:var(--rail-ink-dim);line-height:1.5;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;}
+  .rail-back{display:inline-flex;align-items:center;gap:6px;color:var(--rail-ink-dim);text-decoration:none;font-size:12px;margin-bottom:10px;}
+  .rail-back:hover{color:#fff;}
+
+  .stage{flex:1;min-width:0;padding:34px 40px 64px;max-width:980px;}
+  .panel{display:none;animation:fade .22s ease;}
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-muted);margin:0 0 8px;}
+  h1.page-title{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.2;margin:0 0 10px;text-wrap:balance;}
+  p.page-sub{font-size:15px;color:var(--ink-2);max-width:62ch;line-height:1.6;margin:0 0 28px;}
+
+  .badge-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:3px 10px 3px 8px;border-radius:100px;border:1px solid var(--border);color:var(--ink-2);background:var(--surface);}
+  .badge-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--dot,var(--accent));}
+
+  /* Overview flow */
+  .flow{display:flex;align-items:stretch;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:26px;overflow-x:auto;}
+  .flow-node{flex:1;min-width:190px;padding:0 14px;cursor:pointer;}
+  .flow-node .fn-persp{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);margin-bottom:6px;}
+  .flow-node .fn-title{font-size:15px;font-weight:700;margin-bottom:6px;}
+  .flow-node .fn-desc{font-size:12.5px;color:var(--ink-2);line-height:1.5;}
+  .flow-arrow{flex:none;width:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink-muted);}
+  .flow-arrow svg{width:36px;height:14px;}
+
+  .ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px;}
+  .ov-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;cursor:pointer;}
+  .ov-card:hover{border-color:var(--dot);}
+  .ov-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .ov-head .dot{width:9px;height:9px;border-radius:50%;background:var(--dot);}
+  .ov-head .name{font-size:15px;font-weight:700;}
+  .ov-card p{font-size:13px;color:var(--ink-2);line-height:1.55;margin:0;}
+
+  .why-box{background:var(--accent-wash);border:1px solid var(--border);border-radius:12px;padding:20px 22px;font-size:13.5px;color:var(--ink-2);line-height:1.6;}
+  .why-box b{color:var(--ink);}
+
+  /* Stage panels */
+  .stage-section{margin-bottom:28px;}
+  .stage-section h2{font-size:16px;margin:0 0 12px;color:var(--ink);}
+  .stage-section p{font-size:14.5px;color:var(--ink-2);line-height:1.65;margin:0 0 12px;max-width:66ch;}
+  .stage-list{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  .stage-list li{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--ink-2);line-height:1.5;}
+  .stage-list li b{color:var(--ink);display:block;font-size:13.5px;margin-bottom:2px;}
+  .stage-list li .num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--surface-2);color:var(--ink-muted);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+
+  .ai-callout{display:flex;gap:14px;align-items:flex-start;background:var(--green-wash);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-top:8px;}
+  .ai-callout .ai-icon{flex:none;width:38px;height:38px;border-radius:10px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .ai-callout .ai-body b{display:block;font-size:13px;color:var(--ink);margin-bottom:3px;}
+  .ai-callout .ai-body p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.55;}
+
+  .stage-nav{display:flex;justify-content:space-between;margin-top:34px;border-top:1px solid var(--border);padding-top:20px;}
+  .stage-nav a{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink-2);font-size:13px;cursor:pointer;}
+  .stage-nav a .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);}
+  .stage-nav a .val{font-weight:700;color:var(--ink);}
+  .stage-nav a:hover .val{color:var(--accent);}
+  .stage-nav a.next{text-align:right;align-items:flex-end;}
+
+  /* Career panel */
+  .cert-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 30px;display:flex;gap:22px;align-items:center;margin-top:10px;}
+  .cert-badge{flex:none;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--green));display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;}
+  .cert-card h3{margin:0 0 6px;font-size:16px;}
+  .cert-card p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.55;}
+
+  ::selection{background:var(--accent-wash);}
+
+  @media (max-width: 900px){
+    .app{flex-direction:column;}
+    .rail{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap;padding:14px;align-items:center;}
+    .rail-brand{padding:0 10px 0 0;}
+    .rail-group-label{display:none;}
+    .rail-item{width:auto;}
+    .rail-foot{display:none;}
+    .stage{padding:24px 18px 48px;}
+    .ov-grid{grid-template-columns:1fr;}
+    .flow{flex-direction:column;}
+    .flow-arrow{width:100%;height:30px;flex-direction:row;}
+    .flow-arrow svg{transform:rotate(90deg);}
+    .cert-card{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <nav class="rail" id="rail">
+    <div class="rail-brand">
+      <a href="/#certificate" class="rail-back">&larr; Back to Cedars Abroad</a>
+      <div class="k">HR Certificate</div>
+      <span class="s">Talent Lifecycle</span>
+    </div>
+    <div class="rail-group-label">Certificate</div>
+    <button class="rail-item active" data-tab="overview"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Overview</span></button>
+    <div class="rail-group-label">Talent Lifecycle</div>
+    <button class="rail-item" data-tab="identification"><span class="rail-dot" style="--dot:var(--p-id)"></span><span class="lbl">Talent Identification</span></button>
+    <button class="rail-item" data-tab="development"><span class="rail-dot" style="--dot:var(--p-dev)"></span><span class="lbl">Talent Development</span></button>
+    <button class="rail-item" data-tab="retention"><span class="rail-dot" style="--dot:var(--p-ret)"></span><span class="lbl">Talent Retention</span></button>
+    <div class="rail-group-label">Wrap-Up</div>
+    <button class="rail-item" data-tab="career"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Career Impact</span></button>
+    <div class="rail-foot">Cedars Abroad<br>AI Training &amp; Certification</div>
+  </nav>
+
+  <main class="stage">
+
+    <section id="panel-overview" class="panel active">
+      <p class="eyebrow">University Certificate Program</p>
+      <h1 class="page-title">HR Talent Lifecycle Certificate</h1>
+      <p class="page-sub">Built for university students studying HR or business, this certificate walks through how organizations find, grow, and keep the people they need — the three stages every HR professional works with every day.</p>
+
+      <div class="flow" id="overviewFlow">
+        <div class="flow-node" data-goto="identification">
+          <div class="fn-persp" style="color:var(--p-id)">Stage 1</div>
+          <div class="fn-title">Talent Identification</div>
+          <div class="fn-desc">Finding and selecting the right people for the right roles.</div>
+        </div>
+        <div class="flow-arrow"><svg viewBox="0 0 40 14" fill="none"><path d="M0 7H36M36 7L28 1M36 7L28 13" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <div class="flow-node" data-goto="development">
+          <div class="fn-persp" style="color:var(--p-dev)">Stage 2</div>
+          <div class="fn-title">Talent Development</div>
+          <div class="fn-desc">Growing people's skills once they're in the organization.</div>
+        </div>
+        <div class="flow-arrow"><svg viewBox="0 0 40 14" fill="none"><path d="M0 7H36M36 7L28 1M36 7L28 13" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <div class="flow-node" data-goto="retention">
+          <div class="fn-persp" style="color:var(--p-ret)">Stage 3</div>
+          <div class="fn-title">Talent Retention</div>
+          <div class="fn-desc">Keeping strong performers engaged and committed.</div>
+        </div>
+      </div>
+
+      <div class="ov-grid">
+        <div class="ov-card" data-goto="identification">
+          <div class="ov-head"><span class="dot" style="--dot:var(--p-id)"></span><span class="name">Identification</span></div>
+          <p>Workforce planning, sourcing, structured interviews, and selection methods that get the right hire in the door.</p>
+        </div>
+        <div class="ov-card" data-goto="development">
+          <div class="ov-head"><span class="dot" style="--dot:var(--p-dev)"></span><span class="name">Development</span></div>
+          <p>Onboarding, training, coaching, and career pathing that turn a new hire into a capable, growing employee.</p>
+        </div>
+        <div class="ov-card" data-goto="retention">
+          <div class="ov-head"><span class="dot" style="--dot:var(--p-ret)"></span><span class="name">Retention</span></div>
+          <p>Engagement, rewards, and growth opportunities that keep your best people from walking out the door.</p>
+        </div>
+      </div>
+
+      <div class="why-box"><b>Why this order matters:</b> the three stages form a loop, not a checklist. Weak identification creates development problems downstream; weak development drives people straight into the arms of retention problems. Most HR failures trace back to one stage being treated in isolation from the other two.</div>
+    </section>
+
+    <section id="panel-identification" class="panel">
+      <p class="eyebrow">Stage 1 of 3</p>
+      <h1 class="page-title">Talent Identification</h1>
+      <p class="page-sub">Talent identification is the work of figuring out what roles the organization actually needs filled, and finding the people who can fill them well — before a single interview happens.</p>
+
+      <div class="stage-section">
+        <h2>What it covers</h2>
+        <p>It starts before recruitment: workforce planning asks what skills the business will need in six months or two years, not just today. From there, job analysis defines what a role actually requires, sourcing brings in candidates through the right channels, and selection narrows the pool down to the best fit — for the role and for the organization's culture.</p>
+      </div>
+
+      <div class="stage-section">
+        <h2>Key activities</h2>
+        <ul class="stage-list">
+          <li><span class="num">1</span><div><b>Workforce &amp; succession planning</b>Forecasting what roles and skills the organization will need ahead of time, rather than reacting to vacancies.</div></li>
+          <li><span class="num">2</span><div><b>Job analysis &amp; role design</b>Defining the responsibilities, required skills, and success criteria for a position before posting it.</div></li>
+          <li><span class="num">3</span><div><b>Sourcing &amp; employer branding</b>Building a pipeline of candidates through job boards, referrals, universities, and a reputation worth applying to.</div></li>
+          <li><span class="num">4</span><div><b>Structured selection</b>Using consistent interview structures, work samples, or assessments so decisions are fair and comparable across candidates.</div></li>
+        </ul>
+      </div>
+
+      <div class="ai-callout">
+        <div class="ai-icon">🤖</div>
+        <div class="ai-body">
+          <b>Where AI fits in</b>
+          <p>AI-assisted screening tools can shortlist resumes against role requirements, flag skills gaps, and reduce time-to-hire — but they need human oversight to avoid amplifying bias baked into historical hiring data. Understanding both the capability and the risk is now a core HR skill.</p>
+        </div>
+      </div>
+
+      <div class="stage-nav">
+        <a data-goto="overview"><span class="lbl">Back</span><span class="val">Overview</span></a>
+        <a class="next" data-goto="development"><span class="lbl">Next</span><span class="val">Talent Development →</span></a>
+      </div>
+    </section>
+
+    <section id="panel-development" class="panel">
+      <p class="eyebrow">Stage 2 of 3</p>
+      <h1 class="page-title">Talent Development</h1>
+      <p class="page-sub">Development is what happens after the hire: turning potential into performance through structured onboarding, training, and growth opportunities.</p>
+
+      <div class="stage-section">
+        <h2>What it covers</h2>
+        <p>A great hire who never grows becomes a flight risk or a plateaued performer. Development covers everything from a new employee's first week to a senior employee's path toward leadership — onboarding, skills training, mentoring, feedback, and career pathing that gives people a reason to keep investing in the organization.</p>
+      </div>
+
+      <div class="stage-section">
+        <h2>Key activities</h2>
+        <ul class="stage-list">
+          <li><span class="num">1</span><div><b>Onboarding</b>Structured first weeks that get a new hire productive faster and reduce early attrition.</div></li>
+          <li><span class="num">2</span><div><b>Training &amp; upskilling</b>Formal programs — technical, managerial, or soft-skills — that close specific capability gaps.</div></li>
+          <li><span class="num">3</span><div><b>Coaching &amp; mentoring</b>Ongoing, individualized guidance that formal training alone can't provide.</div></li>
+          <li><span class="num">4</span><div><b>Performance management &amp; career pathing</b>Regular feedback cycles and visible next steps, so growth feels achievable rather than accidental.</div></li>
+        </ul>
+      </div>
+
+      <div class="ai-callout">
+        <div class="ai-icon">🤖</div>
+        <div class="ai-body">
+          <b>Where AI fits in</b>
+          <p>Adaptive learning platforms can personalize training content to an individual's skill gaps and pace, and people-analytics dashboards can flag employees whose growth has stalled long before a performance review would catch it.</p>
+        </div>
+      </div>
+
+      <div class="stage-nav">
+        <a data-goto="identification"><span class="lbl">Back</span><span class="val">← Talent Identification</span></a>
+        <a class="next" data-goto="retention"><span class="lbl">Next</span><span class="val">Talent Retention →</span></a>
+      </div>
+    </section>
+
+    <section id="panel-retention" class="panel">
+      <p class="eyebrow">Stage 3 of 3</p>
+      <h1 class="page-title">Talent Retention</h1>
+      <p class="page-sub">Retention is the discipline of keeping the people you've identified and developed — because losing them means losing that investment, and starting the cycle over.</p>
+
+      <div class="stage-section">
+        <h2>What it covers</h2>
+        <p>Retention isn't just about pay, though compensation matters. It's about whether people feel recognized, whether they can see a future at the organization, and whether their day-to-day work is sustainable. Strong retention strategies combine total rewards, engagement measurement, and honest conversations about why people actually leave.</p>
+      </div>
+
+      <div class="stage-section">
+        <h2>Key activities</h2>
+        <ul class="stage-list">
+          <li><span class="num">1</span><div><b>Total rewards strategy</b>Compensation, benefits, and recognition designed to stay competitive with the market.</div></li>
+          <li><span class="num">2</span><div><b>Engagement measurement</b>Pulse surveys and regular check-ins that surface dissatisfaction before it turns into a resignation.</div></li>
+          <li><span class="num">3</span><div><b>Stay interviews</b>Proactive conversations with current employees about what would make them leave — asked before they're already looking.</div></li>
+          <li><span class="num">4</span><div><b>Growth &amp; succession opportunities</b>Visible internal mobility so ambitious employees look inward for their next role, not elsewhere.</div></li>
+        </ul>
+      </div>
+
+      <div class="ai-callout">
+        <div class="ai-icon">🤖</div>
+        <div class="ai-body">
+          <b>Where AI fits in</b>
+          <p>Predictive attrition models can flag flight-risk employees using engagement, tenure, and workload signals — giving managers a window to act before a resignation letter, not after.</p>
+        </div>
+      </div>
+
+      <div class="stage-nav">
+        <a data-goto="development"><span class="lbl">Back</span><span class="val">← Talent Development</span></a>
+        <a class="next" data-goto="career"><span class="lbl">Next</span><span class="val">Career Impact →</span></a>
+      </div>
+    </section>
+
+    <section id="panel-career" class="panel">
+      <p class="eyebrow">Wrap-Up</p>
+      <h1 class="page-title">Why this matters for your career</h1>
+      <p class="page-sub">Whichever direction you take in business — HR, management, entrepreneurship, or consulting — understanding the talent lifecycle changes how you see every organization you join.</p>
+
+      <div class="stage-section">
+        <h2>What you should take away</h2>
+        <p>The three stages of identification, development, and retention aren't just HR department concerns — they're a lens for understanding why organizations succeed or struggle. A team that can't identify the right people, a manager who never develops their reports, or a company that bleeds talent through poor retention will underperform no matter how good its strategy looks on paper.</p>
+      </div>
+
+      <div class="stage-section">
+        <h2>Where this leads</h2>
+        <ul class="stage-list">
+          <li><span class="num">•</span><div><b>HR &amp; People Operations roles</b>The direct path — recruiting, L&amp;D, HR business partner, or people analytics.</div></li>
+          <li><span class="num">•</span><div><b>Management &amp; leadership</b>Every manager is doing talent identification, development, and retention informally, whether they realize it or not.</div></li>
+          <li><span class="num">•</span><div><b>Consulting &amp; entrepreneurship</b>Understanding talent dynamics is core to diagnosing why a business is or isn't working.</div></li>
+        </ul>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-badge">🎓</div>
+        <div>
+          <h3>HR Talent Lifecycle Certificate</h3>
+          <p>Complete all three stages to round out your understanding of the talent lifecycle — from identification, through development, to retention. A practical foundation for any student heading into HR or people-facing management roles.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var tabs = document.querySelectorAll(".rail-item");
+  var panels = document.querySelectorAll(".panel");
+
+  function selectTab(name){
+    tabs.forEach(function(t){ t.classList.toggle("active", t.dataset.tab === name); });
+    panels.forEach(function(p){ p.classList.toggle("active", p.id === "panel-" + name); });
+    window.scrollTo({top:0, behavior:"instant"});
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener("click", function(){ selectTab(t.dataset.tab); });
+  });
+
+  document.querySelectorAll("[data-goto]").forEach(function(el){
+    el.addEventListener("click", function(){ selectTab(el.dataset.goto); });
+  });
+})();
+</script>
+</body>
+</html>

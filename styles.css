@@ -674,17 +674,25 @@ section {
   background-size: auto, 140px 140px;
 }
 
-.certificate-card {
-  max-width: 780px;
+.certificate-list {
+  max-width: 940px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.certificate-card {
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 44px;
+  padding: 36px;
   display: flex;
-  align-items: center;
-  gap: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .certificate-badge {
