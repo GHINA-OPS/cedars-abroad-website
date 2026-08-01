@@ -481,9 +481,9 @@
     </section>
 
     <section id="panel-casechat" class="panel">
-      <p class="eyebrow">Practice · ~20 Minutes</p>
+      <p class="eyebrow">Practice · Full Class Period</p>
       <h1 class="page-title">HR Case Study Chatbot</h1>
-      <p class="page-sub">Work through a live HR case with an in-chat coach — read the scenario, answer multiple-choice and short-answer questions as they come up, and track your rating on the left. Built for a full class session, about 20 minutes end to end.</p>
+      <p class="page-sub">Work through a full HR case with an in-chat coach across six chapters — 5 multiple-choice and 5 short-answer questions in all, with model answers and discussion points after each one. Track your rating and progress on the left.</p>
 
       <div class="chat-layout">
         <aside class="chat-sidebar">
@@ -500,7 +500,7 @@
           <div class="chat-side-card">
             <div class="chat-side-label">Time in Case</div>
             <div class="chat-timer" id="chatTimer">00:00</div>
-            <div class="chat-rating-detail">Target: ~20 minutes</div>
+            <div class="chat-rating-detail">10 questions · 6 chapters</div>
           </div>
         </aside>
 
@@ -944,10 +944,10 @@
   var timerEl = document.getElementById("chatTimer");
   if (!chatWindow) return;
 
-  var GROUPS = ["Case Background", "Diagnose the Problem", "Propose a Fix", "Six Months Later", "Debrief & Rating"];
+  var GROUPS = ["Case Background", "Diagnose the Problem", "Dig Deeper", "Propose a Fix", "Roll It Out", "Long-Term Outcome"];
 
   var TURNS = [
-    { type:"bot", group:0, text:"Hi — I'm your case coach for this session. We'll work through a real HR scenario together: I'll share context, ask a few questions along the way, and you'll build a Case Rating as we go. Should take about 20 minutes. Ready? Let's meet the company." },
+    { type:"bot", group:0, text:"Hi — I'm your case coach for this session. We'll work through a full HR case together: I'll share context, ask 10 questions along the way — 5 multiple-choice, 5 short-answer — and you'll build a Case Rating as we go. It's meant to fill a full class period. Ready? Let's meet the company." },
     { type:"bot", group:0, text:"Meridian Health Analytics is a 150-person healthcare data startup — solid reputation, growing fast. Its 12-person Data Science team is considered the core of the product." },
     { type:"bot", group:0, text:"Over the last two quarters, Meridian lost 4 of those 12 data scientists — a 33% chunk of the team, against a company-wide average of about 8% annual turnover. Leadership is alarmed and has asked you, the new HR Business Partner, to figure out what's going on." },
     { type:"bot", group:0, text:"Exit interviews mention a few recurring themes: “not much room to grow here,” “my manager and I barely talk,” and “I found something that pays better.” Let's start digging in." },
@@ -968,8 +968,26 @@
       model:"Most case teams land here: the reorg likely widened each manager's span of control, cutting into 1:1 time and feedback. People don't usually quit the moment feedback drops — they disengage first, start looking quietly, and only leave once something else comes through. That lag is exactly why the resignation wave shows up months after the reorg, not right after it."
     },
 
-    { type:"bot", group:2, text:"Leadership wants a plan by next quarter. Let's get concrete." },
+    { type:"bot", group:2, text:"Before you propose anything, one more layer is worth checking: is this turnover spread evenly across the team, or concentrated somewhere?" },
+    { type:"bot", group:2, text:"You pull team-level data. The pattern is sharp: turnover is concentrated almost entirely among the team's most senior, highest-performing engineers. Newer, junior members are staying at normal rates." },
     { type:"mcq", group:2,
+      prompt:"Why might senior, high-performing engineers specifically be the ones leaving?",
+      options:[
+        { label:"They're the most marketable — best resumes, most external options.", correct:false, feedback:"True, but it doesn't explain why they'd choose to act on those options right now. Marketability is a constant; something else changed." },
+        { label:"Senior people expect mentorship and a path to bigger scope — they likely had the most to lose when 1:1 time and growth clarity dropped.", correct:true, feedback:"Right. Senior engagement tends to run on autonomy, mentorship, and a visible path to bigger impact — not just pay. Cutting development investment hits the people who relied on it most." },
+        { label:"They're underperforming and were likely to be managed out anyway.", correct:false, feedback:"Nothing in the case supports this — these are described as the team's highest performers, not people on the way out." },
+        { label:"It's random noise, no meaningful pattern.", correct:false, feedback:"A 33% loss concentrated almost entirely in one group isn't noise — it's a pattern worth explaining, not dismissing." }
+      ]
+    },
+    { type:"bot", group:2, text:"That reframes the urgency a bit." },
+    { type:"open", group:2,
+      prompt:"If this pattern continues for another year — senior engineers leaving, juniors staying — what's one risk to the team beyond just headcount?",
+      keywords:["mentor","knowledge","senior","leadership","gap","institutional","experience","succession"],
+      model:"The team risks losing institutional knowledge and technical leadership faster than it can rebuild — junior engineers won't have senior mentors to learn from, which can compound over time: fewer seniors means less mentorship for the juniors who'd eventually become the next senior cohort."
+    },
+
+    { type:"bot", group:3, text:"Leadership wants a plan by next quarter. Let's get concrete." },
+    { type:"mcq", group:3,
       prompt:"What should you propose first?",
       options:[
         { label:"An across-the-board raise for the whole Data Science team.", correct:false, feedback:"Pay came up in exit interviews, but a blanket raise treats a mentioned symptom as the root cause — and it's expensive to reverse if it doesn't fix retention." },
@@ -978,15 +996,15 @@
         { label:"Freeze hiring until turnover stabilizes.", correct:false, feedback:"This protects headcount numbers, not the people who are actually leaving. It doesn't address the cause at all." }
       ]
     },
-    { type:"bot", group:2, text:"Good call. One wrinkle: Finance says a blanket raise isn't in this quarter's budget — but manager training and a promotion framework can be funded right away." },
-    { type:"open", group:2,
+    { type:"bot", group:3, text:"Good call. One wrinkle: Finance says a blanket raise isn't in this quarter's budget — but manager training and a promotion framework can be funded right away." },
+    { type:"open", group:3,
       prompt:"Three months from now, how would you know if this fix actually worked? Name at least one metric you'd track.",
       keywords:["engagement","turnover","survey","promotion","check-in","checkin","retention","attrition"],
       model:"Strong answers usually name at least one of: the engagement survey's career-growth score (should climb back up), voluntary turnover in the Data Science team (should trend back toward ~8%), or the internal promotion/movement rate (more people visibly moving up, not just staying in place)."
     },
 
-    { type:"bot", group:3, text:"Fast-forward six months. Turnover in the team has dropped to 12%, and the engagement survey's growth score is climbing again. Then a senior data scientist resigns — citing pay." },
-    { type:"mcq", group:3,
+    { type:"bot", group:4, text:"Fast-forward six months. Turnover in the team has dropped to 12%, and the engagement survey's growth score is climbing again. Then a senior data scientist resigns — citing pay." },
+    { type:"mcq", group:4,
       prompt:"What's the right read on this one resignation?",
       options:[
         { label:"The whole plan failed — scrap it and start over.", correct:false, feedback:"One data point against a clear multi-month trend isn't a failed plan — reacting this way means abandoning something that's actually working." },
@@ -995,9 +1013,30 @@
         { label:"Immediately raise pay for the whole team to prevent more departures.", correct:false, feedback:"Same instinct as month one — reacting to a mentioned factor without checking if it's actually become the pattern yet." }
       ]
     },
+    { type:"bot", group:4, text:"Separately, one of the managers pushes back: the extra 1:1 time, he says, is cutting into the team's delivery velocity. He asks whether to scale the check-ins back." },
+    { type:"open", group:4,
+      prompt:"How do you respond to this manager's concern about check-ins cutting into delivery time?",
+      keywords:["data","trend","velocity","balance","short-term","long-term","evidence","measure"],
+      model:"Strong answers weigh the concern against the multi-month trend of improving engagement and retention — before scaling anything back, you'd want actual evidence that velocity dropped, not just a feeling that meetings are overhead. If it did drop, a lighter-weight cadence is worth exploring before abandoning check-ins altogether."
+    },
 
-    { type:"bot", group:4, text:"That's the case. A few things worth carrying forward: exit-interview themes often span more than one talent-lifecycle stage at once. Effects lag their causes — a reorg's damage can take months to show up as resignations. And once you're managing a trend, single data points are signals to watch, not verdicts to act on alone." },
-    { type:"bot", group:4, text:"Nice work — here's your final Case Rating on the left. Feel free to restart and try different answers to see how the case responds." }
+    { type:"bot", group:5, text:"One year later: team turnover has settled around 9%, close to the company average. Two of the original departing engineers' replacements have since been promoted. A compensation review is now a standing quarterly practice." },
+    { type:"mcq", group:5,
+      prompt:"Looking back at the whole case, what's the most accurate summary of what actually fixed Meridian's turnover problem?",
+      options:[
+        { label:"A single decisive action — reinstating 1:1 check-ins — solved everything on its own.", correct:false, feedback:"It was the first and most important move, but the case also shows ongoing measurement, defending the plan under pressure, and eventually revisiting compensation — a system of practices, not one fix." },
+        { label:"A combination of restoring development practices, measuring honestly, defending the plan under pressure, and eventually addressing the recurring compensation signal.", correct:true, feedback:"Exactly — sustainable fixes in HR are rarely a single action. They're a sequence of decisions that reinforce each other over time." },
+        { label:"Nothing really changed — the numbers just regressed to the mean on their own.", correct:false, feedback:"The timeline lines up too closely with specific interventions — reinstated check-ins, then a compensation review — to credit coincidence alone." },
+        { label:"The compensation review alone fixed it, since pay was the recurring theme.", correct:false, feedback:"Engagement was already climbing well before any compensation review happened. The development fix came first, and it mattered most." }
+      ]
+    },
+    { type:"open", group:5,
+      prompt:"Last one — no single right answer here: what's the one lesson from this case you'd carry into your first real HR role?",
+      keywords:[],
+      model:"There's no single right answer here — common takeaways include: exit-interview themes often span more than one talent-lifecycle stage at once, effects can lag their causes by months, and sustainable fixes are usually a sequence of reinforcing decisions rather than one big move."
+    },
+
+    { type:"bot", group:5, text:"That's the case. Nice work — here's your final Case Rating on the left. Feel free to restart and try different answers to see how the case responds." }
   ];
 
   var ti = 0;
@@ -1017,10 +1056,10 @@
   }
 
   function updateRating(){
-    var max = 3 + 2; // 3 MCQ points + 2 open points max
+    var max = 5 + 5; // 5 MCQ points + 5 open points max
     var score = mcqCorrect + openScore;
     var pct = Math.round((score / max) * 100);
-    ratingNum.textContent = score.toFixed(1) + " / 5.0";
+    ratingNum.textContent = score.toFixed(1) + " / 10.0";
     ratingBar.style.width = pct + "%";
     var parts = [];
     if (mcqTotal > 0) parts.push(mcqCorrect + "/" + mcqTotal + " multiple-choice correct");
@@ -1181,9 +1220,15 @@
     clearInputArea();
 
     var lower = text.toLowerCase();
-    var hit = turn.keywords.some(function(k){ return lower.indexOf(k) !== -1; });
     var wordCount = text.split(/\s+/).filter(Boolean).length;
-    var points = hit ? 1 : (wordCount >= 12 ? 0.5 : 0.25);
+    var points;
+    if (!turn.keywords || turn.keywords.length === 0) {
+      // Open reflection with no single right answer — credit any substantive answer.
+      points = wordCount >= 10 ? 1 : (wordCount >= 6 ? 0.5 : 0.25);
+    } else {
+      var hit = turn.keywords.some(function(k){ return lower.indexOf(k) !== -1; });
+      points = hit ? 1 : (wordCount >= 12 ? 0.5 : 0.25);
+    }
 
     openTotal++;
     openScore += points;
