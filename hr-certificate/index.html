@@ -188,6 +188,23 @@
   .sim-recap li.ok .tag{background:var(--green-wash);color:var(--green);}
   .sim-recap li.no .tag{background:var(--accent-wash);color:var(--accent);}
 
+  /* Alignment simulator meters */
+  .sim-meters{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+  .meter-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;}
+  .meter-head{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-muted);margin-bottom:8px;}
+  .meter-head b{color:var(--ink);font-size:12.5px;}
+  .meter-head span.val{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);}
+  .meter-track{height:7px;border-radius:999px;background:var(--surface-2);overflow:hidden;}
+  .meter-fill{height:100%;border-radius:999px;transition:width .5s ease;}
+  .meter-fill.trust{background:linear-gradient(90deg,var(--p-id),var(--accent));}
+  .meter-fill.efficiency{background:linear-gradient(90deg,var(--p-dev),var(--p-ret));}
+
+  .sim-ending{text-align:center;padding:8px 0 6px;}
+  .sim-ending .ending-tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding:4px 12px;border-radius:999px;margin-bottom:14px;}
+  .sim-ending .ending-title{font-family:var(--serif);font-size:26px;margin:0 0 14px;}
+  .sim-ending .ending-msg{font-size:14.5px;color:var(--ink-2);line-height:1.65;max-width:56ch;margin:0 auto;text-align:left;}
+  .sim-ending .ending-msg + .ending-msg{margin-top:12px;}
+
   ::selection{background:var(--accent-wash);}
 
   @media (max-width: 900px){
@@ -223,6 +240,7 @@
     <button class="rail-item" data-tab="retention"><span class="rail-dot" style="--dot:var(--p-ret)"></span><span class="lbl">Talent Retention</span></button>
     <div class="rail-group-label">Practice</div>
     <button class="rail-item" data-tab="simulation"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Hiring Simulation</span></button>
+    <button class="rail-item" data-tab="alignsim"><span class="rail-dot" style="--dot:var(--p-id)"></span><span class="lbl">AI-HR Alignment Simulator</span></button>
     <div class="rail-group-label">Wrap-Up</div>
     <button class="rail-item" data-tab="career"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Career Impact</span></button>
     <div class="rail-foot">Cedars Abroad<br>AI Training &amp; Certification</div>
@@ -385,6 +403,20 @@
 
       <div class="stage-nav">
         <a data-goto="retention"><span class="lbl">Back</span><span class="val">← Talent Retention</span></a>
+        <a class="next" data-goto="alignsim"><span class="lbl">Next</span><span class="val">AI-HR Alignment Simulator →</span></a>
+      </div>
+    </section>
+
+    <section id="panel-alignsim" class="panel">
+      <p class="eyebrow">Practice</p>
+      <h1 class="page-title">AI-HR Alignment Simulator</h1>
+      <p class="page-sub">You're the Head of HR at a 400-person company, and leadership wants AI in HR now. There's no single right answer here — every choice trades off trust against speed, and the story branches based on what you pick.</p>
+
+      <div class="sim-meters" id="simMeters"></div>
+      <div class="sim-stage" id="alignStage"></div>
+
+      <div class="stage-nav">
+        <a data-goto="simulation"><span class="lbl">Back</span><span class="val">← Hiring Simulation</span></a>
         <a class="next" data-goto="career"><span class="lbl">Next</span><span class="val">Career Impact →</span></a>
       </div>
     </section>
@@ -624,6 +656,185 @@
   }
 
   renderStep();
+})();
+
+(function(){
+  "use strict";
+
+  var alignStage = document.getElementById("alignStage");
+  var simMeters = document.getElementById("simMeters");
+  if (!alignStage) return;
+
+  var STAGES = [
+    {
+      kicker: "Decision 1 of 4",
+      title: "Choose your first AI pilot",
+      context: "Leadership wants a visible win. You get to pick where AI enters HR first.",
+      prompt: "What do you pilot?",
+      options: [
+        { label: "An AI resume-screening tool to speed up hiring.", trust: -10, efficiency: 20,
+          result: "Time-to-hire drops fast — leadership notices immediately. But a few hiring managers start asking how the algorithm actually makes decisions, and you don't have a clean answer yet." },
+        { label: "An AI HR-policy chatbot employees can ask questions anytime.", trust: 10, efficiency: 10,
+          result: "Low-risk, well-received. HR ticket volume drops, and employees like getting answers without waiting. It's not flashy, but nobody's worried about it." },
+        { label: "An AI writing assistant that helps managers draft performance reviews.", trust: -5, efficiency: 15,
+          result: "Managers save real time. But a couple of reviews come back sounding generic and impersonal, and employees notice. Trust dips slightly — though the tool sticks around." }
+      ]
+    },
+    {
+      kicker: "Decision 2 of 4",
+      title: "Announce the rollout",
+      context: "Word is starting to spread that “HR is using AI now.” How do you get ahead of it?",
+      prompt: "How do you communicate the rollout?",
+      options: [
+        { label: "A short company-wide email — the tool works, that's what matters.", trust: -15, efficiency: 0,
+          result: "The rollout technically goes fine, but the grapevine fills in the blanks. Rumors start about “the AI deciding who gets fired.” You spend the next month doing damage control." },
+        { label: "Open sessions explaining exactly what the AI does, doesn't do, and how data is used.", trust: 20, efficiency: -5,
+          result: "It costs everyone some time out of their week. But people ask real questions and get real answers — anxiety drops. A few skeptics stay skeptics, but nobody feels blindsided." },
+        { label: "Say nothing until the rollout is complete and stable.", trust: -20, efficiency: 5,
+          result: "Employees find out through a policy update buried in the intranet. The silence reads as secrecy — even though nothing was actually hidden." }
+      ]
+    },
+    {
+      kicker: "Decision 3 of 4",
+      title: "An issue surfaces",
+      context: "An internal audit finds your AI tool leans toward candidates from a narrow set of schools. It's not catastrophic, but it's real.",
+      prompt: "What do you do?",
+      options: [
+        { label: "Quietly patch it and move on — no need to alarm anyone.", trust: -20, efficiency: 5,
+          result: "The fix works, but a candidate posts about the issue online before you've said anything internally. It looks worse than it is, because it looks hidden." },
+        { label: "Acknowledge it, explain the fix, and add a human-review checkpoint.", trust: 25, efficiency: -10,
+          result: "It's uncomfortable to admit in public, but employees respect that you caught it and fixed it in the open. The extra review step slows things slightly — nobody's asking “what else is broken?”" },
+        { label: "Pause the entire AI program pending a full audit.", trust: 10, efficiency: -25,
+          result: "It's the safest option, and it buys goodwill. But three months of momentum evaporate, and leadership starts asking whether AI in HR was worth pursuing at all." }
+      ]
+    },
+    {
+      kicker: "Decision 4 of 4",
+      title: "Report back to leadership",
+      context: "Quarter's end. Leadership wants a readout on how the AI rollout is going.",
+      prompt: "What do you report?",
+      options: [
+        { label: "The efficiency numbers — that's what leadership actually cares about.", trust: -10, efficiency: 10,
+          result: "Leadership is happy. But without any read on how employees actually feel about the rollout, you're flying blind on whether it's sustainable." },
+        { label: "A full picture: efficiency gains alongside employee trust and satisfaction data.", trust: 15, efficiency: 5,
+          result: "It's a more complicated story to tell, but an honest one — and it gives you real signal on what to fix next, not just what to celebrate." },
+        { label: "Skip formal measurement — the rollout feels successful, call it done.", trust: -10, efficiency: -10,
+          result: "Without data, the program's fate depends entirely on anecdotes. It survives for now, but the next reorg is a real threat to it." }
+      ]
+    }
+  ];
+
+  var aCurrent = 0;
+  var trust = 50, efficiency = 50;
+
+  function clamp(n){ return Math.max(0, Math.min(100, n)); }
+
+  function renderMeters(){
+    simMeters.innerHTML =
+      '<div class="meter-card"><div class="meter-head"><b>Employee Trust</b><span class="val">' + trust + '</span></div>' +
+      '<div class="meter-track"><div class="meter-fill trust" style="width:' + trust + '%"></div></div></div>' +
+      '<div class="meter-card"><div class="meter-head"><b>Operational Efficiency</b><span class="val">' + efficiency + '</span></div>' +
+      '<div class="meter-track"><div class="meter-fill efficiency" style="width:' + efficiency + '%"></div></div></div>';
+  }
+
+  function renderAlignStep(){
+    renderMeters();
+    if (aCurrent >= STAGES.length){
+      renderEnding();
+      return;
+    }
+    var s = STAGES[aCurrent];
+    var html = '<p class="sim-kicker">' + s.kicker + '</p>';
+    html += '<h3 class="sim-title">' + s.title + '</h3>';
+    html += '<div class="sim-context">' + s.context + '</div>';
+    html += '<p class="sim-prompt">' + s.prompt + '</p>';
+    html += '<div class="sim-options" id="alignOptions"></div>';
+    html += '<div id="alignFeedback"></div>';
+    html += '<div class="sim-continue" id="alignContinue"></div>';
+    alignStage.innerHTML = html;
+
+    var wrap = document.getElementById("alignOptions");
+    s.options.forEach(function(opt, idx){
+      var btn = document.createElement("button");
+      btn.className = "sim-option";
+      btn.innerHTML = opt.label;
+      btn.addEventListener("click", function(){ chooseAlign(idx); });
+      wrap.appendChild(btn);
+    });
+  }
+
+  function chooseAlign(idx){
+    var s = STAGES[aCurrent];
+    var opt = s.options[idx];
+    var buttons = document.querySelectorAll("#alignOptions .sim-option");
+    buttons.forEach(function(b, i){
+      b.disabled = true;
+      if (i === idx) b.classList.add("correct");
+    });
+
+    trust = clamp(trust + opt.trust);
+    efficiency = clamp(efficiency + opt.efficiency);
+    renderMeters();
+
+    var fb = document.getElementById("alignFeedback");
+    fb.innerHTML = '<div class="sim-feedback good"><b>What happens: </b>' + opt.result + '</div>';
+
+    var cont = document.getElementById("alignContinue");
+    var btn = document.createElement("button");
+    btn.className = "sim-btn";
+    btn.textContent = (aCurrent === STAGES.length - 1) ? "See how it plays out" : "Continue";
+    btn.addEventListener("click", function(){
+      aCurrent++;
+      renderAlignStep();
+    });
+    cont.appendChild(btn);
+  }
+
+  function renderEnding(){
+    var ending;
+    if (trust >= 65 && efficiency >= 65){
+      ending = { tag: "Trusted AI Partner", color: "var(--green)",
+        title: "AI became a trusted part of how HR works.",
+        msgs: [
+          "You moved fast without moving alone — bringing people along at each step meant the wins actually stuck. Leadership sees results, and employees don't feel like something was done to them.",
+          "This is the outcome every AI rollout is chasing: adoption that survives contact with reality." ] };
+    } else if (trust >= 65 && efficiency < 65){
+      ending = { tag: "Cautious but Credible", color: "var(--p-id)",
+        title: "Slower than planned — but nobody stopped trusting you.",
+        msgs: [
+          "The rollout took longer than leadership wanted, and some of the efficiency gains never fully materialized. But employees trust HR, and that trust is worth more than it looks on a slide.",
+          "A faster path existed. It would have cost you the thing that's hardest to rebuild once it's gone." ] };
+    } else if (trust < 65 && efficiency >= 65){
+      ending = { tag: "Efficient but Distrusted", color: "var(--p-ret)",
+        title: "The numbers look great. The room doesn't feel that way.",
+        msgs: [
+          "Leadership is thrilled with the metrics. But employees quietly route around the AI tools where they can, and HR fields more “is this thing watching me” questions than expected.",
+          "Fast wins bought you a good quarter. Whether they buy you a good year depends on whether anyone repairs the trust gap before the next incident." ] };
+    } else {
+      ending = { tag: "Stalled Rollout", color: "var(--accent)",
+        title: "Neither leadership nor employees are convinced.",
+        msgs: [
+          "The program survives on paper, but momentum is gone. Leadership questions the investment, employees remain wary, and the next reorg is a real threat to the whole initiative.",
+          "This is what happens when speed and trust both get sacrificed at different points along the way — the two costs add up instead of canceling out." ] };
+    }
+
+    var html = '<div class="sim-ending">';
+    html += '<span class="ending-tag" style="background:color-mix(in srgb, ' + ending.color + ' 16%, transparent);color:' + ending.color + '">' + ending.tag + '</span>';
+    html += '<h3 class="ending-title">' + ending.title + '</h3>';
+    ending.msgs.forEach(function(m){ html += '<p class="ending-msg">' + m + '</p>'; });
+    html += '<div class="sim-continue" style="justify-content:center;margin-top:22px;"><button class="sim-btn ghost" id="alignRestart">Restart Simulator</button></div>';
+    html += '</div>';
+    alignStage.innerHTML = html;
+
+    document.getElementById("alignRestart").addEventListener("click", function(){
+      aCurrent = 0;
+      trust = 50;
+      efficiency = 50;
+      renderAlignStep();
+    });
+  }
+
+  renderAlignStep();
 })();
 </script>
 </body>
