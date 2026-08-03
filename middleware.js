@@ -1,37 +1,56 @@
 export const config = {
-  matcher: ["/hr-certificate/:path*"],
+  matcher: ["/hr-certificate/:path*", "/certificate/:path*"],
 };
 
-export default function middleware(request) {
+function isAuthorized(request, credentials) {
   const authHeader = request.headers.get("authorization");
+  if (!authHeader || !authHeader.startsWith("Basic ")) return false;
 
-  const credentials = [
-    [process.env.PILOT_USER_1, process.env.PILOT_PASS_1],
-    [process.env.PILOT_USER_2, process.env.PILOT_PASS_2],
-    [process.env.PILOT_USER_3, process.env.PILOT_PASS_3],
-    [process.env.PILOT_USER_4, process.env.PILOT_PASS_4],
-    [process.env.PILOT_USER_5, process.env.PILOT_PASS_5],
-    [process.env.ADMIN_USER, process.env.ADMIN_PASS],
-  ];
+  const decoded = atob(authHeader.slice(6));
+  const separatorIndex = decoded.indexOf(":");
+  const user = decoded.slice(0, separatorIndex);
+  const pass = decoded.slice(separatorIndex + 1);
 
-  if (authHeader && authHeader.startsWith("Basic ")) {
-    const decoded = atob(authHeader.slice(6));
-    const separatorIndex = decoded.indexOf(":");
-    const user = decoded.slice(0, separatorIndex);
-    const pass = decoded.slice(separatorIndex + 1);
+  return credentials.some(([u, p]) => u && p && u === user && p === pass);
+}
 
-    const isValid = credentials.some(
-      ([u, p]) => u && p && u === user && p === pass
-    );
-    if (isValid) {
-      return;
-    }
-  }
-
+function unauthorized(realm) {
   return new Response("Authentication required", {
     status: 401,
     headers: {
-      "WWW-Authenticate": 'Basic realm="Cedars Abroad HR Pilot"',
+      "WWW-Authenticate": `Basic realm="${realm}"`,
     },
   });
+}
+
+const HR_CREDENTIALS = [
+  [process.env.PILOT_USER_1, process.env.PILOT_PASS_1],
+  [process.env.PILOT_USER_2, process.env.PILOT_PASS_2],
+  [process.env.PILOT_USER_3, process.env.PILOT_PASS_3],
+  [process.env.PILOT_USER_4, process.env.PILOT_PASS_4],
+  [process.env.PILOT_USER_5, process.env.PILOT_PASS_5],
+  [process.env.ADMIN_USER, process.env.ADMIN_PASS],
+];
+
+const BSC_CREDENTIALS = [
+  [process.env.BSC_PILOT_USER_1, process.env.BSC_PILOT_PASS_1],
+  [process.env.BSC_PILOT_USER_2, process.env.BSC_PILOT_PASS_2],
+  [process.env.BSC_PILOT_USER_3, process.env.BSC_PILOT_PASS_3],
+  [process.env.BSC_PILOT_USER_4, process.env.BSC_PILOT_PASS_4],
+  [process.env.BSC_PILOT_USER_5, process.env.BSC_PILOT_PASS_5],
+  [process.env.BSC_ADMIN_USER, process.env.BSC_ADMIN_PASS],
+];
+
+export default function middleware(request) {
+  const path = new URL(request.url).pathname;
+
+  if (path.startsWith("/hr-certificate")) {
+    if (isAuthorized(request, HR_CREDENTIALS)) return;
+    return unauthorized("Cedars Abroad HR Pilot");
+  }
+
+  if (path.startsWith("/certificate")) {
+    if (isAuthorized(request, BSC_CREDENTIALS)) return;
+    return unauthorized("Cedars Abroad AI Balanced Scorecard Pilot");
+  }
 }

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -274,6 +274,67 @@
   .deck-jump{width:52px;border:1px solid var(--border);border-radius:8px;padding:8px 6px;font-size:13px;text-align:center;background:var(--surface);color:var(--ink);}
   .deck-sep{width:1px;height:22px;background:var(--border);margin:0 2px;}
 
+  /* ---------- Balanced Scorecard platform (build-your-own) ---------- */
+  .plat-hero{background:var(--accent-wash);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:26px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .plat-hero p{margin:0;font-size:13.5px;color:var(--ink-2);max-width:60ch;}
+  .plat-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;align-items:center;}
+  .plat-saved{font-size:11.5px;color:var(--good-ink);}
+  .plat-company{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .plat-company label{font-size:13px;color:var(--ink-2);}
+  .plat-company input[type=text]{font-family:var(--sans);font-size:14px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);min-width:240px;}
+  .plat-periods{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:24px;}
+  .plat-period-chip{display:flex;align-items:center;gap:4px;background:var(--surface-2);border:1px solid var(--border);border-radius:100px;padding:5px 4px 5px 12px;font-size:12.5px;}
+  .plat-period-chip input{border:none;background:transparent;font-size:12.5px;color:var(--ink);width:76px;font-family:var(--sans);}
+  .plat-period-chip button{border:none;background:rgba(0,0,0,0.08);color:var(--ink-muted);width:18px;height:18px;border-radius:50%;cursor:pointer;font-size:12px;line-height:1;flex:none;}
+  .plat-period-chip button:hover{color:var(--bad);}
+  .plat-add-period{border:1px dashed var(--border);background:none;border-radius:100px;padding:6px 14px;font-size:12.5px;color:var(--ink-2);cursor:pointer;font-family:var(--sans);}
+  .plat-persp-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--dot,var(--accent));border-radius:12px;padding:20px 22px;margin-bottom:18px;}
+  .plat-persp-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+  .plat-persp-name{font-size:17px;font-weight:700;border:none;background:transparent;color:var(--ink);font-family:var(--sans);border-bottom:1px dashed transparent;padding:2px 0;}
+  .plat-persp-name:hover,.plat-persp-name:focus{border-bottom-color:var(--border);outline:none;}
+  .plat-persp-actions{display:flex;gap:8px;}
+  .plat-kpi-row{border-top:1px solid var(--border);padding:16px 0 6px;}
+  .plat-kpi-row:first-of-type{border-top:none;}
+  .plat-kpi-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;}
+  .plat-kpi-top input.kname{font-size:14.5px;font-weight:700;border:none;background:transparent;color:var(--ink);font-family:var(--sans);min-width:170px;flex:1;}
+  .plat-kpi-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+  .plat-kpi-meta input,.plat-kpi-meta select{font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--ink);font-family:var(--sans);}
+  .plat-kpi-meta input.unit{width:56px;}
+  .plat-kpi-meta input.target{width:78px;}
+  .plat-rag{display:inline-flex;align-items:center;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;white-space:nowrap;}
+  .plat-rag.green{background:rgba(12,163,12,0.14);color:var(--good-ink);}
+  .plat-rag.amber{background:rgba(250,178,25,0.20);color:#8a5a00;}
+  .plat-rag.red{background:rgba(208,59,59,0.14);color:var(--bad);}
+  .plat-rag.none{background:var(--surface-2);color:var(--ink-muted);}
+  .plat-kpi-del{border:none;background:none;color:var(--ink-muted);cursor:pointer;font-size:17px;line-height:1;padding:2px 6px;}
+  .plat-kpi-del:hover{color:var(--bad);}
+  .plat-values-wrap{overflow-x:auto;padding-bottom:4px;}
+  .plat-values{display:flex;gap:8px;width:max-content;}
+  .plat-value-cell{display:flex;flex-direction:column;align-items:center;gap:4px;flex:none;}
+  .plat-value-cell label{font-size:9.5px;color:var(--ink-muted);white-space:nowrap;max-width:66px;overflow:hidden;text-overflow:ellipsis;}
+  .plat-value-cell input{width:66px;font-size:12.5px;text-align:center;padding:6px 4px;border:1px solid var(--border);border-radius:6px;background:var(--surface-2);color:var(--ink);font-family:var(--sans);}
+  .plat-kpi-chart{width:100%;margin-top:10px;}
+  .plat-kpi-chart svg{width:100%;height:auto;display:block;}
+  .plat-empty{font-size:13px;color:var(--ink-muted);padding:8px 0 4px;}
+
+  /* ---------- AI Consultant chat ---------- */
+  .chat-shell{max-width:780px;}
+  .chat-window{background:var(--surface);border:1px solid var(--border);border-radius:14px;height:520px;display:flex;flex-direction:column;overflow:hidden;}
+  .chat-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;}
+  .chat-msg{max-width:82%;padding:12px 14px;border-radius:12px;font-size:13.5px;line-height:1.55;}
+  .chat-msg.bot{align-self:flex-start;background:var(--surface-2);color:var(--ink);border-bottom-left-radius:4px;}
+  .chat-msg.user{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:4px;}
+  .chat-msg p{margin:0 0 8px;}
+  .chat-msg p:last-child{margin-bottom:0;}
+  .chat-msg ul{margin:6px 0;padding-left:18px;}
+  .chat-typing{align-self:flex-start;font-size:12px;color:var(--ink-muted);padding:0 4px;}
+  .chat-input-row{display:flex;gap:8px;padding:14px;border-top:1px solid var(--border);}
+  .chat-input-row input{flex:1;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:13.5px;background:var(--surface);color:var(--ink);font-family:var(--sans);}
+  .chat-suggest{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px;}
+  .chat-chip{border:1px solid var(--border);background:var(--surface);color:var(--ink-2);border-radius:100px;padding:7px 14px;font-size:12.5px;cursor:pointer;font-family:var(--sans);}
+  .chat-chip:hover{border-color:var(--accent);color:var(--accent-ink);}
+  .chat-note{font-size:11.5px;color:var(--ink-muted);margin-top:14px;line-height:1.6;}
+
   ::selection{background:var(--accent-wash);}
 
   @media (max-width: 900px){
@@ -302,6 +363,8 @@
     <section id="sec-learning" class="panel"></section>
     <section id="sec-methodology" class="panel"></section>
     <section id="sec-slides" class="panel"></section>
+    <section id="sec-platform" class="panel"></section>
+    <section id="sec-consultant" class="panel"></section>
   </main>
 </div>
 
@@ -349,7 +412,8 @@ function genQuarters(start, count){
   }
   return out;
 }
-function linregForecast(hist){
+function linregForecast(hist, forecastCount){
+  forecastCount = forecastCount || 4;
   var n = hist.length;
   var sumX=0,sumY=0,sumXY=0,sumXX=0;
   for (var i=0;i<n;i++){ sumX+=i; sumY+=hist[i]; sumXY+=i*hist[i]; sumXX+=i*i; }
@@ -360,7 +424,7 @@ function linregForecast(hist){
   for (var j=0;j<n;j++){ var yhat0 = intercept + slope*j; residSq += Math.pow(hist[j]-yhat0,2); }
   var se = Math.sqrt(residSq / Math.max(1, n-2));
   var fVal=[], fLow=[], fHigh=[];
-  for (var k=0;k<4;k++){
+  for (var k=0;k<forecastCount;k++){
     var x = n+k;
     var yhat = intercept + slope*x;
     var half = se*(1.1 + 0.45*k) + Math.abs(yhat)*0.01;
@@ -600,6 +664,8 @@ function renderOverview(){
   html += '<h1 class="page-title">AI-Enhanced Balanced Scorecard</h1>';
   html += '<p class="page-sub">A live look at how artificial intelligence turns each Balanced Scorecard perspective from a quarterly report card into a forward-looking instrument panel — with visible confidence ranges, not false precision.</p>';
 
+  html += '<div class="plat-hero"><p><b>New:</b> build your own Balanced Scorecard with your company’s real perspectives, KPIs, targets, and data — not just the sample walkthrough below.</p><button class="btn primary" data-goto="platform" type="button">Open Balanced Scorecard Platform</button></div>';
+
   html += '<div class="data-banner'+(DATA_SOURCE?' show':'')+'"><span>'+(DATA_SOURCE?('Showing data loaded from <b>'+DATA_SOURCE+'</b> · quarters '+QUARTERS[0]+' to '+QUARTERS[HIST_N-1]+' actual, forecast through '+QUARTERS[QUARTERS.length-1]+'.'):'')+'</span><button class="btn" id="ovResetDataBtn" type="button">Reset to sample data</button></div>';
 
   html += '<div class="map-wrap"><div class="map-grid">';
@@ -764,10 +830,16 @@ var TABS = [
   {key:"process", label:"Internal Process", cnt:"3 KPIs", dot:"--p-process"},
   {key:"learning", label:"Learning & Growth", cnt:"3 KPIs", dot:"--p-learning"},
   {key:"methodology", label:"AI Methodology", cnt:""},
-  {key:"slides", label:"Certificate Deck", cnt:"90 slides"}
+  {key:"slides", label:"Certificate Deck", cnt:"90 slides"},
+  {key:"platform", label:"Build Your Scorecard", cnt:""},
+  {key:"consultant", label:"AI Consultant", cnt:""}
 ];
 
 function renderRail(){
+  var kpiCount = 0;
+  (PLATFORM_STATE ? PLATFORM_STATE.perspectives : []).forEach(function(p){ kpiCount += p.kpis.length; });
+  TABS[7].cnt = kpiCount + (kpiCount===1 ? " KPI" : " KPIs");
+
   var html = '<div class="rail-brand"><span class="k">BSC · AI</span><span class="s">Executive Simulation</span><button class="rail-data-btn" id="openDataModalBtn" type="button">Load your data</button></div>';
   html += '<div class="rail-group-label">Scorecard</div>';
   TABS.slice(0,1).forEach(function(t){ html += railItem(t); });
@@ -775,8 +847,8 @@ function renderRail(){
   TABS.slice(1,5).forEach(function(t){ html += railItem(t); });
   html += '<div class="rail-group-label">Insight</div>';
   TABS.slice(5,6).forEach(function(t){ html += railItem(t); });
-  html += '<div class="rail-group-label">Certificate</div>';
-  TABS.slice(6).forEach(function(t){ html += railItem(t); });
+  html += '<div class="rail-group-label">AI Certificate</div>';
+  TABS.slice(6,9).forEach(function(t){ html += railItem(t); });
   html += '<div class="rail-foot">Simulated data for training purposes. Figures are illustrative, not live business results.</div>';
   document.getElementById("rail").innerHTML = html;
   document.querySelectorAll(".rail-item").forEach(function(el){
@@ -1714,18 +1786,725 @@ function wireDeck(){
   }
 }
 
+// ---------------- Balanced Scorecard platform (build-your-own) ----------------
+var PLATFORM_COLORS = ["#4a3aa7","#1baf7a","#c05a1f","#c23f7b","#2a78d6","#eda100","#008300","#e34948"];
+var PLATFORM_STORAGE_KEY = "bscAiPlatformState_v1";
+var PLATFORM_STATE = null;
+var platIdSeq = 1;
+var platWired = false;
+function platNextId(prefix){ return prefix + (platIdSeq++); }
+function escAttr(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function platDefaultState(){
+  return {
+    company: "",
+    periods: ["Period 1","Period 2","Period 3","Period 4"],
+    forecastCount: 4,
+    perspectives: [
+      {id:platNextId("p"), name:"Financial", color:PLATFORM_COLORS[0], kpis:[]},
+      {id:platNextId("p"), name:"Customer", color:PLATFORM_COLORS[1], kpis:[]},
+      {id:platNextId("p"), name:"Internal Process", color:PLATFORM_COLORS[2], kpis:[]},
+      {id:platNextId("p"), name:"Learning & Growth", color:PLATFORM_COLORS[3], kpis:[]}
+    ]
+  };
+}
+
+function platSampleState(){
+  var groups = [
+    {name:"Financial", kpis:[
+      {name:"Revenue Growth Rate", unit:"%", higher:true, target:8, values:[4.1,4.6,5.0,5.3,5.8,6.4,6.9,7.3]},
+      {name:"Operating Margin", unit:"%", higher:true, target:21, values:[18.2,18.6,18.4,19.1,19.5,19.3,19.8,20.2]},
+      {name:"Return on Invested Capital", unit:"%", higher:true, target:14, values:[11.0,11.3,11.1,11.6,12.0,12.2,12.5,12.9]}
+    ]},
+    {name:"Customer", kpis:[
+      {name:"Customer Satisfaction (CSAT)", unit:"", higher:true, target:75, values:[61,63,62,65,67,66,69,71]},
+      {name:"Customer Retention Rate", unit:"%", higher:true, target:92, values:[88.1,88.4,88.0,88.9,89.3,89.1,89.8,90.2]}
+    ]},
+    {name:"Internal Process", kpis:[
+      {name:"Cycle Time", unit:"d", higher:false, target:8, values:[12.4,12.0,11.6,11.3,10.8,10.5,10.1,9.7]},
+      {name:"Defect Rate", unit:"%", higher:false, target:1, values:[2.6,2.4,2.5,2.2,2.0,1.9,1.7,1.6]}
+    ]},
+    {name:"Learning & Growth", kpis:[
+      {name:"Employee Engagement", unit:"", higher:true, target:80, values:[68,69,67,70,71,70,71,70]},
+      {name:"Employee Retention Rate", unit:"%", higher:true, target:94, values:[91.5,91.8,91.2,92.0,92.3,91.9,92.5,92.1]}
+    ]}
+  ];
+  var state = {company:"Sample Manufacturing Co.", periods:["2024-Q3","2024-Q4","2025-Q1","2025-Q2","2025-Q3","2025-Q4","2026-Q1","2026-Q2"], forecastCount:4, perspectives:[]};
+  groups.forEach(function(g,gi){
+    var kpis = g.kpis.map(function(k){
+      var hasFrac = k.values.some(function(v){ return Math.abs(v-Math.round(v))>0.001; });
+      return {id:platNextId("k"), name:k.name, unit:k.unit, higher:k.higher, target:k.target, dec:hasFrac?1:0, values:k.values.slice()};
+    });
+    state.perspectives.push({id:platNextId("p"), name:g.name, color:PLATFORM_COLORS[gi % PLATFORM_COLORS.length], kpis:kpis});
+  });
+  return state;
+}
+
+function platLoad(){
+  var raw = null;
+  try { raw = localStorage.getItem(PLATFORM_STORAGE_KEY); } catch(e){}
+  if (raw){
+    try { PLATFORM_STATE = JSON.parse(raw); if (PLATFORM_STATE && PLATFORM_STATE.perspectives) return; } catch(e){}
+  }
+  PLATFORM_STATE = platDefaultState();
+}
+function platSave(){
+  try { localStorage.setItem(PLATFORM_STORAGE_KEY, JSON.stringify(PLATFORM_STATE)); } catch(e){}
+  var el = document.getElementById("platSaved");
+  if (el) el.textContent = "Saved to this browser";
+  var kpiCount = 0;
+  PLATFORM_STATE.perspectives.forEach(function(p){ kpiCount += p.kpis.length; });
+  var badge = document.querySelector('.rail-item[data-tab="platform"] .cnt');
+  if (badge) badge.textContent = kpiCount + (kpiCount===1 ? " KPI" : " KPIs");
+}
+
+function ragStatus(kpi){
+  var lastNum = null;
+  for (var i=kpi.values.length-1;i>=0;i--){
+    var v = kpi.values[i];
+    if (v!=null && !isNaN(v)){ lastNum = Number(v); break; }
+  }
+  if (lastNum==null) return {cls:"none", label:"No data yet"};
+  if (kpi.target==null || kpi.target==="" || isNaN(kpi.target)) return {cls:"none", label:"No target set"};
+  var t = Number(kpi.target);
+  var ratio = kpi.higher ? (t===0 ? (lastNum>=0?1:0) : lastNum/t) : (lastNum<=0 ? 1 : t/lastNum);
+  if (ratio >= 1) return {cls:"green", label:"On target"};
+  if (ratio >= 0.9) return {cls:"amber", label:"Near target"};
+  return {cls:"red", label:"Off target"};
+}
+
+function computeForecastForKpi(kpi, forecastCount){
+  var nums = [];
+  for (var i=0;i<kpi.values.length;i++){
+    var v = kpi.values[i];
+    if (v!=null && !isNaN(v)) nums.push(Number(v));
+  }
+  if (nums.length < 2) return null;
+  return linregForecast(nums, forecastCount);
+}
+
+function buildPlatformChart(kpi, periods, forecastCount, color){
+  var totalHist = periods.length;
+  var fc = computeForecastForKpi(kpi, forecastCount);
+  var hasForecast = !!fc;
+  var total = totalHist + (hasForecast ? forecastCount : 0);
+  var W = 640, H = 130, ml = 40, mr = 14, mt = 10, mb = 20;
+  var pw = W-ml-mr, ph = H-mt-mb;
+  var dec = kpi.dec || 0;
+
+  var allVals = [];
+  kpi.values.forEach(function(v){ if (v!=null && !isNaN(v)) allVals.push(Number(v)); });
+  if (hasForecast) allVals = allVals.concat(fc.fLow, fc.fHigh, fc.fVal);
+  if (kpi.target!=null && kpi.target!=="" && !isNaN(kpi.target)) allVals.push(Number(kpi.target));
+
+  if (!allVals.length){
+    return '<div style="font-size:11.5px;color:var(--ink-muted);padding:8px 0;">Enter at least one value to see a chart.</div>';
+  }
+  var min = Math.min.apply(null, allVals), max = Math.max.apply(null, allVals);
+  var pad = (max-min)*0.18 || Math.abs(max)*0.1 || 1;
+  min -= pad; max += pad;
+  function xAt(i){ return ml + (i/Math.max(total-1,1))*pw; }
+  function yAt(v){ return mt + ph - ((v-min)/(max-min))*ph; }
+
+  var svg = '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+escAttr(kpi.name)+' chart">';
+  for (var t=0;t<=2;t++){
+    var v = min + (max-min)*(t/2);
+    var y = yAt(v);
+    svg += '<line x1="'+ml+'" y1="'+y.toFixed(1)+'" x2="'+(W-mr)+'" y2="'+y.toFixed(1)+'" stroke="var(--grid)" stroke-width="1"/>';
+    svg += '<text x="'+(ml-6)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="8" fill="var(--ink-muted)" font-family="var(--sans)">'+v.toFixed(dec)+'</text>';
+  }
+  if (kpi.target!=null && kpi.target!=="" && !isNaN(kpi.target)){
+    var ty = yAt(Number(kpi.target));
+    svg += '<line x1="'+ml+'" y1="'+ty.toFixed(1)+'" x2="'+(W-mr)+'" y2="'+ty.toFixed(1)+'" stroke="#8a5a00" stroke-width="1" stroke-dasharray="3 3" opacity="0.75"/>';
+    svg += '<text x="'+(W-mr)+'" y="'+(ty-3).toFixed(1)+'" text-anchor="end" font-size="8" fill="#8a5a00" font-family="var(--sans)">Target '+Number(kpi.target).toFixed(dec)+'</text>';
+  }
+
+  var histPath = "", drawing = false;
+  for (var i=0;i<totalHist;i++){
+    var vv = kpi.values[i];
+    if (vv==null || isNaN(vv)){ drawing=false; continue; }
+    histPath += (drawing?"L":"M") + xAt(i).toFixed(1) + " " + yAt(Number(vv)).toFixed(1) + " ";
+    drawing = true;
+  }
+  if (histPath) svg += '<path d="'+histPath.trim()+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+
+  var lastIdx=-1, lastVal=null;
+  for (var j=totalHist-1;j>=0;j--){ if (kpi.values[j]!=null && !isNaN(kpi.values[j])){ lastIdx=j; lastVal=Number(kpi.values[j]); break; } }
+
+  if (hasForecast && lastIdx>=0){
+    var forePath = "M"+xAt(lastIdx).toFixed(1)+" "+yAt(lastVal).toFixed(1)+" ";
+    for (var k=0;k<forecastCount;k++){ forePath += "L"+xAt(totalHist+k).toFixed(1)+" "+yAt(fc.fVal[k]).toFixed(1)+" "; }
+    var bandPts = [[xAt(lastIdx), yAt(lastVal)]];
+    for (var k2=0;k2<forecastCount;k2++){ bandPts.push([xAt(totalHist+k2), yAt(fc.fHigh[k2])]); }
+    for (var k3=forecastCount-1;k3>=0;k3--){ bandPts.push([xAt(totalHist+k3), yAt(fc.fLow[k3])]); }
+    bandPts.push([xAt(lastIdx), yAt(lastVal)]);
+    var bandPath = bandPts.map(function(p,idx){ return (idx===0?"M":"L")+p[0].toFixed(1)+" "+p[1].toFixed(1); }).join(" ")+" Z";
+    svg += '<path d="'+bandPath+'" fill="'+color+'" fill-opacity="0.12" stroke="none"/>';
+    svg += '<path d="'+forePath.trim()+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round"/>';
+    svg += '<circle cx="'+xAt(total-1).toFixed(1)+'" cy="'+yAt(fc.fVal[forecastCount-1]).toFixed(1)+'" r="3.5" fill="'+color+'" stroke="var(--surface)" stroke-width="1.5"/>';
+  }
+  if (lastIdx>=0){
+    svg += '<circle cx="'+xAt(lastIdx).toFixed(1)+'" cy="'+yAt(lastVal).toFixed(1)+'" r="3.5" fill="var(--ink-2)" stroke="var(--surface)" stroke-width="1.5"/>';
+  }
+  var step = total > 10 ? 2 : 1;
+  for (var xi=0; xi<totalHist; xi+=step){
+    svg += '<text x="'+xAt(xi).toFixed(1)+'" y="'+(H-6)+'" text-anchor="middle" font-size="7.5" fill="var(--ink-muted)" font-family="var(--sans)">'+escAttr(periods[xi])+'</text>';
+  }
+  svg += '</svg>';
+
+  var note = hasForecast
+    ? '<div style="font-size:10.5px;color:var(--ink-muted);margin-top:4px;">Solid = actual &middot; dashed = AI forecast (next '+forecastCount+')</div>'
+    : '<div style="font-size:10.5px;color:var(--ink-muted);margin-top:4px;">Add at least 2 periods of data to see an AI forecast.</div>';
+  return svg + note;
+}
+
+function platKpiRow(k, pIdx, kIdx, st, color){
+  var rag = ragStatus(k);
+  var html = '<div class="plat-kpi-row">';
+  html += '<div class="plat-kpi-top">';
+  html += '<input type="text" class="kname" data-pidx="'+pIdx+'" data-kidx="'+kIdx+'" data-field="name" value="'+escAttr(k.name)+'" placeholder="KPI name">';
+  html += '<div class="plat-kpi-meta">';
+  html += '<input type="text" class="unit" data-pidx="'+pIdx+'" data-kidx="'+kIdx+'" data-field="unit" value="'+escAttr(k.unit)+'" placeholder="unit">';
+  html += '<select data-pidx="'+pIdx+'" data-kidx="'+kIdx+'" data-field="higher"><option value="1"'+(k.higher?' selected':'')+'>Higher is better</option><option value="0"'+(!k.higher?' selected':'')+'>Lower is better</option></select>';
+  html += '<input type="number" step="any" class="target" data-pidx="'+pIdx+'" data-kidx="'+kIdx+'" data-field="target" value="'+(k.target==null?'':k.target)+'" placeholder="Target">';
+  html += '<span class="plat-rag '+rag.cls+'">'+rag.label+'</span>';
+  html += '<button class="plat-kpi-del" data-pidx="'+pIdx+'" data-kidx="'+kIdx+'" data-action="delkpi" type="button" title="Delete KPI">&times;</button>';
+  html += '</div></div>';
+
+  html += '<div class="plat-values-wrap"><div class="plat-values">';
+  st.periods.forEach(function(pl, i){
+    var v = k.values[i];
+    html += '<div class="plat-value-cell"><label>'+escAttr(pl)+'</label><input type="number" step="any" data-pidx="'+pIdx+'" data-kidx="'+kIdx+'" data-vidx="'+i+'" value="'+(v==null?'':v)+'"></div>';
+  });
+  html += '</div></div>';
+
+  html += '<div class="plat-kpi-chart">'+buildPlatformChart(k, st.periods, st.forecastCount, color)+'</div>';
+  html += '</div>';
+  return html;
+}
+
+function platPerspectiveCard(persp, pIdx, st){
+  var html = '<div class="plat-persp-card" style="--dot:'+persp.color+'">';
+  html += '<div class="plat-persp-head"><input type="text" class="plat-persp-name" data-pidx="'+pIdx+'" data-field="perspname" value="'+escAttr(persp.name)+'">';
+  html += '<div class="plat-persp-actions"><button class="btn" data-pidx="'+pIdx+'" data-action="addkpi" type="button">+ Add KPI</button><button class="btn" data-pidx="'+pIdx+'" data-action="delpersp" type="button">Delete perspective</button></div></div>';
+  if (!persp.kpis.length){
+    html += '<div class="plat-empty">No KPIs yet in this perspective. Click "+ Add KPI" to create one.</div>';
+  }
+  persp.kpis.forEach(function(k,kIdx){ html += platKpiRow(k, pIdx, kIdx, st, persp.color); });
+  html += '</div>';
+  return html;
+}
+
+function renderPlatform(){
+  var st = PLATFORM_STATE;
+  var html = '<p class="eyebrow">Your platform</p>';
+  html += '<h1 class="page-title">Build Your Balanced Scorecard</h1>';
+  html += '<p class="page-sub">Configure your own perspectives and KPIs, enter your company\'s actual results, set targets, and get AI forecasts — the same forecasting approach used throughout this program, applied to your real data.</p>';
+
+  html += '<div class="plat-toolbar">';
+  html += '<button class="btn" id="platSampleBtn" type="button">Load sample company</button>';
+  html += '<button class="btn" id="platTemplateBtn" type="button">Download CSV template</button>';
+  html += '<button class="btn" id="platImportCsvBtn" type="button">Import from CSV</button>';
+  html += '<input type="file" id="platCsvFile" accept=".csv" style="display:none">';
+  html += '<button class="btn" id="platExportJsonBtn" type="button">Export scorecard (.json)</button>';
+  html += '<button class="btn" id="platImportJsonBtn" type="button">Import scorecard (.json)</button>';
+  html += '<input type="file" id="platJsonFile" accept=".json" style="display:none">';
+  html += '<button class="btn" id="platResetBtn" type="button">Reset all</button>';
+  html += '<span class="plat-saved" id="platSaved"></span>';
+  html += '</div>';
+
+  html += '<div class="plat-company"><label for="platCompanyInput">Company name</label><input type="text" id="platCompanyInput" placeholder="Your company name" value="'+escAttr(st.company)+'"></div>';
+
+  html += '<div class="plat-periods" id="platPeriods">';
+  st.periods.forEach(function(p,i){
+    html += '<span class="plat-period-chip"><input type="text" data-idx="'+i+'" class="plat-period-input" value="'+escAttr(p)+'"><button type="button" class="plat-period-del" data-idx="'+i+'" title="Remove period">&times;</button></span>';
+  });
+  html += '<button class="plat-add-period" id="platAddPeriod" type="button">+ Add period</button>';
+  html += '</div>';
+
+  st.perspectives.forEach(function(persp, pIdx){ html += platPerspectiveCard(persp, pIdx, st); });
+
+  html += '<button class="btn primary" id="platAddPersp" type="button" style="margin-top:4px;">+ Add perspective</button>';
+
+  document.getElementById("sec-platform").innerHTML = html;
+  wirePlatform();
+}
+
+function platOfferDownload(filename, content, mime){
+  if (window.claude && window.claude.downloads && typeof window.claude.downloads.save === "function"){
+    window.claude.downloads.save({filename: filename, data: content}).catch(function(){
+      platBlobDownload(filename, content, mime);
+    });
+    return;
+  }
+  platBlobDownload(filename, content, mime);
+}
+function platBlobDownload(filename, content, mime){
+  var blob = new Blob([content], {type: mime});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+function platDownloadTemplate(){
+  var lines = [
+    "Perspective,KPI,Unit,Direction,Target,Period 1,Period 2,Period 3,Period 4",
+    "Financial,Revenue Growth Rate,%,Higher is better,10,,,,",
+    "Financial,Operating Margin,%,Higher is better,20,,,,",
+    "Customer,Customer Retention Rate,%,Higher is better,90,,,,",
+    "Internal Process,Cycle Time,d,Lower is better,7,,,,",
+    "Learning & Growth,Employee Engagement,,Higher is better,80,,,,"
+  ];
+  platOfferDownload("bsc_platform_template.csv", lines.join("\r\n"), "text/csv;charset=utf-8");
+}
+function platExportJson(){
+  var json = JSON.stringify(PLATFORM_STATE, null, 2);
+  var slug = PLATFORM_STATE.company ? PLATFORM_STATE.company.replace(/[^a-z0-9]+/gi,"_").toLowerCase() : "export";
+  platOfferDownload("bsc_scorecard_"+slug+".json", json, "application/json;charset=utf-8");
+}
+function platParseCsvRows(rows){
+  var headerIdx = -1;
+  for (var r=0;r<rows.length;r++){
+    if (rows[r] && rows[r][0] && String(rows[r][0]).trim().toLowerCase()==="perspective"){ headerIdx = r; break; }
+  }
+  if (headerIdx < 0) throw new Error('Could not find a header row starting with "Perspective".');
+  var header = rows[headerIdx];
+  var periodStart = 5;
+  var periods = [];
+  for (var c=periodStart;c<header.length;c++){
+    var lbl = (header[c]||"").trim();
+    if (lbl) periods.push(lbl);
+  }
+  if (!periods.length) throw new Error("No period columns found after the Target column.");
+
+  var perspMap = {}, order = [];
+  for (var r2=headerIdx+1;r2<rows.length;r2++){
+    var row2 = rows[r2];
+    if (!row2 || row2.every(function(c){ return !c || !String(c).trim(); })) continue;
+    var perspName = (row2[0]||"").trim();
+    var kpiName = (row2[1]||"").trim();
+    if (!perspName || !kpiName) continue;
+    var unit = (row2[2]||"").trim();
+    var higher = !/lower/i.test((row2[3]||"").trim());
+    var targetTxt = (row2[4]||"").trim();
+    var target = targetTxt === "" ? null : parseFloat(targetTxt);
+    if (target!=null && isNaN(target)) target = null;
+    var values = [], hasFrac = false;
+    for (var c2=0;c2<periods.length;c2++){
+      var raw = row2[periodStart+c2];
+      var num = (raw===undefined || raw===null || String(raw).trim()==="") ? null : parseFloat(raw);
+      if (num!=null && !isNaN(num)){ values.push(num); if (Math.abs(num-Math.round(num))>0.001) hasFrac=true; }
+      else values.push(null);
+    }
+    if (!perspMap[perspName]){
+      perspMap[perspName] = {id:platNextId("p"), name:perspName, color:PLATFORM_COLORS[order.length % PLATFORM_COLORS.length], kpis:[]};
+      order.push(perspName);
+    }
+    perspMap[perspName].kpis.push({id:platNextId("k"), name:kpiName, unit:unit, higher:higher, target:target, dec:hasFrac?1:0, values:values});
+  }
+  if (!order.length) throw new Error("No data rows found below the header.");
+  return {
+    company: (PLATFORM_STATE && PLATFORM_STATE.company) ? PLATFORM_STATE.company : "",
+    periods: periods,
+    forecastCount: 4,
+    perspectives: order.map(function(n){ return perspMap[n]; })
+  };
+}
+
+function wirePlatform(){
+  if (platWired) return;
+  platWired = true;
+  var root = document.getElementById("sec-platform");
+
+  root.addEventListener("change", function(e){
+    var t = e.target;
+    if (t.id === "platCompanyInput"){ PLATFORM_STATE.company = t.value; platSave(); return; }
+    if (t.id === "platJsonFile"){
+      var jf = t.files[0]; if (!jf) return;
+      var reader = new FileReader();
+      reader.onload = function(){
+        try {
+          var obj = JSON.parse(reader.result);
+          if (!obj || !obj.perspectives || !obj.periods) throw new Error("Not a scorecard file.");
+          PLATFORM_STATE = obj;
+          platSave(); renderPlatform();
+        } catch(err){ alert("Could not read this file: " + err.message); }
+      };
+      reader.readAsText(jf);
+      t.value = "";
+      return;
+    }
+    if (t.id === "platCsvFile"){
+      var cf = t.files[0]; if (!cf) return;
+      cf.text().then(function(text){
+        try {
+          PLATFORM_STATE = platParseCsvRows(parseCSV(text));
+          platSave(); renderPlatform();
+        } catch(err){ alert("Could not read this CSV: " + err.message); }
+      });
+      t.value = "";
+      return;
+    }
+    if (t.classList.contains("plat-period-input")){
+      var pi2 = parseInt(t.getAttribute("data-idx"),10);
+      PLATFORM_STATE.periods[pi2] = t.value || ("Period "+(pi2+1));
+      platSave(); renderPlatform(); return;
+    }
+    var pidxAttr = t.getAttribute("data-pidx");
+    if (pidxAttr === null) return;
+    var pidx = parseInt(pidxAttr,10);
+    var persp = PLATFORM_STATE.perspectives[pidx];
+    if (!persp) return;
+    if (t.classList.contains("plat-persp-name")){
+      persp.name = t.value || persp.name;
+      platSave(); renderPlatform(); return;
+    }
+    var kidxAttr = t.getAttribute("data-kidx");
+    if (kidxAttr === null) return;
+    var kidx = parseInt(kidxAttr,10);
+    var kpi = persp.kpis[kidx];
+    if (!kpi) return;
+    var vidxAttr = t.getAttribute("data-vidx");
+    if (vidxAttr !== null){
+      var vidx = parseInt(vidxAttr,10);
+      var val = t.value === "" ? null : parseFloat(t.value);
+      kpi.values[vidx] = (val==null || isNaN(val)) ? null : val;
+      var hasFrac = kpi.values.some(function(v){ return v!=null && Math.abs(v-Math.round(v))>0.001; });
+      kpi.dec = hasFrac ? 1 : 0;
+      platSave(); renderPlatform(); return;
+    }
+    var field = t.getAttribute("data-field");
+    if (field === "name"){ kpi.name = t.value || kpi.name; }
+    else if (field === "unit"){ kpi.unit = t.value; }
+    else if (field === "higher"){ kpi.higher = t.value === "1"; }
+    else if (field === "target"){ kpi.target = t.value === "" ? null : parseFloat(t.value); }
+    platSave(); renderPlatform();
+  });
+
+  root.addEventListener("click", function(e){
+    var t = e.target.closest("button");
+    if (!t) return;
+
+    if (t.id === "platSampleBtn"){
+      if (!confirm("Replace the current scorecard with a filled sample? Export first if you want to keep what you have.")) return;
+      PLATFORM_STATE = platSampleState();
+      platSave(); renderPlatform(); return;
+    }
+    if (t.id === "platResetBtn"){
+      if (!confirm("Reset to a blank scorecard? This clears everything (export first if you want to keep it).")) return;
+      PLATFORM_STATE = platDefaultState();
+      platSave(); renderPlatform(); return;
+    }
+    if (t.id === "platTemplateBtn"){ platDownloadTemplate(); return; }
+    if (t.id === "platExportJsonBtn"){ platExportJson(); return; }
+    if (t.id === "platImportJsonBtn"){ document.getElementById("platJsonFile").click(); return; }
+    if (t.id === "platImportCsvBtn"){ document.getElementById("platCsvFile").click(); return; }
+
+    if (t.id === "platAddPeriod"){
+      var n = PLATFORM_STATE.periods.length + 1;
+      var label = window.prompt("Period label (e.g. 2026-Q1):", "Period "+n);
+      if (label === null) return;
+      PLATFORM_STATE.periods.push(label || ("Period "+n));
+      PLATFORM_STATE.perspectives.forEach(function(p){ p.kpis.forEach(function(k){ k.values.push(null); }); });
+      platSave(); renderPlatform(); return;
+    }
+    if (t.classList.contains("plat-period-del")){
+      var idx = parseInt(t.getAttribute("data-idx"),10);
+      if (PLATFORM_STATE.periods.length <= 1){ alert("You need at least one period."); return; }
+      if (!confirm('Remove period "'+PLATFORM_STATE.periods[idx]+'"? This deletes that column\'s data for every KPI.')) return;
+      PLATFORM_STATE.periods.splice(idx,1);
+      PLATFORM_STATE.perspectives.forEach(function(p){ p.kpis.forEach(function(k){ k.values.splice(idx,1); }); });
+      platSave(); renderPlatform(); return;
+    }
+    if (t.id === "platAddPersp"){
+      var name = window.prompt("New perspective name:", "New Perspective");
+      if (!name) return;
+      var color = PLATFORM_COLORS[PLATFORM_STATE.perspectives.length % PLATFORM_COLORS.length];
+      PLATFORM_STATE.perspectives.push({id:platNextId("p"), name:name, color:color, kpis:[]});
+      platSave(); renderPlatform(); return;
+    }
+
+    var pidxAttr2 = t.getAttribute("data-pidx");
+    if (pidxAttr2 === null) return;
+    var pidx2 = parseInt(pidxAttr2,10);
+    var persp2 = PLATFORM_STATE.perspectives[pidx2];
+    if (!persp2) return;
+    var action = t.getAttribute("data-action");
+    if (action === "addkpi"){
+      var kname = window.prompt("KPI name:", "New Indicator");
+      if (!kname) return;
+      persp2.kpis.push({id:platNextId("k"), name:kname, unit:"", higher:true, target:null, dec:1, values: PLATFORM_STATE.periods.map(function(){ return null; })});
+      platSave(); renderPlatform(); return;
+    }
+    if (action === "delpersp"){
+      if (!confirm('Delete perspective "'+persp2.name+'" and all its KPIs?')) return;
+      PLATFORM_STATE.perspectives.splice(pidx2,1);
+      platSave(); renderPlatform(); return;
+    }
+    if (action === "delkpi"){
+      var kidxAttr2 = t.getAttribute("data-kidx");
+      if (kidxAttr2 === null) return;
+      var kidx2 = parseInt(kidxAttr2,10);
+      if (!persp2.kpis[kidx2]) return;
+      if (!confirm('Delete KPI "'+persp2.kpis[kidx2].name+'"?')) return;
+      persp2.kpis.splice(kidx2,1);
+      platSave(); renderPlatform(); return;
+    }
+  });
+}
+
+// ---------------- AI Consultant / indicator chatbot ----------------
+var KPI_ABBR = {
+  "revenue growth rate": ["revenue","growth rate"],
+  "operating margin": ["margin"],
+  "return on invested capital (roic)": ["roic"],
+  "customer satisfaction (csat/nps index)": ["csat","nps","satisfaction"],
+  "customer satisfaction (csat)": ["csat","satisfaction"],
+  "customer retention rate": ["retention"],
+  "market share": ["market share"],
+  "cycle time": ["cycle time","process efficiency"],
+  "defect / error rate": ["defect","error rate","quality"],
+  "innovation pipeline throughput": ["pipeline","innovation"],
+  "employee engagement score": ["engagement"],
+  "employee engagement": ["engagement"],
+  "training hours per employee": ["training"],
+  "employee retention rate": ["employee retention","attrition"]
+};
+var CHAT_FAQ = [
+  {kw:["balanced scorecard","what is bsc","bsc mean"], a:"<p>The <b>Balanced Scorecard</b> is a strategic management framework that translates strategy into a coherent set of measures across four perspectives: Financial, Customer, Internal Process, and Learning & Growth. It balances short-term financial results with the drivers that create them, so leaders can see not just what happened, but why.</p>"},
+  {kw:["four perspective","4 perspective","perspectives"], a:"<p>There are four perspectives:</p><ul><li><b>Financial</b> — are our strategic choices delivering results shareholders and lenders can see?</li><li><b>Customer</b> — are we creating value the market recognizes?</li><li><b>Internal Process</b> — are we operationally excellent where it matters?</li><li><b>Learning & Growth</b> — do we have the people and capability to keep improving?</li></ul><p>They form a chain: Learning & Growth enables better Internal Processes, which improve the Customer experience, which drives Financial results.</p>"},
+  {kw:["leading indicator","lagging indicator"], a:"<p>A <b>lagging indicator</b> reports an outcome after it happened — like revenue. A <b>leading indicator</b> predicts a future outcome — like employee engagement or pipeline throughput. A good scorecard needs both, and AI is especially useful for surfacing leading indicators before they show up in the financials.</p>"},
+  {kw:["forecast","predict","ai technique","how is the forecast"], a:"<p>Every forecast on this platform uses <b>time-series regression</b>: it fits a trend line to your historical values, then projects that trend forward. It also computes a <b>confidence range</b> from how much your actual data scattered around that trend, so the further out the forecast, the wider — and more honest — the range.</p>"},
+  {kw:["confidence range","confidence interval"], a:"<p>The shaded band around a forecast line is the <b>confidence range</b> — it shows uncertainty, not a guarantee. A narrow band means the trend has been very consistent; a wide band means recent results have been more volatile, so treat the forecast as a range to plan around, not a single number to bet on.</p>"},
+  {kw:["target","rag","on target","near target","off target"], a:"<p>When you set a <b>target</b> for a KPI, the platform compares your latest actual result to it: <b>On target</b> (meeting or beating it), <b>Near target</b> (roughly within 10%), or <b>Off target</b> (further away) — always accounting for whether higher or lower is better for that indicator.</p>"},
+  {kw:["higher is better","lower is better","direction"], a:"<p>Each indicator has a <b>direction</b>. For most KPIs (revenue growth, retention, engagement) higher is better. For a few (cycle time, defect rate) lower is better, so a falling number is actually good news. The platform uses this to color trend arrows and target status correctly.</p>"},
+  {kw:["add kpi","add indicator","add my own","custom kpi"], a:"<p>Go to <b>Build Your Scorecard</b>, open any perspective card, and click <b>+ Add KPI</b>. Name it anything, set its unit, direction, and an optional target, then enter your actual results period by period.</p>"},
+  {kw:["import","upload","csv","excel","xlsx"], a:"<p>On <b>Build Your Scorecard</b> you can import a CSV built from the downloadable template (any number of perspectives, KPIs, and periods), or restore a previously exported <b>.json</b> scorecard file.</p>"},
+  {kw:["cross perspective","pattern","early warning"], a:"<p>The AI Methodology tab walks through a worked example: an engagement dip tends to show up as a customer satisfaction dip about a quarter later, and a revenue deceleration about two quarters after that. Watch Learning & Growth and Internal Process — they usually move first.</p>"},
+  {kw:["who are you","what are you","your name"], a:"<p>I'm the AI Scorecard Assistant built into this platform. Ask me what any indicator means, or ask me to <b>assess your company's performance</b> and I'll read your current scorecard data and give you a written assessment.</p>"},
+  {kw:["hello","hi","hey"], a:"<p>Hello! Ask me what an indicator means (for example, \"what is ROIC\"), or ask me to <b>assess my company's performance</b>.</p>"}
+];
+
+function normalizeText(s){ return String(s||"").toLowerCase().replace(/[^\w\s%]/g," ").replace(/\s+/g," ").trim(); }
+
+function chatKpiKnowledge(){
+  var out = [];
+  KPIS.forEach(function(k){
+    var persp = PERSPECTIVES.filter(function(p){ return p.key===k.persp; })[0];
+    out.push({name:k.name, perspLabel:persp?persp.label:"", unit:k.unit, higher:k.higher, def:k.def, tech:k.tech,
+      current:k.hist[k.hist.length-1], dec:k.dec, target:null});
+  });
+  if (PLATFORM_STATE){
+    PLATFORM_STATE.perspectives.forEach(function(p){
+      p.kpis.forEach(function(k){
+        var lastNum = null;
+        for (var i=k.values.length-1;i>=0;i--){ if (k.values[i]!=null && !isNaN(k.values[i])){ lastNum = Number(k.values[i]); break; } }
+        out.push({name:k.name, perspLabel:p.name, unit:k.unit, higher:k.higher, def:null, tech:null, current:lastNum, dec:k.dec, target:k.target});
+      });
+    });
+  }
+  return out;
+}
+
+function findKpiMatch(userText){
+  var t = normalizeText(userText);
+  var best=null, bestScore=0;
+  chatKpiKnowledge().forEach(function(k){
+    var nameWords = normalizeText(k.name).split(" ").filter(function(w){ return w.length>2; });
+    var score = 0;
+    nameWords.forEach(function(w){ if (t.indexOf(w)>=0) score++; });
+    var abbr = KPI_ABBR[k.name.toLowerCase()];
+    if (abbr && abbr.some(function(a){ return t.indexOf(a)>=0; })) score += 3;
+    if (score > bestScore){ bestScore = score; best = k; }
+  });
+  return bestScore>0 ? best : null;
+}
+
+function kpiExplainHtml(k){
+  var html = "<p><b>"+escAttr(k.name)+"</b>"+(k.perspLabel?(" — "+escAttr(k.perspLabel)+" perspective"):"")+"</p>";
+  if (k.def) html += "<p>"+escAttr(k.def)+"</p>";
+  html += "<p>Unit: "+(k.unit?escAttr(k.unit):"index score")+" &middot; "+(k.higher?"Higher is better":"Lower is better")+"</p>";
+  if (k.tech) html += "<p><b>AI technique:</b> "+escAttr(k.tech)+"</p>";
+  if (k.current!=null && !isNaN(k.current)){
+    html += "<p><b>Latest value:</b> "+Number(k.current).toFixed(k.dec||0)+(k.unit||"")+(k.target!=null?(" &middot; Target "+Number(k.target).toFixed(k.dec||0)+(k.unit||"")):"")+"</p>";
+  }
+  return html;
+}
+
+function generateAssessment(){
+  var st = PLATFORM_STATE;
+  var allKpis = [];
+  st.perspectives.forEach(function(p){ p.kpis.forEach(function(k){ allKpis.push({persp:p.name, k:k}); }); });
+  if (!allKpis.length){
+    return "<p>Your <b>Build Your Scorecard</b> platform doesn't have any indicators yet, so I don't have data to assess. Click \"Load sample company\" there to see a worked example, or add your own perspectives and KPIs with a few periods of actual results, then ask me again.</p>";
+  }
+  var withData = allKpis.filter(function(x){ return x.k.values.some(function(v){ return v!=null && !isNaN(v); }); });
+  if (!withData.length){
+    return "<p>You've set up "+allKpis.length+" indicator(s), but none have any actual values entered yet. Add at least one period of data per KPI on <b>Build Your Scorecard</b>, then ask me to assess your performance again.</p>";
+  }
+
+  var green=0, amber=0, red=0, none=0;
+  var perspScores = {};
+  var improving=[], declining=[], atRiskForecast=[];
+
+  withData.forEach(function(x){
+    var k = x.k, persp = x.persp;
+    if (!perspScores[persp]) perspScores[persp] = {green:0,amber:0,red:0,none:0,total:0};
+    var rag = ragStatus(k);
+    perspScores[persp][rag.cls]++;
+    perspScores[persp].total++;
+    if (rag.cls==="green") green++; else if (rag.cls==="amber") amber++; else if (rag.cls==="red") red++; else none++;
+
+    var nums = [];
+    for (var i=0;i<k.values.length;i++){ if (k.values[i]!=null && !isNaN(k.values[i])) nums.push(Number(k.values[i])); }
+    if (nums.length>=2){
+      var delta = nums[nums.length-1] - nums[nums.length-2];
+      var good = k.higher ? delta>=0 : delta<=0;
+      if (Math.abs(delta) > 0.0001){ if (good) improving.push(k.name); else declining.push(k.name); }
+    }
+    if (k.target!=null && !isNaN(k.target) && nums.length>=2){
+      var fc = linregForecast(nums, st.forecastCount || 4);
+      var lastF = fc.fVal[fc.fVal.length-1];
+      var meets = k.higher ? lastF >= k.target : lastF <= k.target;
+      if (!meets) atRiskForecast.push(k.name);
+    }
+  });
+
+  var worstPersp = null, worstScore = 99;
+  Object.keys(perspScores).forEach(function(n){
+    var s = perspScores[n];
+    var score = (s.green*2 + s.amber*1 - s.red*1) / Math.max(s.total,1);
+    if (score < worstScore){ worstScore = score; worstPersp = n; }
+  });
+
+  var lines = [];
+  lines.push("<p>Here's my read on "+(st.company?("<b>"+escAttr(st.company)+"</b>'s"):"your")+" scorecard, based on "+withData.length+" indicator(s) with data entered:</p>");
+
+  var withTarget = green+amber+red;
+  if (withTarget>0){
+    lines.push("<p><b>Overall:</b> "+green+" on target, "+amber+" near target, "+red+" off target"+(none>0?(", "+none+" with no target set"):"")+".</p>");
+  } else {
+    lines.push("<p>None of your indicators have a target set yet, so I can't score them against a goal — I can still read the trend direction below. Add targets on <b>Build Your Scorecard</b> for a sharper assessment.</p>");
+  }
+  if (worstPersp) lines.push("<p><b>Weakest perspective:</b> "+escAttr(worstPersp)+" — worth reviewing first.</p>");
+  if (improving.length) lines.push("<p><b>Improving:</b> "+improving.map(escAttr).join(", ")+".</p>");
+  if (declining.length) lines.push("<p><b>Declining:</b> "+declining.map(escAttr).join(", ")+" — check what's driving the direction before it compounds.</p>");
+  if (atRiskForecast.length) lines.push("<p><b>Projected to miss target:</b> "+atRiskForecast.map(escAttr).join(", ")+" — the AI forecast for these does not reach the target you set on the current trend.</p>");
+
+  var actions = [];
+  if (red>0) actions.push("Prioritize the "+red+" indicator(s) currently off target.");
+  if (atRiskForecast.length) actions.push("Investigate the "+atRiskForecast.length+" indicator(s) forecast to miss target before the trend locks in.");
+  if (declining.length) actions.push("Review root causes behind declining indicators, especially in "+(worstPersp||"the weakest perspective")+".");
+  if (!red && !atRiskForecast.length && !declining.length) actions.push("No major red flags right now — keep entering each period's data so the forecasts stay sharp.");
+  lines.push("<p><b>Suggested next steps:</b></p><ul>"+actions.map(function(a){ return "<li>"+a+"</li>"; }).join("")+"</ul>");
+  lines.push("<p style=\"font-size:11.5px;color:var(--ink-muted);margin-top:10px;\">This is an automated, rules-based read of the numbers you've entered — a useful starting point, not a substitute for management judgment.</p>");
+  return lines.join("");
+}
+
+function botRespond(userText){
+  var t = normalizeText(userText);
+  if (/assess|performance|how (are|is) (we|my company|the company) doing|evaluate my|consultant/.test(t)){
+    return generateAssessment();
+  }
+  var bestFaq=null, bestFaqScore=0;
+  CHAT_FAQ.forEach(function(f){
+    var score=0;
+    f.kw.forEach(function(k){ if (t.indexOf(k)>=0) score += k.split(" ").length; });
+    if (score>bestFaqScore){ bestFaqScore=score; bestFaq=f; }
+  });
+  var kpiMatch = findKpiMatch(userText);
+  if (kpiMatch && (!bestFaq || bestFaqScore<2)) return kpiExplainHtml(kpiMatch);
+  if (bestFaq && bestFaqScore>=1) return bestFaq.a;
+  if (kpiMatch) return kpiExplainHtml(kpiMatch);
+  return "<p>I'm not sure I caught that. Try asking about a specific indicator (e.g. \"what is ROIC\" or \"what does cycle time mean\"), or ask me to <b>assess my company's performance</b>. You can also tap a suggestion below.</p>";
+}
+
+var CHAT_HISTORY = [];
+function renderConsultant(){
+  var html = '<p class="eyebrow">Talk to the platform</p>';
+  html += '<h1 class="page-title">AI Consultant &amp; Indicator Assistant</h1>';
+  html += '<p class="page-sub">Ask what any indicator means, or ask for an assessment of your company\'s performance based on the data in Build Your Scorecard.</p>';
+  html += '<div class="chat-shell"><div class="chat-window"><div class="chat-messages" id="chatMessages"></div>';
+  html += '<div class="chat-input-row"><input type="text" id="chatInput" placeholder="Ask about an indicator, or type &quot;assess my performance&quot;..."><button class="btn primary" id="chatSendBtn" type="button">Send</button></div></div>';
+  html += '<div class="chat-suggest" id="chatSuggest"></div>';
+  html += '<p class="chat-note">This assistant reads live from your scorecard data and the indicator library built into this platform — it is a rules-based assistant, not a live connection to an external AI model.</p>';
+  html += '</div>';
+  document.getElementById("sec-consultant").innerHTML = html;
+  wireConsultant();
+}
+
+function wireConsultant(){
+  var input = document.getElementById("chatInput");
+  var sendBtn = document.getElementById("chatSendBtn");
+  var msgBox = document.getElementById("chatMessages");
+  var suggestBox = document.getElementById("chatSuggest");
+
+  function addMsg(role, html){
+    CHAT_HISTORY.push({role:role, html:html});
+    var div = document.createElement("div");
+    div.className = "chat-msg " + role;
+    div.innerHTML = html;
+    msgBox.appendChild(div);
+    msgBox.scrollTop = msgBox.scrollHeight;
+  }
+
+  if (!CHAT_HISTORY.length){
+    addMsg("bot", "<p>Hi! I'm your AI Scorecard Assistant. Ask me what any indicator means (try \"what is ROIC\" or \"what does cycle time mean\"), or ask me to <b>assess your company's performance</b> using the data in Build Your Scorecard.</p>");
+  } else {
+    CHAT_HISTORY.forEach(function(m){
+      var div = document.createElement("div");
+      div.className = "chat-msg " + m.role;
+      div.innerHTML = m.html;
+      msgBox.appendChild(div);
+    });
+    msgBox.scrollTop = msgBox.scrollHeight;
+  }
+
+  var chips = ["Assess my company's performance","What is the Balanced Scorecard?","What does \"higher is better\" mean?","What does a confidence range mean?"]
+    .concat(chatKpiKnowledge().slice(0,6).map(function(k){ return "What is "+k.name+"?"; }));
+  suggestBox.innerHTML = chips.map(function(c){ return '<button class="chat-chip" type="button">'+escAttr(c)+'</button>'; }).join("");
+
+  function handleSend(text){
+    text = (text||"").trim();
+    if (!text) return;
+    addMsg("user", escAttr(text));
+    input.value = "";
+    var typing = document.createElement("div");
+    typing.className = "chat-typing";
+    typing.textContent = "Thinking…";
+    msgBox.appendChild(typing);
+    msgBox.scrollTop = msgBox.scrollHeight;
+    setTimeout(function(){
+      typing.remove();
+      addMsg("bot", botRespond(text));
+    }, 380);
+  }
+
+  sendBtn.addEventListener("click", function(){ handleSend(input.value); });
+  input.addEventListener("keydown", function(e){ if (e.key==="Enter"){ handleSend(input.value); } });
+  suggestBox.addEventListener("click", function(e){
+    var t = e.target.closest(".chat-chip");
+    if (!t) return;
+    handleSend(t.textContent);
+  });
+}
+
 // ---------------- Init ----------------
+platLoad();
 wireDataModal();
 renderRail();
 renderOverview();
 ["financial","customer","process","learning"].forEach(renderPerspectivePanel);
 renderMethodology();
 renderSlidesPanel();
+renderPlatform();
+renderConsultant();
 selectTab("overview");
 
 })();
 </script>
 
-
 </body>
+
 </html>
