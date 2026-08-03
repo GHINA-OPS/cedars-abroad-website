@@ -143,7 +143,15 @@
   .cert-card p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.55;}
 
   /* Simulation */
-  .sim-progress{display:flex;gap:6px;margin-bottom:24px;}
+  .sim-toprow{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+  .sim-toprow .sim-progress,.sim-toprow .sim-meters{flex:1;margin-bottom:0;}
+  .sim-timer-badge{flex:none;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:var(--ink);}
+  .sim-timer-badge .tb-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-muted);font-weight:700;}
+
+  .align-grade-badge{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-size:12.5px;color:var(--ink-muted);}
+  .align-grade-badge .grade-pill{font-family:var(--serif);font-size:15px;font-weight:700;padding:2px 12px;border-radius:999px;background:var(--surface-2);color:var(--ink);}
+
+  .sim-progress{display:flex;gap:5px;}
   .sim-progress .sp-dot{flex:1;height:4px;border-radius:999px;background:var(--surface-2);}
   .sim-progress .sp-dot.done{background:var(--green);}
   .sim-progress .sp-dot.current{background:var(--accent);}
@@ -200,6 +208,8 @@
   .meter-fill.efficiency{background:linear-gradient(90deg,var(--p-dev),var(--p-ret));}
 
   .sim-ending{text-align:center;padding:8px 0 6px;}
+  .sim-ending .score-num{font-family:var(--serif);font-size:52px;color:var(--accent);line-height:1;}
+  .sim-ending .score-out{font-size:13px;color:var(--ink-muted);margin:4px 0 16px;font-variant-numeric:tabular-nums;}
   .sim-ending .ending-tag{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding:4px 12px;border-radius:999px;margin-bottom:14px;}
   .sim-ending .ending-title{font-family:var(--serif);font-size:26px;margin:0 0 14px;}
   .sim-ending .ending-msg{font-size:14.5px;color:var(--ink-2);line-height:1.65;max-width:56ch;margin:0 auto;text-align:left;}
@@ -453,11 +463,14 @@
     </section>
 
     <section id="panel-simulation" class="panel">
-      <p class="eyebrow">Practice</p>
+      <p class="eyebrow">Practice · 15 Questions · ~20 Minutes</p>
       <h1 class="page-title">Hiring Simulation</h1>
-      <p class="page-sub">You're the HR coordinator hiring a Customer Success Associate. Make the calls — from writing the job description through the first week on the job — and see how you score.</p>
+      <p class="page-sub">You're the HR coordinator hiring a Customer Success Associate. Make the calls — from sourcing through the 90-day review — and see how you're graded.</p>
 
-      <div class="sim-progress" id="simProgress"></div>
+      <div class="sim-toprow">
+        <div class="sim-progress" id="simProgress"></div>
+        <div class="sim-timer-badge"><span class="tb-label">Time</span><span id="simTimer">00:00</span></div>
+      </div>
       <div class="sim-stage" id="simStage"></div>
 
       <div class="stage-nav">
@@ -467,11 +480,15 @@
     </section>
 
     <section id="panel-alignsim" class="panel">
-      <p class="eyebrow">Practice</p>
+      <p class="eyebrow">Practice · 15 Decisions · ~20 Minutes</p>
       <h1 class="page-title">AI-HR Alignment Simulator</h1>
-      <p class="page-sub">You're the Head of HR at a 400-person company, and leadership wants AI in HR now. There's no single right answer here — every choice trades off trust against speed, and the story branches based on what you pick.</p>
+      <p class="page-sub">You're the Head of HR at a 400-person company, and leadership wants AI in HR now. Follow the program from first pilot to year-end retrospective — there's no single right answer, every choice trades off trust against speed, and you'll get a final Leadership Grade at the end.</p>
 
-      <div class="sim-meters" id="simMeters"></div>
+      <div class="sim-toprow">
+        <div class="sim-meters" id="simMeters"></div>
+        <div class="sim-timer-badge"><span class="tb-label">Time</span><span id="alignTimer">00:00</span></div>
+      </div>
+      <div class="align-grade-badge" id="alignGradeBadge"></div>
       <div class="sim-stage" id="alignStage"></div>
 
       <div class="stage-nav">
@@ -573,7 +590,7 @@
 
   var STEPS = [
     {
-      kicker: "Step 1 of 5 · Talent Identification",
+      kicker: "Step 1 of 15 · Talent Identification",
       title: "Write the job description",
       context: "You're hiring a Customer Success Associate for a growing SaaS company. Before anything else, you need a job description candidates will actually apply to.",
       prompt: "Which job description gives you the best shot at attracting the right candidates?",
@@ -587,7 +604,21 @@
       ]
     },
     {
-      kicker: "Step 2 of 5 · Talent Identification",
+      kicker: "Step 2 of 15 · Talent Identification",
+      title: "Choose your sourcing channels",
+      context: "You need candidates in the pipeline fast, but you also want quality applicants who actually match the role.",
+      prompt: "Where do you focus your sourcing effort first?",
+      options: [
+        { label: "Post on one large general job board and wait for applications to come in.", correct: false,
+          feedback: "Passive posting on a single generic board casts a wide net but usually pulls in a lot of unqualified volume — you'll spend more time filtering than sourcing." },
+        { label: "Combine a targeted job board, an employee referral push, and outreach to a few passive candidates who fit the profile.", correct: true,
+          feedback: "Layering channels like this usually produces both volume and quality — referrals tend to convert best, and targeted outreach reaches people who aren't actively job-hunting but might be a great fit." },
+        { label: "Only recruit through one person's personal LinkedIn connections to save on job board costs.", correct: false,
+          feedback: "This limits your pool to whoever happens to be in one person's network — cheap, but it caps both the volume and the diversity of candidates you'll see." }
+      ]
+    },
+    {
+      kicker: "Step 3 of 15 · Talent Identification",
       title: "Screen the candidates",
       context: "Three people applied. The job needs someone comfortable troubleshooting technical issues, calm under pressure, and able to communicate clearly with frustrated customers.",
       prompt: "Based on the job requirements, who do you shortlist for an interview?",
@@ -601,7 +632,35 @@
       ]
     },
     {
-      kicker: "Step 3 of 5 · Selection",
+      kicker: "Step 4 of 15 · Selection",
+      title: "Structure the phone screen",
+      context: "You've shortlisted Candidate A. Before the full interview, you get 15 minutes on the phone.",
+      prompt: "What's the primary goal of this call?",
+      options: [
+        { label: "Dive deep into technical troubleshooting scenarios to fully test their skills.", correct: false,
+          feedback: "That's what the full interview is for. A phone screen this deep usually just eats time without covering the basics that could disqualify or confirm interest quickly." },
+        { label: "Confirm basic fit — availability, salary expectations, interest in the role — plus a couple of quick qualifying questions.", correct: true,
+          feedback: "Right scope. A phone screen exists to catch mismatches early, on salary, timeline, or interest, before investing a full interview slot." },
+        { label: "Skip it and go straight to the full interview to save time.", correct: false,
+          feedback: "Skipping the screen means you might discover a dealbreaker — like salary expectations way outside your range — only after everyone's already invested a full interview." }
+      ]
+    },
+    {
+      kicker: "Step 5 of 15 · Selection",
+      title: "Build the interview panel",
+      context: "You're scheduling the full interview loop.",
+      prompt: "Who should be on the panel?",
+      options: [
+        { label: "Just you — one interviewer keeps things simple and fast.", correct: false,
+          feedback: "A single interviewer means a single perspective, and a single source of bias. Most strong hiring processes use more than one interviewer to cross-check impressions." },
+        { label: "You, the hiring manager, and one peer from the team the candidate would join — each covering a different angle.", correct: true,
+          feedback: "Solid structure: different interviewers can probe different things — culture fit, technical judgment, day-to-day collaboration — without duplicating each other's questions." },
+        { label: "As many people from the company as will fit on the calendar, to get maximum input.", correct: false,
+          feedback: "Too many interviewers usually produces redundant questions, interview fatigue for the candidate, and diffused accountability for the final decision." }
+      ]
+    },
+    {
+      kicker: "Step 6 of 15 · Selection",
       title: "Choose your interview question",
       context: "Candidate A is in the interview. You have one question to really test how they handle the hardest part of this job.",
       prompt: "Which question should you ask?",
@@ -615,7 +674,21 @@
       ]
     },
     {
-      kicker: "Step 4 of 5 · Selection",
+      kicker: "Step 7 of 15 · Selection",
+      title: "Handle an awkward moment",
+      context: "Mid-interview, a colleague sitting in on the panel asks the candidate, “So, are you married? Any kids?”",
+      prompt: "What do you do?",
+      options: [
+        { label: "Let it go — it's just small talk, not a big deal.", correct: false,
+          feedback: "Questions about marital or family status touch on protected characteristics in most hiring contexts. Letting it slide isn't neutral — it's a legal and ethical risk." },
+        { label: "Politely redirect in the moment, and follow up with that colleague afterward about why the question was off-limits.", correct: true,
+          feedback: "This handles both problems: it protects the candidate's interview experience right now, and it prevents the same mistake in the next interview." },
+        { label: "Say nothing during the interview, but mention it to HR weeks later if it comes up.", correct: false,
+          feedback: "Waiting means the issue goes unaddressed and could easily repeat with the next candidate — or the next several." }
+      ]
+    },
+    {
+      kicker: "Step 8 of 15 · Selection",
       title: "After the interview",
       context: "Candidate A gave a strong, specific answer to your behavioral question. You're impressed.",
       prompt: "What's the right next move?",
@@ -629,9 +702,65 @@
       ]
     },
     {
-      kicker: "Step 5 of 5 · Talent Development",
+      kicker: "Step 9 of 15 · Selection",
+      title: "Conduct the reference check",
+      context: "Candidate A cleared the interview. Time for reference checks.",
+      prompt: "How do you approach it?",
+      options: [
+        { label: "Call the references provided and ask “Would you recommend them?” — quick and easy.", correct: false,
+          feedback: "A yes/no question like this rarely surfaces anything useful — references almost always say yes. You're not learning much." },
+        { label: "Ask specific, behavior-based questions tied to the role — e.g., “Can you describe a time they handled a frustrated customer?”", correct: true,
+          feedback: "This mirrors the structured interview approach: specific, behavior-based questions get you real information instead of a generic endorsement." },
+        { label: "Skip calling references since the candidate provided them — of course they'll say good things.", correct: false,
+          feedback: "That's exactly why the questions matter more than the fact that they were provided — a well-run reference check still adds real signal, even from a hand-picked reference." }
+      ]
+    },
+    {
+      kicker: "Step 10 of 15 · Selection",
+      title: "Determine the offer",
+      context: "Time to put together an offer for Candidate A.",
+      prompt: "How do you set the number?",
+      options: [
+        { label: "Offer the minimum of the posted salary range to leave room to negotiate.", correct: false,
+          feedback: "Anchoring low can lose a strong candidate to a competing offer, or start the relationship on a note of feeling undervalued if they find out later." },
+        { label: "Benchmark against market data for the role and level, and offer within a competitive band based on their experience.", correct: true,
+          feedback: "This is how you avoid both overpaying and underpaying — market data keeps the number grounded in something other than a guess." },
+        { label: "Match whatever their current salary is, plus a flat 5%, regardless of the role's market rate.", correct: false,
+          feedback: "This anchors the new offer to their old company's pay structure instead of what the role and market actually justify — it can just as easily overpay or underpay." }
+      ]
+    },
+    {
+      kicker: "Step 11 of 15 · Selection",
+      title: "Handle a counter-offer",
+      context: "Candidate A comes back and asks for 8% more than your offer, citing a competing offer.",
+      prompt: "What's your move?",
+      options: [
+        { label: "Refuse to negotiate at all — the offer is the offer.", correct: false,
+          feedback: "Some flexibility is normal in hiring. A flat refusal can cost you a strong candidate over a gap that might have been easy to close." },
+        { label: "Check whether there's room within the approved band, and if so, counter with a number that still fits — explaining the reasoning.", correct: true,
+          feedback: "This keeps the negotiation honest and grounded — you're not just capitulating, and you're not stonewalling either." },
+        { label: "Immediately agree to whatever they ask to avoid losing them.", correct: false,
+          feedback: "Caving instantly, without checking whether it's even within your approved range, can create pay equity problems with the rest of the team down the line." }
+      ]
+    },
+    {
+      kicker: "Step 12 of 15 · Talent Development",
+      title: "Keep the candidate engaged pre-start",
+      context: "Candidate A accepted. Their start date is six weeks out.",
+      prompt: "What do you do in the meantime?",
+      options: [
+        { label: "Nothing — they've signed, so there's nothing left to do until day one.", correct: false,
+          feedback: "Six weeks of silence is exactly when a competing offer, or a counter-offer from their current company, can pull an accepted candidate away." },
+        { label: "Send a short welcome note, introduce them to their manager, and share what to expect on day one.", correct: true,
+          feedback: "Light-touch engagement like this keeps the offer feeling real and reduces the chance of a pre-start ghosting or a last-minute change of heart." },
+        { label: "Call them every few days to make sure they're still coming.", correct: false,
+          feedback: "This can read as anxious or overbearing — the goal is reassurance, not pressure." }
+      ]
+    },
+    {
+      kicker: "Step 13 of 15 · Talent Development",
       title: "The first week",
-      context: "You hired Candidate A. They start Monday.",
+      context: "Candidate A starts Monday.",
       prompt: "What matters most in their first week on the job?",
       options: [
         { label: "Hand them a full ticket queue on day one — the best way to learn is by doing.", correct: false,
@@ -641,15 +770,51 @@
         { label: "No formal onboarding — they seemed sharp in the interview, they'll figure it out.", correct: false,
           feedback: "Even strong hires need context: how the team works, what “good” looks like here, and who to ask. Skipping this is a leading cause of early turnover." }
       ]
+    },
+    {
+      kicker: "Step 14 of 15 · Talent Development",
+      title: "Run the 30-day check-in",
+      context: "Candidate A — now an employee — is one month in.",
+      prompt: "What should this check-in focus on?",
+      options: [
+        { label: "Whether they've hit full productivity yet.", correct: false,
+          feedback: "Thirty days in, full productivity usually isn't realistic yet — measuring against that bar mostly just creates unnecessary pressure." },
+        { label: "How the onboarding plan is going, what's unclear, and whether they have what they need to keep ramping up.", correct: true,
+          feedback: "This is what a 30-day check-in is for: catching friction early, while there's still plenty of time to adjust course." },
+        { label: "Nothing formal — if there were a problem, they'd have said something by now.", correct: false,
+          feedback: "New employees are often reluctant to flag problems unprompted, especially this early. A scheduled check-in creates the opening they need." }
+      ]
+    },
+    {
+      kicker: "Step 15 of 15 · Talent Development",
+      title: "The 90-day performance conversation",
+      context: "Ninety days in. Candidate A is doing well overall, but has missed a couple of smaller deadlines.",
+      prompt: "How do you approach this conversation?",
+      options: [
+        { label: "Skip mentioning the missed deadlines — no need to discourage someone who's otherwise doing well.", correct: false,
+          feedback: "Avoiding it doesn't make the pattern go away — it just delays the conversation until it's a bigger habit to break." },
+        { label: "Acknowledge the strong overall start, then address the missed deadlines directly with specific examples, and ask what's getting in the way.", correct: true,
+          feedback: "This closes the loop that development runs on: recognition plus specific, timely feedback — exactly the combination so many hires never actually get." },
+        { label: "Focus only on the missed deadlines — the strong performance elsewhere goes without saying.", correct: false,
+          feedback: "Leading only with criticism, without acknowledging what's going well, tends to make people defensive rather than receptive." }
+      ]
     }
   ];
 
   var simStage = document.getElementById("simStage");
   var simProgress = document.getElementById("simProgress");
+  var simTimerEl = document.getElementById("simTimer");
   if (!simStage) return;
 
   var current = 0;
   var answered = [];
+  var simStartTime = Date.now();
+
+  setInterval(function(){
+    var elapsed = Math.floor((Date.now() - simStartTime) / 1000);
+    var m = Math.floor(elapsed / 60), s = elapsed % 60;
+    simTimerEl.textContent = (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+  }, 1000);
 
   function renderProgress(){
     var dots = "";
@@ -717,14 +882,28 @@
     cont.appendChild(btn);
   }
 
+  function letterGrade(pct){
+    if (pct >= 93) return "A";
+    if (pct >= 85) return "A-";
+    if (pct >= 77) return "B";
+    if (pct >= 70) return "B-";
+    if (pct >= 60) return "C";
+    if (pct >= 50) return "D";
+    return "F";
+  }
+
   function renderResults(){
     renderProgress();
     var score = answered.filter(function(a){ return a.correct; }).length;
+    var pct = Math.round((score / STEPS.length) * 100);
+    var grade = letterGrade(pct);
     var msg;
     if (score === STEPS.length) {
-      msg = "Excellent — you made strong calls across the entire hiring lifecycle, from job description to onboarding. That's the instinct real HR work runs on.";
-    } else if (score >= 3) {
-      msg = "Solid work. You've got a good feel for the hiring process, with a couple of spots worth revisiting in the lessons above.";
+      msg = "Excellent — you made strong calls across the entire hiring lifecycle, from sourcing to the 90-day review. That's the instinct real HR work runs on.";
+    } else if (pct >= 70) {
+      msg = "Solid work. You've got a good feel for the hiring process, with a few spots worth revisiting in the lessons above.";
+    } else if (pct >= 50) {
+      msg = "A reasonable first pass, with some real gaps. Review the Identification and Development lessons above before trying again.";
     } else {
       msg = "Good first attempt. Review the Identification, Development, and Retention lessons above, then try the simulation again — the patterns will start clicking.";
     }
@@ -735,8 +914,8 @@
     });
 
     var html = '<div class="sim-score">';
-    html += '<div class="score-num">' + score + '/' + STEPS.length + '</div>';
-    html += '<div class="score-out">decisions made well</div>';
+    html += '<div class="score-num">' + grade + '</div>';
+    html += '<div class="score-out">' + score + ' / ' + STEPS.length + ' decisions correct (' + pct + '%)</div>';
     html += '<p class="score-msg">' + msg + '</p>';
     html += '<ul class="sim-recap">' + recap + '</ul>';
     html += '<div class="sim-continue" style="justify-content:center;margin-top:22px;"><button class="sim-btn ghost" id="simRestart">Restart Simulation</button></div>';
@@ -746,6 +925,7 @@
     document.getElementById("simRestart").addEventListener("click", function(){
       current = 0;
       answered = [];
+      simStartTime = Date.now();
       renderStep();
     });
   }
@@ -762,7 +942,7 @@
 
   var STAGES = [
     {
-      kicker: "Decision 1 of 4",
+      kicker: "Decision 1 of 15",
       title: "Choose your first AI pilot",
       context: "Leadership wants a visible win. You get to pick where AI enters HR first.",
       prompt: "What do you pilot?",
@@ -776,7 +956,7 @@
       ]
     },
     {
-      kicker: "Decision 2 of 4",
+      kicker: "Decision 2 of 15",
       title: "Announce the rollout",
       context: "Word is starting to spread that “HR is using AI now.” How do you get ahead of it?",
       prompt: "How do you communicate the rollout?",
@@ -790,7 +970,7 @@
       ]
     },
     {
-      kicker: "Decision 3 of 4",
+      kicker: "Decision 3 of 15",
       title: "An issue surfaces",
       context: "An internal audit finds your AI tool leans toward candidates from a narrow set of schools. It's not catastrophic, but it's real.",
       prompt: "What do you do?",
@@ -804,7 +984,7 @@
       ]
     },
     {
-      kicker: "Decision 4 of 4",
+      kicker: "Decision 4 of 15",
       title: "Report back to leadership",
       context: "Quarter's end. Leadership wants a readout on how the AI rollout is going.",
       prompt: "What do you report?",
@@ -816,13 +996,186 @@
         { label: "Skip formal measurement — the rollout feels successful, call it done.", trust: -10, efficiency: -10,
           result: "Without data, the program's fate depends entirely on anecdotes. It survives for now, but the next reorg is a real threat to it." }
       ]
+    },
+    {
+      kicker: "Decision 5 of 15",
+      title: "Set your data privacy approach",
+      context: "As the AI tools expand, you need a policy for what employee data feeds them.",
+      prompt: "What's your approach to data access?",
+      options: [
+        { label: "Give the AI systems broad access to all HR data — more data means better predictions.", trust: -15, efficiency: 10,
+          result: "The models do get sharper. But when employees learn how much of their data feeds AI systems without clear limits, anxiety spikes — even among people with nothing to hide." },
+        { label: "Define a minimum-necessary data policy: each AI tool only accesses what it specifically needs.", trust: 15, efficiency: -5,
+          result: "It takes longer to configure each tool this way. But when employees ask what data the systems can see, you have a real, specific answer — not a vague reassurance." },
+        { label: "Leave data access decisions to whichever vendor sells you each tool.", trust: -10, efficiency: 0,
+          result: "This is the path of least resistance today, and the highest risk tomorrow — you won't find out what a vendor's system actually accesses until something goes wrong." }
+      ]
+    },
+    {
+      kicker: "Decision 6 of 15",
+      title: "Buy or build",
+      context: "You're ready to add a second AI tool — this time for internal mobility recommendations.",
+      prompt: "Buy an established tool, or build your own?",
+      options: [
+        { label: "Buy an established vendor tool — faster to deploy, and you're not responsible for the model.", trust: 0, efficiency: 15,
+          result: "You're live in weeks instead of months. The tradeoff: when employees ask exactly how the recommendations are generated, “that's proprietary” isn't a satisfying answer." },
+        { label: "Build a simpler in-house version you can fully explain, even if it's less sophisticated.", trust: 15, efficiency: -10,
+          result: "It takes longer and does less. But you can answer literally any question about how it works — and that transparency ends up mattering more to adoption than sophistication does." },
+        { label: "Buy the vendor tool, but don't mention to employees that it's not built in-house.", trust: -20, efficiency: 10,
+          result: "It works fine — until someone in IT mentions the vendor name in a meeting, and now the conversation isn't about the tool anymore. It's about what else you haven't mentioned." }
+      ]
+    },
+    {
+      kicker: "Decision 7 of 15",
+      title: "Employee council pushes for a say",
+      context: "An employee council asks for a formal role in deciding which HR processes AI is allowed to touch.",
+      prompt: "How do you respond?",
+      options: [
+        { label: "Decline — HR technology decisions are management's call, not a committee's.", trust: -20, efficiency: 5,
+          result: "You keep full control of the roadmap. You also lose the group most likely to catch a problem early — and most likely to spread trust, or distrust, informally." },
+        { label: "Give them a formal advisory role: no veto power, but they see new tools before rollout and can flag concerns.", trust: 20, efficiency: -5,
+          result: "It adds a review step to every launch. It also means objections surface early, while they're still cheap to fix, instead of after a tool is already live." },
+        { label: "Agree verbally to involve them, but don't formalize it or follow through consistently.", trust: -15, efficiency: 0,
+          result: "The gap between what you promised and what actually happens becomes its own story — and not a flattering one." }
+      ]
+    },
+    {
+      kicker: "Decision 8 of 15",
+      title: "Train the managers",
+      context: "Managers are now expected to use two AI-assisted tools day to day.",
+      prompt: "How do you roll out training?",
+      options: [
+        { label: "Send a how-to document by email and trust people to read it.", trust: -5, efficiency: 5,
+          result: "Some managers read it. Many don't — and you find out which ones didn't when their AI-assisted decisions start looking inconsistent with everyone else's." },
+        { label: "Run short live training sessions with real examples, plus office hours in the first month.", trust: 10, efficiency: -5,
+          result: "It costs real calendar time. But managers walk in knowing not just how to click the buttons, but when to trust the output and when to override it." },
+        { label: "Skip formal training — the tools are “intuitive enough” to figure out.", trust: -10, efficiency: -5,
+          result: "A few managers misuse the tools in ways that are individually minor but collectively erode confidence in the whole rollout." }
+      ]
+    },
+    {
+      kicker: "Decision 9 of 15",
+      title: "A manager refuses to use the tool",
+      context: "One manager flatly refuses to use the new AI review-writing assistant, calling it “a shortcut for people who don't want to do their job.”",
+      prompt: "How do you handle it?",
+      options: [
+        { label: "Mandate it — everyone uses the tool, no exceptions.", trust: -10, efficiency: 10,
+          result: "Compliance goes up on paper. But this manager now tells that story to everyone who'll listen, and “forced to use it” becomes part of how the tool gets talked about internally." },
+        { label: "Have a real conversation about the specific objection, and clarify it's an assistant, not a replacement for judgment.", trust: 15, efficiency: 0,
+          result: "It takes an hour you didn't plan for. Turns out the objection was about losing ownership of the writing, not the AI itself — worth knowing before the next rollout too." },
+        { label: "Quietly let this one manager opt out, without addressing it with anyone else.", trust: 0, efficiency: -10,
+          result: "It avoids one conflict. It also means you now have an inconsistent policy that someone else will notice and ask about eventually." }
+      ]
+    },
+    {
+      kicker: "Decision 10 of 15",
+      title: "Scale to a second department",
+      context: "HR's pilot is working well enough that Sales wants a similar AI tool for onboarding their reps.",
+      prompt: "How do you approach the expansion?",
+      options: [
+        { label: "Copy the exact HR setup into Sales — it worked once, it'll work again.", trust: -10, efficiency: 10,
+          result: "Sales has a different culture and different concerns than HR did. The copy-paste rollout hits friction nobody anticipated, because nobody asked what Sales actually needed." },
+        { label: "Run a scaled-down discovery with Sales leadership first, adapting to their specific workflow.", trust: 15, efficiency: -5,
+          result: "It's slower than just copying the template. But Sales adoption is smoother, because the tool was actually shaped around how they work, not how HR works." },
+        { label: "Let Sales figure out their own version independently, with no involvement from your team.", trust: 0, efficiency: -15,
+          result: "You lose consistency across the company, and Sales ends up rediscovering mistakes your HR rollout already made and fixed months ago." }
+      ]
+    },
+    {
+      kicker: "Decision 11 of 15",
+      title: "Formalize AI governance?",
+      context: "You now have three AI tools live across two departments, and requests for more keep coming in.",
+      prompt: "Do you set up formal governance?",
+      options: [
+        { label: "No — a formal committee would just slow down innovation.", trust: -10, efficiency: 10,
+          result: "New tools launch fast. But nobody's tracking whether they're consistent with each other, and the first time two tools contradict each other, there's no clear owner for sorting it out." },
+        { label: "Set up a small cross-functional committee — HR, IT, Legal, and an employee rep — to review new use cases before launch.", trust: 20, efficiency: -10,
+          result: "Every new tool now takes a bit longer to launch. But you catch a genuinely bad use case in review before it goes live — the kind of mistake that would've been expensive to walk back publicly." },
+        { label: "Assign governance to one person as an extra duty, without dedicated time or authority.", trust: -5, efficiency: -5,
+          result: "It looks like governance exists on an org chart. In practice, review gets skipped whenever anyone's in a hurry — which is most of the time." }
+      ]
+    },
+    {
+      kicker: "Decision 12 of 15",
+      title: "A false positive flags a top performer",
+      context: "The AI attrition-risk model flags one of your best engineers as “high flight risk.” Her manager is confused — she seems as engaged as ever.",
+      prompt: "What do you do?",
+      options: [
+        { label: "Trust the model — treat this as an early warning and act accordingly.", trust: -15, efficiency: 5,
+          result: "Acting on a false positive — an unexpected retention bonus for someone who wasn't actually at risk — sends a confusing signal, and teaches people the model's output gets treated as fact without a human check." },
+        { label: "Treat the flag as a prompt for a real conversation, not a verdict — check in with her directly first.", trust: 15, efficiency: 0,
+          result: "Turns out she'd recently browsed a competitor's careers page out of curiosity, not intent — an odd but explainable trigger. The conversation itself, done well, strengthens the relationship rather than creating alarm." },
+        { label: "Ignore the flag entirely and don't mention it to anyone, since it's probably wrong.", trust: 0, efficiency: -10,
+          result: "If the model is right more often than this one case suggests, ignoring every flag by default means you'll eventually miss a real one." }
+      ]
+    },
+    {
+      kicker: "Decision 13 of 15",
+      title: "Budget renewal conversation",
+      context: "It's budget season. Leadership wants to know if the AI-in-HR program is worth renewing funding for.",
+      prompt: "How do you make the case?",
+      options: [
+        { label: "Lead entirely with efficiency numbers — hours saved, faster time-to-hire.", trust: -5, efficiency: 15,
+          result: "Leadership approves the renewal quickly. But without any employee-side data in the pitch, next year's conversation stays just as narrow — and just as vulnerable if the numbers ever dip." },
+        { label: "Present a balanced case: efficiency gains alongside employee trust data, governance wins, and lessons learned.", trust: 15, efficiency: 5,
+          result: "It's a more nuanced pitch, and it takes longer to prepare. But it gives leadership a realistic picture of what scaling further would actually require — not just a highlight reel." },
+        { label: "Undersell the program's impact to avoid setting expectations too high for next year.", trust: 0, efficiency: -10,
+          result: "It's a strange strategy that protects you from criticism at the cost of protecting the budget — leadership reads modest results as a program that isn't working." }
+      ]
+    },
+    {
+      kicker: "Decision 14 of 15",
+      title: "A new transparency regulation",
+      context: "A new regulation requires disclosure when AI materially influences an employment decision, plus a way for employees to request human review.",
+      prompt: "How do you respond?",
+      options: [
+        { label: "Do the legal minimum — update the fine print in the employee handbook and move on.", trust: -10, efficiency: 10,
+          result: "You're technically compliant. But when employees find out — usually from whoever actually read the handbook change — it looks like you did the least you could get away with." },
+        { label: "Proactively communicate the change in plain language, and make the human-review request process genuinely easy to use.", trust: 20, efficiency: -5,
+          result: "It takes real effort to translate a regulation into something people will actually read. But leading with transparency here reinforces everything you've built toward, instead of looking like compliance theater." },
+        { label: "Wait and see if anyone actually asks before doing anything.", trust: -15, efficiency: 0,
+          result: "By the time someone asks, you're explaining a delay instead of a proactive choice — a much worse position to argue from." }
+      ]
+    },
+    {
+      kicker: "Decision 15 of 15",
+      title: "Year-end retrospective",
+      context: "It's been a full year since the first AI pilot. Leadership asks for your honest recommendation on where the program goes next.",
+      prompt: "What's your recommendation?",
+      options: [
+        { label: "Full speed ahead — deploy AI into every HR process as fast as possible.", trust: -10, efficiency: 15,
+          result: "It's an ambitious pitch, and leadership likes ambition. But a rollout at that pace almost certainly repeats mistakes you already learned to avoid the slow way this year." },
+        { label: "Keep scaling deliberately — govern each new use case the way you've learned works, rather than rushing.", trust: 15, efficiency: 10,
+          result: "It's a less dramatic pitch than “full speed ahead,” but it's the one consistent with everything the year taught you: sustainable AI adoption is a sequence of well-governed decisions, not a single leap." },
+        { label: "Recommend pausing the whole program — too much risk, not worth the complexity.", trust: 5, efficiency: -20,
+          result: "This overcorrects. A year of real, hard-won lessons about how to do this well gets shelved along with the program — momentum that would be expensive to rebuild later." }
+      ]
     }
   ];
 
   var aCurrent = 0;
   var trust = 50, efficiency = 50;
+  var alignTimerEl = document.getElementById("alignTimer");
+  var alignGradeBadge = document.getElementById("alignGradeBadge");
+  var alignStartTime = Date.now();
+
+  if (alignTimerEl){
+    setInterval(function(){
+      var elapsed = Math.floor((Date.now() - alignStartTime) / 1000);
+      var m = Math.floor(elapsed / 60), s = elapsed % 60;
+      alignTimerEl.textContent = (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    }, 1000);
+  }
 
   function clamp(n){ return Math.max(0, Math.min(100, n)); }
+
+  function letterGrade(pct){
+    if (pct >= 80) return "A";
+    if (pct >= 70) return "B";
+    if (pct >= 50) return "C";
+    if (pct >= 35) return "D";
+    return "F";
+  }
 
   function renderMeters(){
     simMeters.innerHTML =
@@ -830,6 +1183,10 @@
       '<div class="meter-track"><div class="meter-fill trust" style="width:' + trust + '%"></div></div></div>' +
       '<div class="meter-card"><div class="meter-head"><b>Operational Efficiency</b><span class="val">' + efficiency + '</span></div>' +
       '<div class="meter-track"><div class="meter-fill efficiency" style="width:' + efficiency + '%"></div></div></div>';
+    if (alignGradeBadge){
+      var pct = Math.round(((trust + efficiency) / 2));
+      alignGradeBadge.innerHTML = '<span class="grade-pill">' + letterGrade(pct) + '</span> Leadership Grade so far — based on the average of both meters as you go';
+    }
   }
 
   function renderAlignStep(){
@@ -913,7 +1270,12 @@
           "This is what happens when speed and trust both get sacrificed at different points along the way — the two costs add up instead of canceling out." ] };
     }
 
+    var finalPct = Math.round((trust + efficiency) / 2);
+    var finalGrade = letterGrade(finalPct);
+
     var html = '<div class="sim-ending">';
+    html += '<div class="score-num">' + finalGrade + '</div>';
+    html += '<div class="score-out">Leadership Grade · Trust ' + trust + ' / Efficiency ' + efficiency + '</div>';
     html += '<span class="ending-tag" style="background:color-mix(in srgb, ' + ending.color + ' 16%, transparent);color:' + ending.color + '">' + ending.tag + '</span>';
     html += '<h3 class="ending-title">' + ending.title + '</h3>';
     ending.msgs.forEach(function(m){ html += '<p class="ending-msg">' + m + '</p>'; });
@@ -925,6 +1287,7 @@
       aCurrent = 0;
       trust = 50;
       efficiency = 50;
+      alignStartTime = Date.now();
       renderAlignStep();
     });
   }
