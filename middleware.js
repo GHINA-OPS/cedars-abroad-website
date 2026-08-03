@@ -11,6 +11,7 @@ export default function middleware(request) {
     [process.env.PILOT_USER_3, process.env.PILOT_PASS_3],
     [process.env.PILOT_USER_4, process.env.PILOT_PASS_4],
     [process.env.PILOT_USER_5, process.env.PILOT_PASS_5],
+    [process.env.ADMIN_USER, process.env.ADMIN_PASS],
   ];
 
   if (authHeader && authHeader.startsWith("Basic ")) {
