@@ -1,5 +1,5 @@
 export const config = {
-  matcher: ["/hr-certificate/:path*", "/certificate/:path*"],
+  matcher: ["/hr-certificate/:path*", "/certificate/:path*", "/ai-fundamentals-certificate/:path*"],
 };
 
 function isAuthorized(request, credentials) {
@@ -41,6 +41,15 @@ const BSC_CREDENTIALS = [
   [process.env.BSC_ADMIN_USER, process.env.BSC_ADMIN_PASS],
 ];
 
+const AICERT_CREDENTIALS = [
+  [process.env.AICERT_PILOT_USER_1, process.env.AICERT_PILOT_PASS_1],
+  [process.env.AICERT_PILOT_USER_2, process.env.AICERT_PILOT_PASS_2],
+  [process.env.AICERT_PILOT_USER_3, process.env.AICERT_PILOT_PASS_3],
+  [process.env.AICERT_PILOT_USER_4, process.env.AICERT_PILOT_PASS_4],
+  [process.env.AICERT_PILOT_USER_5, process.env.AICERT_PILOT_PASS_5],
+  [process.env.AICERT_ADMIN_USER, process.env.AICERT_ADMIN_PASS],
+];
+
 export default function middleware(request) {
   const path = new URL(request.url).pathname;
 
@@ -52,5 +61,10 @@ export default function middleware(request) {
   if (path.startsWith("/certificate")) {
     if (isAuthorized(request, BSC_CREDENTIALS)) return;
     return unauthorized("Cedars Abroad AI Balanced Scorecard Pilot");
+  }
+
+  if (path.startsWith("/ai-fundamentals-certificate")) {
+    if (isAuthorized(request, AICERT_CREDENTIALS)) return;
+    return unauthorized("Cedars Abroad Introduction to AI Pilot");
   }
 }
