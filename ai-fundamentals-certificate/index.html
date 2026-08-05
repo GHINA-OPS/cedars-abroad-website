@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Introduction to Artificial Intelligence Using Claude: From Fundamentals to Practical Applications — Cedars Abroad Executive Certificate">
+<title>Introduction to AI Using Claude — Executive Certificate — Cedars Abroad</title>
+</head>
+<body>
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f6f5f3;
+    --surface:#ffffff;
+    --surface-2:#efece7;
+    --rail:#181410;
+    --rail-ink:#e8ded4;
+    --rail-ink-dim:#a89a8a;
+    --ink:#181410;
+    --ink-2:#4c463f;
+    --ink-muted:#8a8175;
+    --border:rgba(24,20,16,0.10);
+    --grid:#e6e1d9;
+    --accent:#c15f3c;
+    --accent-wash:rgba(193,95,60,0.10);
+    --accent-ink:#a1492b;
+    --good:#0ca30c;
+    --good-ink:#006300;
+    --bad:#d03b3b;
+    --amber:#b8790a;
+    --m1:#4a3aa7; --m2:#c15f3c; --m3:#1baf7a; --m4:#c23f7b; --m5:#1c7fc0; --m6:#8a6d0a;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --page:#131110; --surface:#1c1917; --surface-2:#242019; --rail:#0e0c0a;
+      --rail-ink:#ece5db; --rail-ink-dim:#948b7e; --ink:#f3efe9; --ink-2:#c4bcaf; --ink-muted:#8a8175;
+      --border:rgba(255,255,255,0.10); --grid:#2c2721; --accent:#e08059; --accent-wash:rgba(224,128,89,0.16);
+      --accent-ink:#f0a685; --good:#3fc23f; --good-ink:#5fd65f; --bad:#e66767; --amber:#e0ab3e;
+      --m1:#9085e9; --m2:#e08059; --m3:#2fd99a; --m4:#e878ab; --m5:#5aa9e6; --m6:#e0ab3e;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#131110; --surface:#1c1917; --surface-2:#242019; --rail:#0e0c0a;
+    --rail-ink:#ece5db; --rail-ink-dim:#948b7e; --ink:#f3efe9; --ink-2:#c4bcaf; --ink-muted:#8a8175;
+    --border:rgba(255,255,255,0.10); --grid:#2c2721; --accent:#e08059; --accent-wash:rgba(224,128,89,0.16);
+    --accent-ink:#f0a685; --good:#3fc23f; --good-ink:#5fd65f; --bad:#e66767; --amber:#e0ab3e;
+    --m1:#9085e9; --m2:#e08059; --m3:#2fd99a; --m4:#e878ab; --m5:#5aa9e6; --m6:#e0ab3e;
+  }
+  :root[data-theme="light"]{
+    color-scheme: light;
+    --page:#f6f5f3; --surface:#ffffff; --surface-2:#efece7; --rail:#181410;
+    --rail-ink:#e8ded4; --rail-ink-dim:#a89a8a; --ink:#181410; --ink-2:#4c463f; --ink-muted:#8a8175;
+    --border:rgba(24,20,16,0.10); --grid:#e6e1d9; --accent:#c15f3c; --accent-wash:rgba(193,95,60,0.10);
+    --accent-ink:#a1492b; --good:#0ca30c; --good-ink:#006300; --bad:#d03b3b; --amber:#b8790a;
+    --m1:#4a3aa7; --m2:#c15f3c; --m3:#1baf7a; --m4:#c23f7b; --m5:#1c7fc0; --m6:#8a6d0a;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);}
+  @media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+
+  .app{display:flex;min-height:100vh;width:100%;}
+
+  .rail{
+    width:250px;flex:none;background:var(--rail);color:var(--rail-ink);
+    display:flex;flex-direction:column;padding:22px 14px;gap:4px;
+    position:sticky;top:0;align-self:flex-start;height:100vh;overflow-y:auto;
+  }
+  .rail-brand{padding:4px 10px 18px;}
+  .rail-brand .k{font-family:var(--serif);font-size:18px;line-height:1.2;color:#fff;letter-spacing:.2px;}
+  .rail-brand .s{display:block;margin-top:5px;font-size:10.5px;color:var(--rail-ink-dim);text-transform:uppercase;letter-spacing:.08em;}
+  .rail-group-label{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--rail-ink-dim);padding:14px 10px 6px;}
+  .rail-item{
+    display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:7px;cursor:pointer;
+    border:1px solid transparent;background:transparent;color:var(--rail-ink);text-align:left;font-family:var(--sans);
+    font-size:13.5px;width:100%;
+  }
+  .rail-item:hover{background:rgba(255,255,255,0.06);}
+  .rail-item.active{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.10);}
+  .rail-dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--dot,#888);}
+  .rail-item .lbl{flex:1;}
+  .rail-item .cnt{font-size:10px;color:var(--rail-ink-dim);font-variant-numeric:tabular-nums;}
+  .rail-item.active .cnt{color:var(--rail-ink);}
+  .rail-foot{margin-top:auto;padding:10px;font-size:11px;color:var(--rail-ink-dim);line-height:1.5;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;}
+  .rail-cta{display:block;margin-top:12px;width:100%;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:9px 10px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--sans);text-align:center;text-decoration:none;}
+  .rail-cta:hover{opacity:.9;}
+
+  .stage{flex:1;min-width:0;padding:34px 40px 64px;max-width:1180px;}
+  .panel{display:none;animation:fade .22s ease;}
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-muted);margin:0 0 8px;}
+  h1.page-title{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.2;margin:0 0 10px;text-wrap:balance;}
+  h2.sub-title{font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 4px;}
+  p.page-sub{font-size:15px;color:var(--ink-2);max-width:68ch;line-height:1.55;margin:0 0 28px;}
+  p.section-note{font-size:13px;color:var(--ink-muted);margin:0 0 18px;max-width:68ch;line-height:1.5;}
+
+  .badge-pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;padding:3px 10px 3px 8px;border-radius:100px;border:1px solid var(--border);color:var(--ink-2);background:var(--surface);}
+  .badge-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--dot,var(--accent));}
+  .badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+
+  .btn{border:1px solid var(--border);background:var(--surface);color:var(--ink);font-family:var(--sans);font-size:13px;font-weight:600;padding:9px 16px;border-radius:8px;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+  .btn:hover{border-color:var(--accent);color:var(--accent-ink);}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn.primary:hover{opacity:.92;color:#fff;}
+  .btn.small{padding:6px 12px;font-size:12px;}
+
+  /* ---- Overview hero ---- */
+  .hero-card{background:linear-gradient(135deg,var(--accent-wash),transparent 60%);border:1px solid var(--border);border-radius:14px;padding:26px 30px;margin-bottom:26px;}
+  .stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+  .stat-tile{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+  .stat-tile .st-num{font-size:22px;font-weight:700;font-family:var(--serif);}
+  .stat-tile .st-lbl{font-size:11.5px;color:var(--ink-muted);margin-top:2px;}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+  .card h3{font-size:14.5px;margin:0 0 8px;}
+  .card ul{margin:0;padding-left:18px;font-size:13px;color:var(--ink-2);line-height:1.65;}
+  .card p{font-size:13px;color:var(--ink-2);line-height:1.6;margin:0;}
+
+  .audience-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;}
+  .audience-chip{background:var(--surface-2);border-radius:100px;padding:6px 14px;font-size:12.5px;color:var(--ink-2);}
+
+  /* ---- Curriculum modules ---- */
+  .module-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--dot,var(--accent));border-radius:12px;padding:20px 22px;margin-bottom:16px;}
+  .module-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:10px;flex-wrap:wrap;}
+  .module-name{font-size:16.5px;font-weight:700;margin:0;}
+  .module-dur{font-size:12px;color:var(--ink-muted);background:var(--surface-2);padding:4px 10px;border-radius:100px;white-space:nowrap;}
+  .module-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px;}
+  .module-cols h4{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-muted);margin:0 0 6px;}
+  .module-cols ul{margin:0;padding-left:16px;font-size:13px;color:var(--ink-2);line-height:1.6;}
+  .module-topics{font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border-radius:8px;padding:10px 12px;line-height:1.6;margin-top:12px;}
+  @media (max-width:820px){ .module-cols{grid-template-columns:1fr;} .grid-2{grid-template-columns:1fr;} .stat-strip{grid-template-columns:1fr 1fr;} }
+
+  /* ---- Slide deck ---- */
+  .deck-shell{max-width:1000px;margin:0 auto;}
+  .deck-viewport{position:relative;width:100%;aspect-ratio:1280/720;border-radius:10px;overflow:hidden;background:#171310;box-shadow:0 16px 50px rgba(0,0,0,0.25);}
+  .deck-viewport:fullscreen{width:100vw;height:100vh;border-radius:0;}
+  .deck-stage{position:absolute;top:0;left:0;width:1280px;height:720px;transform-origin:top left;}
+  .dslide{position:absolute;inset:0;display:none;font-family:var(--sans);background:#fff;}
+  .dslide.active{display:block;}
+  .dslide .d-accent{position:absolute;top:0;left:0;right:0;height:8px;background:var(--accent);}
+  .dslide .d-kicker{position:absolute;left:60px;top:44px;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--accent-ink);text-transform:uppercase;}
+  .dslide .d-heading{position:absolute;left:60px;top:80px;right:60px;font-family:var(--serif);font-weight:400;font-size:30px;color:#181410;line-height:1.2;}
+  .dslide .d-heading.no-kicker{top:44px;}
+  .dslide .d-bullets{position:absolute;left:68px;top:160px;right:70px;bottom:118px;margin:0;padding:0;list-style:none;overflow:auto;}
+  .dslide .d-bullets li{position:relative;padding-left:24px;margin-bottom:13px;font-size:17px;line-height:1.5;color:#4c463f;}
+  .dslide .d-bullets li::before{content:"";position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  .dslide .d-bullets li b{color:#181410;font-weight:700;}
+  .dslide .d-foot{position:absolute;left:60px;right:60px;bottom:56px;top:auto;display:flex;gap:22px;border-top:1px solid #e6e1d9;padding-top:10px;}
+  .dslide .d-foot .fbox{flex:1;font-size:11px;line-height:1.4;color:#8a8175;}
+  .dslide .d-foot .fbox b{display:block;color:#4c463f;font-weight:700;margin-bottom:2px;font-size:10px;text-transform:uppercase;letter-spacing:.05em;}
+  .dslide .d-footleft{position:absolute;left:60px;bottom:20px;font-size:11px;color:#8a8175;font-weight:600;}
+  .dslide .d-pageno{position:absolute;right:60px;bottom:20px;font-size:11px;color:#8a8175;font-variant-numeric:tabular-nums;}
+  .dslide.d-title,.dslide.d-section{color:#fff;background:linear-gradient(135deg,#181410,#3a2a20);}
+  .dslide .d-t-eyebrow{position:absolute;left:0;right:0;top:225px;text-align:center;font-size:14px;font-weight:700;letter-spacing:.14em;color:#f0c4ab;text-transform:uppercase;}
+  .dslide .d-t-title{position:absolute;left:80px;right:80px;top:266px;text-align:center;font-family:var(--serif);font-weight:400;font-size:48px;line-height:1.15;}
+  .dslide .d-t-subtitle{position:absolute;left:80px;right:80px;top:388px;text-align:center;font-size:19px;color:#e8ded4;}
+  .dslide .d-t-footer{position:absolute;left:120px;right:120px;top:520px;text-align:center;font-size:13px;color:#c4bcaf;}
+  .dslide .d-sec-eyebrow{position:absolute;left:0;right:0;top:298px;text-align:center;font-size:15px;font-weight:700;letter-spacing:.16em;color:rgba(255,255,255,0.75);text-transform:uppercase;}
+  .dslide .d-sec-title{position:absolute;left:80px;right:80px;top:338px;text-align:center;font-family:var(--serif);font-weight:400;font-size:42px;line-height:1.2;}
+  .deck-controls{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .deck-count{font-size:12.5px;color:var(--ink-muted);font-variant-numeric:tabular-nums;min-width:70px;text-align:center;}
+  .deck-jump{width:52px;border:1px solid var(--border);border-radius:8px;padding:8px 6px;font-size:13px;text-align:center;background:var(--surface);color:var(--ink);}
+  .deck-sep{width:1px;height:22px;background:var(--border);margin:0 2px;}
+  .deck-toc{max-width:1000px;margin:22px auto 0;display:flex;flex-wrap:wrap;gap:6px;}
+  .deck-toc button{border:1px solid var(--border);background:var(--surface);color:var(--ink-2);font-size:11px;padding:5px 9px;border-radius:6px;cursor:pointer;font-family:var(--sans);}
+  .deck-toc button.cur{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-wash);}
+  .notes-toggle-wrap{max-width:1000px;margin:14px auto 0;}
+  .notes-panel{display:none;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-top:10px;font-size:13px;line-height:1.6;color:var(--ink-2);}
+  .notes-panel.show{display:block;}
+  .notes-panel .nrow{margin-bottom:8px;}
+  .notes-panel .nrow:last-child{margin-bottom:0;}
+  .notes-panel b{color:var(--ink);}
+
+  /* ---- Filter chips / search ---- */
+  .filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+  .filter-chip{border:1px solid var(--border);background:var(--surface);color:var(--ink-2);border-radius:100px;padding:7px 14px;font-size:12.5px;cursor:pointer;font-family:var(--sans);}
+  .filter-chip:hover{border-color:var(--accent);}
+  .filter-chip.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .search-box{width:100%;max-width:340px;border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:13px;background:var(--surface);color:var(--ink);font-family:var(--sans);margin-bottom:16px;}
+
+  /* ---- Prompt cards ---- */
+  .prompt-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .prompt-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+  .prompt-cat{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-ink);font-weight:700;margin-bottom:6px;}
+  .prompt-purpose{font-size:14px;font-weight:700;margin-bottom:8px;}
+  .prompt-text{font-size:12.5px;background:var(--surface-2);border-radius:8px;padding:10px 12px;color:var(--ink-2);line-height:1.55;margin-bottom:8px;font-family:ui-monospace,Consolas,monospace;white-space:pre-wrap;}
+  .prompt-meta{font-size:12px;color:var(--ink-2);line-height:1.55;margin-bottom:6px;}
+  .prompt-meta b{color:var(--ink);}
+  .prompt-tip{font-size:11.5px;color:var(--ink-muted);border-top:1px solid var(--border);padding-top:8px;margin-top:8px;}
+  .copy-btn{border:1px solid var(--border);background:var(--surface);color:var(--ink-2);font-size:11px;padding:4px 9px;border-radius:6px;cursor:pointer;float:right;font-family:var(--sans);}
+  .copy-btn:hover{border-color:var(--accent);color:var(--accent-ink);}
+  @media (max-width:820px){ .prompt-grid{grid-template-columns:1fr;} }
+
+  /* ---- Profession cards ---- */
+  .prof-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  .prof-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .prof-head{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .prof-head:hover{background:var(--surface-2);}
+  .prof-head .pname{font-size:15px;font-weight:700;}
+  .prof-head .parrow{color:var(--ink-muted);font-size:13px;transition:transform .15s ease;}
+  .prof-card.open .parrow{transform:rotate(90deg);}
+  .prof-body{display:none;padding:0 20px 20px;}
+  .prof-card.open .prof-body{display:block;}
+  .prof-sec{margin-bottom:12px;}
+  .prof-sec h4{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-muted);margin:0 0 5px;}
+  .prof-sec p, .prof-sec ul{font-size:13px;color:var(--ink-2);line-height:1.6;margin:0;padding-left:0;}
+  .prof-sec ul{padding-left:16px;}
+  .prof-sec .pex{background:var(--surface-2);border-radius:8px;padding:10px 12px;font-family:ui-monospace,Consolas,monospace;font-size:12px;}
+
+  /* ---- Workshop accordion ---- */
+  .domain-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+  .domain-head{padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+  .domain-head:hover{background:var(--surface-2);}
+  .domain-head .dname{font-size:14.5px;font-weight:700;}
+  .domain-head .dcount{font-size:11.5px;color:var(--ink-muted);}
+  .domain-body{display:none;padding:4px 18px 16px;}
+  .domain-card.open .domain-body{display:block;}
+  .ex-list{margin:0;padding-left:0;list-style:none;counter-reset:ex;}
+  .ex-list li{counter-increment:ex;position:relative;padding:8px 0 8px 30px;font-size:13px;color:var(--ink-2);line-height:1.5;border-top:1px solid var(--border);}
+  .ex-list li:first-child{border-top:none;}
+  .ex-list li::before{content:counter(ex);position:absolute;left:0;top:8px;width:20px;height:20px;border-radius:50%;background:var(--surface-2);color:var(--ink-muted);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+
+  /* ---- Quiz ---- */
+  .quiz-shell{max-width:760px;}
+  .quiz-progress{font-size:12.5px;color:var(--ink-muted);margin-bottom:14px;}
+  .quiz-q{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:14px;}
+  .quiz-q .qn{font-size:11px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+  .quiz-q .qtext{font-size:14.5px;font-weight:600;margin-bottom:12px;}
+  .quiz-opt{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;font-size:13.5px;}
+  .quiz-opt:hover{border-color:var(--accent);}
+  .quiz-opt.selected{border-color:var(--accent);background:var(--accent-wash);}
+  .quiz-opt.correct{border-color:var(--good);background:rgba(12,163,12,0.10);}
+  .quiz-opt.incorrect{border-color:var(--bad);background:rgba(208,59,59,0.10);}
+  .quiz-explain{display:none;font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border-radius:8px;padding:10px 12px;margin-top:8px;line-height:1.55;}
+  .quiz-explain.show{display:block;}
+  .quiz-score{background:var(--accent-wash);border:1px solid var(--border);border-radius:12px;padding:24px 26px;text-align:center;margin-bottom:20px;}
+  .quiz-score .qs-num{font-size:38px;font-weight:700;font-family:var(--serif);}
+  .quiz-score .qs-lbl{font-size:13px;color:var(--ink-2);margin-top:4px;}
+
+  .rubric-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px;}
+  .rubric-table th,.rubric-table td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top;}
+  .rubric-table th{background:var(--surface-2);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);}
+
+  ::selection{background:var(--accent-wash);}
+
+  @media (max-width: 900px){
+    .app{flex-direction:column;}
+    .rail{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap;padding:14px;align-items:center;}
+    .rail-brand{padding:0 10px 0 0;}
+    .rail-group-label{display:none;}
+    .rail-item{width:auto;}
+    .rail-foot{display:none;}
+    .stage{padding:24px 18px 48px;}
+  }
+</style>
+
+<div class="app">
+  <nav class="rail" id="rail">
+    <div class="rail-brand">
+      <span class="k">Cedars<span style="color:var(--accent)">Abroad</span></span>
+      <span class="s">Executive Certificate</span>
+    </div>
+    <div class="rail-group-label">Program</div>
+    <button class="rail-item active" data-tab="overview"><span class="rail-dot" style="--dot:var(--accent)"></span><span class="lbl">Overview</span></button>
+    <button class="rail-item" data-tab="curriculum"><span class="rail-dot" style="--dot:var(--m1)"></span><span class="lbl">Curriculum</span></button>
+    <button class="rail-item" data-tab="slides"><span class="rail-dot" style="--dot:var(--m2)"></span><span class="lbl">Slide Deck</span><span class="cnt" id="cnt-slides"></span></button>
+    <div class="rail-group-label">Toolkit</div>
+    <button class="rail-item" data-tab="prompts"><span class="rail-dot" style="--dot:var(--m3)"></span><span class="lbl">Prompt Library</span><span class="cnt" id="cnt-prompts"></span></button>
+    <button class="rail-item" data-tab="professions"><span class="rail-dot" style="--dot:var(--m4)"></span><span class="lbl">Profession Playbooks</span><span class="cnt" id="cnt-professions"></span></button>
+    <button class="rail-item" data-tab="workshop"><span class="rail-dot" style="--dot:var(--m5)"></span><span class="lbl">Hands-On Workshop</span><span class="cnt" id="cnt-workshop"></span></button>
+    <div class="rail-group-label">Certify</div>
+    <button class="rail-item" data-tab="assessment"><span class="rail-dot" style="--dot:var(--m6)"></span><span class="lbl">Assessment</span></button>
+    <div class="rail-foot">
+      12 hours · Executive format<br>No prior AI experience required
+      <a class="rail-cta" href="mailto:ghenakamilawad@hotmail.com?subject=Enroll%20-%20Introduction%20to%20AI%20Using%20Claude&body=Hi%20Cedars%20Abroad%2C%0A%0AI%27d%20like%20to%20enroll%20in%20the%20Introduction%20to%20AI%20Using%20Claude%20executive%20certificate.%0A%0AName%3A%0AOrganization%3A%0APreferred%20dates%3A">Enroll Now</a>
+    </div>
+  </nav>
+  <main class="stage">
+    <section id="panel-overview" class="panel active"></section>
+    <section id="panel-curriculum" class="panel"></section>
+    <section id="panel-slides" class="panel"></section>
+    <section id="panel-prompts" class="panel"></section>
+    <section id="panel-professions" class="panel"></section>
+    <section id="panel-workshop" class="panel"></section>
+    <section id="panel-assessment" class="panel"></section>
+  </main>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ======================= TAB NAVIGATION ======================= */
+var renderers = {}; // filled in as each section builds
+var rendered = {};
+
+function selectTab(tab){
+  document.querySelectorAll(".rail-item").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab")===tab); });
+  document.querySelectorAll(".panel").forEach(function(p){ p.classList.toggle("active", p.id === "panel-"+tab); });
+  if (!rendered[tab] && renderers[tab]){ renderers[tab](); rendered[tab] = true; }
+  window.scrollTo({top:0,behavior:"instant"});
+}
+document.querySelectorAll(".rail-item").forEach(function(b){
+  b.addEventListener("click", function(){ selectTab(b.getAttribute("data-tab")); });
+});
+
+function gotoTab(tab){ selectTab(tab); }
+
+/* ======================= OVERVIEW ======================= */
+function renderOverview(){
+  var html = '';
+  html += '<p class="eyebrow">Executive Certificate</p>';
+  html += '<h1 class="page-title">Introduction to Artificial Intelligence Using Claude</h1>';
+  html += '<p class="page-sub">From Fundamentals to Practical Applications — a 12-hour, hands-on executive program that takes participants from "What is AI?" to confidently using Claude to do real work in their own profession.</p>';
+
+  html += '<div class="badge-row">';
+  html += '<span class="badge-pill"><span class="dot"></span>12 hours total</span>';
+  html += '<span class="badge-pill"><span class="dot" style="--dot:var(--m1)"></span>6 modules</span>';
+  html += '<span class="badge-pill"><span class="dot" style="--dot:var(--m3)"></span>100+ practical exercises</span>';
+  html += '<span class="badge-pill"><span class="dot" style="--dot:var(--m4)"></span>20 profession playbooks</span>';
+  html += '<span class="badge-pill"><span class="dot" style="--dot:var(--m6)"></span>Certificate of completion</span>';
+  html += '</div>';
+
+  html += '<div class="hero-card"><h2 class="sub-title">Who this is for</h2><p style="font-size:13.5px;color:var(--ink-2);line-height:1.6;margin:6px 0 14px;max-width:70ch;">Executives, managers, and business owners; university professors, teachers, and students; researchers, doctors, engineers, and lawyers; HR, marketing, and consulting professionals — and anyone who wants practical, defensible AI skills with little or no prior AI experience.</p>';
+  html += '<div class="audience-grid">';
+  ["Executives & Business Owners","Managers & Team Leads","University Professors","Teachers & Students","Researchers","Doctors & Clinicians","Engineers","Lawyers","HR Professionals","Marketing Professionals","Consultants","Entrepreneurs"].forEach(function(a){
+    html += '<span class="audience-chip">'+a+'</span>';
+  });
+  html += '</div></div>';
+
+  html += '<div class="stat-strip">';
+  html += statTile("12h","Instructor-led, live in Claude");
+  html += statTile("6","Modules, fundamentals → capstone");
+  html += statTile("200+","Ready-to-use prompts & exercises");
+  html += statTile("20","Profession-specific playbooks");
+  html += '</div>';
+
+  html += '<div class="grid-2">';
+  html += '<div class="card"><h3>Learning objectives</h3><ul>';
+  ["Explain AI, machine learning, deep learning, and generative AI in plain, non-technical language",
+   "Compare the leading AI assistants (Claude, ChatGPT, Gemini, Copilot) and know when to use which",
+   "Navigate Claude's interface confidently — Projects, Artifacts, Chats, and file uploads",
+   "Write and refine professional-grade prompts using structure, role, context, and iteration",
+   "Apply Claude to at least 10 real tasks in their own profession or department",
+   "Evaluate AI output critically and recognize its limitations",
+   "Apply responsible-AI and data-privacy practices when using Claude at work"
+  ].forEach(function(o){ html += '<li>'+o+'</li>'; });
+  html += '</ul></div>';
+  html += '<div class="card"><h3>Expected outcomes</h3><ul>';
+  ["A completed, profession-specific AI project presented on the final day",
+   "A personal prompt library saved and ready to reuse on the job",
+   "Fluency in Claude Projects and Artifacts for ongoing work",
+   "A passed 40-question knowledge assessment",
+   "A Cedars Abroad Certificate of Completion in Applied AI",
+   "Clear judgment on where AI helps — and where it should not be trusted blindly"
+  ].forEach(function(o){ html += '<li>'+o+'</li>'; });
+  html += '</ul></div>';
+  html += '</div>';
+
+  html += '<div class="card" style="margin-top:16px;"><h3>How the program is delivered</h3><p>This page <b>is</b> the training: a live slide deck for instructor delivery, a categorized library of 100+ ready-to-use prompts, 20 detailed profession playbooks, a bank of 100+ hands-on exercises, and a 40-question certification assessment with a capstone project brief and grading rubric. Everything below is designed to be taught live, directly inside Claude, in a single 12-hour executive session (typically run as two 6-hour days or four 3-hour sessions).</p></div>';
+
+  html += '<div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;">';
+  html += '<button class="btn primary" data-goto="curriculum">View Full Curriculum</button>';
+  html += '<button class="btn" data-goto="slides">Open Slide Deck</button>';
+  html += '<a class="btn" href="mailto:ghenakamilawad@hotmail.com?subject=Enroll%20-%20Introduction%20to%20AI%20Using%20Claude">Enroll Now</a>';
+  html += '</div>';
+
+  var sec = document.getElementById("panel-overview");
+  sec.innerHTML = html;
+  sec.querySelectorAll("[data-goto]").forEach(function(el){ el.addEventListener("click", function(){ gotoTab(el.getAttribute("data-goto")); }); });
+}
+function statTile(num,lbl){ return '<div class="stat-tile"><div class="st-num">'+num+'</div><div class="st-lbl">'+lbl+'</div></div>'; }
+
+renderers.overview = renderOverview;
+renderOverview();
+rendered.overview = true;
+
+/* ======================= CURRICULUM ======================= */
+var MODULES = [
+  { key:"m1", color:"var(--m1)", dur:"2 hours", name:"Module 1 — Foundations of Artificial Intelligence",
+    objectives:[
+      "Define AI, machine learning, deep learning, neural networks, and generative AI in plain language",
+      "Trace the history and evolution of AI from symbolic systems to today's large language models",
+      "Compare Claude, ChatGPT, Gemini, and Microsoft Copilot and know when each is the right tool",
+      "Identify current AI trends, real limitations, and common misconceptions",
+      "Understand the basics of AI ethics, responsible AI, and AI governance"
+    ],
+    outcomes:[
+      "Can explain how an LLM like Claude actually works, without jargon, to a non-technical colleague",
+      "Can correctly classify a tool or headline as AI, ML, or generative AI",
+      "Can name three things AI is good at and three things it is not trustworthy for"
+    ],
+    topics:"What is AI · History & evolution of AI · Machine learning · Deep learning · Neural networks · Generative AI · Large Language Models (LLMs) · Claude vs ChatGPT vs Gemini vs Copilot · AI trends · AI limitations · AI ethics · Responsible AI · AI governance · Future of AI" },
+  { key:"m2", color:"var(--m2)", dur:"2 hours", name:"Module 2 — The Claude Platform in Practice",
+    objectives:[
+      "Navigate the Claude interface: Chats, Projects, and Artifacts",
+      "Upload and work with PDFs, images, tables, and long documents",
+      "Apply Claude best practices and avoid the most common beginner mistakes",
+      "Understand Claude's privacy, security posture, and current limitations"
+    ],
+    outcomes:[
+      "Can create a Project, upload a working file, and get a usable output from Claude unassisted",
+      "Can explain what data Claude does and does not retain, and what not to paste into a prompt",
+      "Knows how to structure a long document task (e.g. a 40-page PDF) into a workable Claude workflow"
+    ],
+    topics:"Claude interface tour · Projects · Artifacts · Chats and conversation history · Uploading files · Working with PDFs · Images · Tables & spreadsheets · Long documents · Claude best practices · Common mistakes · Privacy & security · Current limitations" },
+  { key:"m3", color:"var(--m3)", dur:"2 hours", name:"Module 3 — Prompt Engineering Mastery",
+    objectives:[
+      "Master the anatomy of a strong prompt: role, context, task, format, and constraints",
+      "Apply role prompting, context prompting, few-shot prompting, and iterative refinement",
+      "Understand chain-of-thought prompting conceptually — asking Claude to reason step-by-step in its visible answer",
+      "Build and reuse personal prompt templates"
+    ],
+    outcomes:[
+      "Can write a complete, well-structured prompt from scratch in under two minutes",
+      "Can turn a vague, disappointing Claude answer into a strong one through iterative refinement",
+      "Leaves with a personal library of 8-10 saved prompt templates for their own role"
+    ],
+    topics:"Prompt structure & anatomy · Role prompting · Context prompting · Chain-of-thought prompting (conceptual) · Few-shot prompting · Iterative prompting & refinement · Output formatting · Prompt templates · Prompt libraries · Best practices · Common mistakes" },
+  { key:"m4", color:"var(--m4)", dur:"2 hours", name:"Module 4 — Practical Applications Across Business Functions",
+    objectives:[
+      "See live demonstrations of Claude producing real business deliverables",
+      "Learn workflows for reports, summaries, SWOT analyses, KPIs, and Balanced Scorecards",
+      "Learn workflows for business plans, marketing campaigns, proposals, and policies",
+      "Practice adapting a demonstrated workflow to a participant's own function"
+    ],
+    outcomes:[
+      "Can map at least five recurring tasks in their own job to a concrete Claude workflow",
+      "Has watched and can reproduce at least six of the twenty live demonstrations",
+      "Understands how to chain multiple Claude outputs into one larger deliverable (e.g. research → draft → executive summary)"
+    ],
+    topics:"Business reports · Summarizing PDFs · Analyzing spreadsheets · Research papers · Contract review · Lesson plans · Strategic plans · SWOT analysis · KPI development · Balanced Scorecards · Business plans · Marketing campaigns · Emails & proposals · Meeting minutes · Policies · Training materials · Executive summaries · Idea brainstorming" },
+  { key:"m5", color:"var(--m5)", dur:"3 hours", name:"Module 5 — Profession-Specific Deep Dive & Hands-On Workshop",
+    objectives:[
+      "Study detailed, profession-specific Claude workflows across 20 professions",
+      "Work through hands-on exercises from a 100+ exercise bank spanning 12 domains",
+      "Practice with case studies, paired exercises, and small-group problem-solving",
+      "Begin drafting the certification capstone project"
+    ],
+    outcomes:[
+      "Completes at least five hands-on exercises directly relevant to their own profession",
+      "Has a working draft of their capstone project underway",
+      "Can explain, from direct experience, where Claude accelerated the work and where it needed correction"
+    ],
+    topics:"Teachers · Students · Researchers · Professors · Doctors · Lawyers · Engineers · Architects · Accountants · Auditors · Marketing professionals · HR professionals · CEOs & Managers · Project Managers · Business Analysts · Entrepreneurs · Consultants · Data Analysts · Content Creators · Government & NGO professionals" },
+  { key:"m6", color:"var(--m6)", dur:"1 hour", name:"Module 6 — Responsible AI, Assessment & Certification",
+    objectives:[
+      "Deepen understanding of responsible AI, governance, and the future of AI at work",
+      "Complete the 40-question certification assessment",
+      "Present the profession-specific capstone project for peer and instructor feedback",
+      "Receive the Cedars Abroad Certificate of Completion in Applied AI"
+    ],
+    outcomes:[
+      "Passes the certification assessment (70% or higher)",
+      "Presents a completed, working capstone project to the group",
+      "Leaves with a personal 90-day plan for applying Claude in their role"
+    ],
+    topics:"Responsible AI in practice · AI governance for organizations · Future of AI at work · Capstone project presentations · Final assessment · Certification" }
+];
+
+function renderCurriculum(){
+  var totalObj = MODULES.reduce(function(a,m){return a+m.objectives.length;},0);
+  var html = '<p class="eyebrow">Course Outline</p>';
+  html += '<h1 class="page-title">Full Curriculum</h1>';
+  html += '<p class="page-sub">Six modules, twelve hours, one continuous arc from "What is AI?" to a finished, presented capstone project. Every module lists its duration, learning objectives, expected outcomes, and topics covered.</p>';
+  html += '<div class="stat-strip">';
+  html += statTile("12h","Total program length");
+  html += statTile("6","Modules");
+  html += statTile(totalObj,"Learning objectives");
+  html += statTile("1","Capstone project per participant");
+  html += '</div>';
+  MODULES.forEach(function(m){
+    html += '<div class="module-card" style="--dot:'+m.color+'">';
+    html += '  <div class="module-head"><h3 class="module-name">'+m.name+'</h3><span class="module-dur">'+m.dur+'</span></div>';
+    html += '  <div class="module-cols">';
+    html += '    <div><h4>Learning objectives</h4><ul>'+m.objectives.map(function(o){return '<li>'+o+'</li>';}).join('')+'</ul></div>';
+    html += '    <div><h4>Expected outcomes</h4><ul>'+m.outcomes.map(function(o){return '<li>'+o+'</li>';}).join('')+'</ul></div>';
+    html += '  </div>';
+    html += '  <div class="module-topics"><b>Topics covered:</b> '+m.topics+'</div>';
+    html += '</div>';
+  });
+  document.getElementById("panel-curriculum").innerHTML = html;
+}
+renderers.curriculum = renderCurriculum;
+
+/* ======================= SLIDE DECK ======================= */
+var MOD_LABEL = {m1:"Module 1 · AI Foundations",m2:"Module 2 · The Claude Platform",m3:"Module 3 · Prompt Engineering",m4:"Module 4 · Practical Applications",m5:"Module 5 · Profession Workshop",m6:"Module 6 · Responsible AI & Certification"};
+
+var SLIDES = [
+{y:"title",t:"Introduction to Artificial Intelligence Using Claude",sub:"From Fundamentals to Practical Applications — Executive Certificate",foot:"Cedars Abroad · 12-Hour Executive Program",n:"Welcome participants, introduce yourself, and set expectations: this is hands-on, not theoretical — everyone will be using Claude live throughout the day.",v:"Full-bleed title slide with Cedars Abroad wordmark.",e:"—",q:"Ask each participant to share one task they hope AI can take off their plate."},
+
+{y:"section",m:"m1",t:"Module 1 — Foundations of Artificial Intelligence",n:"2 hours. Goal: everyone leaves able to explain AI, ML, DL, and LLMs in plain language and place today's tools on a map.",},
+
+{y:"content",m:"m1",t:"What Is Artificial Intelligence?",b:["AI: software that performs tasks which normally require human intelligence — understanding language, recognizing patterns, making predictions","Not magic and not a single technology — a broad field with many different techniques underneath it","Today's headline AI is mostly pattern recognition at massive scale, not independent reasoning or consciousness"],n:"Ground the definition before any hype. Emphasize: AI is a category, like 'vehicle' — cars, bikes and planes are all vehicles but very different.",v:"Simple Venn-style diagram: AI as the outer circle.",e:"Spam filters, GPS route prediction, and Claude are all 'AI' but work very differently.",q:"Before today, what did you think AI meant?"},
+
+{y:"content",m:"m1",t:"A Short History of AI: 1950s–2000s",b:["1950: Alan Turing asks 'Can machines think?'","1956: The term 'Artificial Intelligence' is coined at Dartmouth College","1960s–80s: Rule-based 'expert systems' — AI follows hand-written if/then rules","1990s: IBM's Deep Blue beats world chess champion Garry Kasparov (1997)"],n:"The early decades were mostly rules written by humans, not learning from data — that shift is the story of the next slide.",v:"Timeline graphic, 1950 to 2000.",e:"Deep Blue calculated chess moves by brute-force search, not learning.",q:"What's the oldest 'AI' product you remember using?"},
+
+{y:"content",m:"m1",t:"The Deep Learning Breakthrough: 2012–Present",b:["2012: 'AlexNet' proves deep neural networks can beat older methods at image recognition","2017: Google publishes the 'Transformer' architecture — the technical basis for every modern LLM, including Claude","2020s: Scaling up transformers with more data and compute produces genuinely useful language models","This is why 'AI' feels brand new even though the field is 70 years old — the underlying technique changed"],n:"The Transformer paper ('Attention Is All You Need') is the single most important technical turning point — you don't need the math, just the fact that it enabled today's chatbots.",v:"Timeline continuing from prior slide, 2012 to today.",e:"GPT, Claude, Gemini, and Llama are all Transformer-based.",q:"—"},
+
+{y:"content",m:"m1",t:"AI, Machine Learning, Deep Learning — How They Relate",b:["<b>Artificial Intelligence</b>: the broad goal — machines performing intelligent tasks","<b>Machine Learning (ML)</b>: a subset of AI where the system learns patterns from data instead of following hand-written rules","<b>Deep Learning</b>: a subset of ML using layered 'neural networks' to learn very complex patterns","<b>Generative AI</b>: a subset of deep learning that creates new content — text, images, audio, code"],n:"Draw this as nested circles live if possible: AI > ML > Deep Learning > Generative AI. This single slide resolves most of the terminology confusion in the room.",v:"Nested circle diagram (AI containing ML containing Deep Learning containing Generative AI).",e:"Claude is generative AI, built with deep learning, which is a form of machine learning, which is a field of AI.",q:"Where would you place a Netflix recommendation engine on this diagram?"},
+
+{y:"content",m:"m1",t:"How Machine Learning Actually Learns",b:["Show the system many examples with known answers (training data)","The system adjusts internal parameters to reduce its errors on those examples","Repeat millions of times until performance is good on data it has never seen","No one 'programs' the rules directly — the rules emerge from the data"],n:"Use a simple analogy: like a student doing thousands of practice problems and self-correcting, except the 'student' is a mathematical model.",v:"Simple loop diagram: Data → Prediction → Error → Adjustment → repeat.",e:"An email spam filter learns from millions of labeled 'spam' vs 'not spam' examples.",q:"What could go wrong if the training examples are biased or incomplete?"},
+
+{y:"content",m:"m1",t:"What Makes Deep Learning 'Deep'? Neural Networks Explained",b:["Loosely inspired by neurons in the brain — simple units connected in layers","'Deep' = many layers stacked on top of each other, each learning increasingly abstract features","Early layers might detect edges in an image; deeper layers detect faces or objects","In language models, layers build up from letters, to words, to meaning, to reasoning-like behavior"],n:"Keep this conceptual — the goal is intuition, not the math. A show of hands: who has heard the phrase 'neural network' before today?",v:"Simple layered-node diagram (input layer → hidden layers → output layer).",e:"A layer might learn 'this pixel pattern is an edge', a later layer 'this shape is an eye', a final layer 'this is a face.'",q:"—"},
+
+{y:"content",m:"m1",t:"From Narrow AI to Generative AI",b:["<b>Narrow AI</b>: built for one specific task (chess, spam filtering, fraud detection)","<b>General-purpose generative AI</b>: one model, trained broadly, can write, summarize, code, and analyze","This shift — from single-purpose tools to general-purpose assistants — is what makes Claude usable across every profession in this room","We are still far from 'Artificial General Intelligence' (human-level intelligence across all domains) — today's tools are powerful but narrow in a new, broader way"],n:"Correct a common misconception here: today's AI is not 'thinking' the way a person does, even though it can hold a fluent conversation.",v:"Two-column comparison: Narrow AI examples vs. Generative AI capabilities.",e:"A chess engine only plays chess. Claude can draft a contract, then explain a spreadsheet, then write a lesson plan — all in one conversation.",q:"Which of today's tasks would you have assumed needed a human a year ago?"},
+
+{y:"content",m:"m1",t:"What Is a Large Language Model (LLM)?",b:["A neural network trained on vast amounts of text to predict the next word in a sequence, extremely well","Trained on books, articles, code, and other text — not connected to the live internet by default","'Large' refers to the number of parameters (internal adjustable values) — often in the billions","Predicting the next word extremely well turns out to require a working model of grammar, facts, and reasoning patterns"],n:"Emphasize: Claude does not 'look things up' during a normal conversation unless a specific tool (like web search) is enabled — it generates from patterns learned during training.",v:"Diagram: text input → LLM → next-word prediction, repeated to form full response.",e:"Given 'The capital of France is', a well-trained LLM predicts 'Paris' with very high confidence.",q:"If it predicts word-by-word, why does it sound so coherent over long answers?"},
+
+{y:"content",m:"m1",t:"How Claude Generates a Response (Conceptually)",b:["Your prompt is broken into tokens (word-ish chunks) and converted into numbers the model can process","The model calculates the most likely next token given everything before it — your prompt plus what it has generated so far","This repeats token by token until the response is complete","A 'system prompt' and safety training shape Claude's tone, boundaries, and refusal behavior throughout"],n:"This demystifies the property that the model doesn't know what it will say next until it generates it — useful for later understanding hallucination.",v:"Step-by-step animation concept: tokenize → predict → append → repeat.",e:"Ask Claude a question live and narrate: it is generating this answer one token at a time, right now.",q:"—"},
+
+{y:"content",m:"m1",t:"Meet the Major AI Assistants: Claude",b:["Built by Anthropic, with a stated mission around AI safety and reliability","Strong at long-document analysis, writing quality, coding, and following nuanced instructions","Projects let you organize ongoing work with persistent context and files; Artifacts let you view and iterate on generated documents, code, and visuals side-by-side","This course teaches Claude specifically — the concepts transfer to any modern assistant"],n:"Keep this factual and comparative, not promotional — participants will trust the material more if it's balanced.",v:"Claude interface screenshot or live screen-share.",e:"Live demo: open a new Claude chat and show the interface.",q:"—"},
+
+{y:"content",m:"m1",t:"Meet the Major AI Assistants: ChatGPT, Gemini, Copilot",b:["<b>ChatGPT</b> (OpenAI): broad general-purpose assistant, deep plugin/app ecosystem","<b>Gemini</b> (Google): tightly integrated with Google Workspace (Docs, Sheets, Gmail)","<b>Microsoft Copilot</b>: embedded directly inside Word, Excel, PowerPoint, and Outlook","All four are LLM-based generative AI assistants — differences are mostly in integration, tone, and specific strengths, not fundamental technology"],n:"Avoid declaring a single 'winner' — the right framing is fit-for-purpose, and many organizations end up using more than one.",v:"Four-logo comparison row with one-line strengths under each.",e:"A Word-heavy law firm may lean on Copilot; a research-heavy team may prefer Claude for long-document work.",q:"Which of these have you already used, even briefly?"},
+
+{y:"content",m:"m1",t:"Choosing the Right Assistant for the Task",b:["Long documents, careful writing, nuanced reasoning → Claude","Deep integration inside Microsoft Office files you already work in → Copilot","Deep integration inside Google Workspace → Gemini","Broadest plugin/app ecosystem and voice mode → ChatGPT","In practice: pick the tool your organization has already licensed and secured — the underlying skill (prompting) transfers"],n:"This slide is deliberately practical — most executives just need permission to pick one and start.",v:"Simple decision flowchart.",e:"—",q:"Which tool does your organization currently provide official access to?"},
+
+{y:"content",m:"m1",t:"Where AI Is Headed: Key Trends",b:["Multimodal models that natively handle text, images, audio, and video together","'Agentic' AI that can take multi-step actions, not just answer questions","Longer context windows — models that can hold entire books or codebases in memory at once","Tighter integration into everyday business software rather than a separate chat window"],n:"Keep predictions modest and grounded — cite what is already shipping today, not speculative science fiction.",v:"Four-trend grid.",e:"Claude Projects and Artifacts are early examples of the 'AI embedded in your workflow' trend.",q:"Which of these trends would change your job the most?"},
+
+{y:"content",m:"m1",t:"What AI Still Gets Wrong: Limitations & Hallucinations",b:["<b>Hallucination</b>: the model states something false with full confidence, because it is generating plausible text, not looking up facts","Weak at precise arithmetic on large numbers and at tasks requiring guaranteed accuracy","No true understanding of current events past its training cutoff unless given live data or search","Can reflect biases present in its training data"],n:"This is one of the most important slides in the course — set the expectation that every AI output needs human review, especially for facts, numbers, and citations.",v:"Example of a plausible-but-wrong AI answer, shown and corrected live.",e:"Ask Claude for a very specific statistic or citation and show how to verify it independently.",q:"Has anyone here already caught an AI tool being confidently wrong?"},
+
+{y:"content",m:"m1",t:"AI Ethics and Responsible AI",b:["Fairness: avoiding or catching biased outputs across race, gender, age, and other characteristics","Transparency: disclosing when content was AI-assisted, especially in regulated or sensitive contexts","Accountability: a human remains responsible for any AI-assisted decision or output","Privacy: not feeding confidential or personal data into tools without organizational approval"],n:"Connect this directly to Module 2's privacy content — this is the conceptual foundation, Module 2 is the practical application.",v:"Four-pillar diagram: Fairness, Transparency, Accountability, Privacy.",e:"A hiring manager using AI to screen resumes must check for and correct demographic bias in the results.",q:"What's one AI use in your organization that would raise an ethics flag?"},
+
+{y:"content",m:"m1",t:"AI Governance: Rules Organizations Are Adopting",b:["Written AI usage policies: what tools are approved, what data may or may not be entered","Human-in-the-loop requirements for high-stakes decisions (hiring, medical, legal, financial)","Regulatory context: the EU AI Act, sector-specific rules, and emerging regional regulation","Internal review or approval processes before AI-generated content goes external"],n:"If the audience includes decision-makers, mention that a one-page AI usage policy is one of the highest-leverage first steps an organization can take.",v:"Simple governance checklist graphic.",e:"A hospital may require a clinician to review and sign off on any AI-drafted patient note before it enters the record.",q:"Does your organization currently have a written AI usage policy?"},
+
+{y:"content",m:"m1",t:"The Future of AI at Work",b:["AI as a 'co-worker' embedded in daily tools rather than a novelty to visit occasionally","Growing demand for AI literacy as a baseline professional skill, similar to spreadsheets in the 1990s","Jobs shift more than they disappear outright — tasks change faster than roles do","The advantage goes to people and organizations who learn to direct AI well, not just use it passively"],n:"Close Module 1 on an empowering note before moving into hands-on Claude training — this sets up Module 2 as 'now let's actually do this.'",v:"—",e:"—",q:"What's one task you want to be doing with AI's help by this time next year?"},
+
+{y:"section",m:"m2",t:"Module 2 — The Claude Platform in Practice",n:"2 hours. Goal: everyone can independently open Claude, start a Project, upload a file, and get usable output by the end of this module.",},
+
+{y:"content",m:"m2",t:"Tour of the Claude Interface",b:["Left sidebar: your chat history and Projects","Main panel: the conversation itself, where you type prompts and read responses","Model selector: choose which Claude model is active for the conversation","Attachment icon: upload files directly into a chat or Project"],n:"Do this as a live screen-share, not slides alone — have every participant open Claude on their own device and follow along.",v:"Live screen-share of claude.ai.",e:"Open a fresh chat and point out each interface element in turn.",q:"—"},
+
+{y:"content",m:"m2",t:"Chats vs Projects vs Artifacts",b:["<b>Chats</b>: a single conversation thread, good for one-off questions","<b>Projects</b>: a persistent workspace with its own instructions, files, and chat history — ideal for ongoing work","<b>Artifacts</b>: a side-by-side panel where Claude renders documents, code, or visuals you can view and iterate on directly","Rule of thumb: if you'll return to this task more than once, make it a Project"],n:"This distinction is the single most useful piece of interface knowledge for professional use — spend real time here.",v:"Three-panel comparison graphic.",e:"A lawyer reviewing contracts all month should have one 'Contract Review' Project, not dozens of separate chats.",q:"What's one recurring task in your job that deserves its own Project?"},
+
+{y:"content",m:"m2",t:"Setting Up Your First Claude Project",b:["Name the Project clearly (e.g. 'Q3 Marketing Reports')","Add custom instructions describing your role, tone preferences, and standing constraints","Upload reference files the Project should always have access to","Every chat inside the Project automatically has that context — no need to repeat yourself"],n:"Live demo: create a Project together with the whole room, using an example relevant to the audience's shared profession if possible.",v:"Live demo of Project creation.",e:"A teacher's Project instructions: 'I teach 9th grade biology. Keep explanations at that reading level unless I say otherwise.'",q:"—"},
+
+{y:"content",m:"m2",t:"Uploading Files: What Claude Can Read",b:["Documents: PDF, Word (.docx), plain text, Markdown","Spreadsheets: Excel (.xlsx) and CSV","Images: photos, screenshots, scanned pages, charts","Presentations: PowerPoint (.pptx) files"],n:"Mention practical limits: very large files or many files at once may need to be split or summarized in stages.",v:"File-type icon row.",e:"Upload a sample PDF live and ask Claude to summarize it.",q:"—"},
+
+{y:"content",m:"m2",t:"Working with PDFs",b:["Upload the PDF directly rather than copy-pasting text, especially for scanned or formatted documents","Ask for a structured summary first, then drill into specific sections","For very long PDFs, ask Claude to work section by section rather than all at once","Always ask Claude to quote or cite the page/section it drew a claim from, then verify"],n:"Demo with a real multi-page PDF — a policy document, report, or research paper works well.",v:"Live demo uploading and querying a PDF.",e:"'Summarize this 40-page report in one page, then list the three most important recommendations with page numbers.'",q:"—"},
+
+{y:"content",m:"m2",t:"Working with Images",b:["Claude can read text within images, describe visual content, and interpret charts or diagrams","Useful for digitizing handwritten notes, whiteboard photos, or scanned forms","Can compare two images or extract data from a photographed table","Always double-check numbers extracted from an image — OCR-style reading can misread digits"],n:"Have a participant upload a photo of a whiteboard or handwritten note if available, live.",v:"Live demo: upload an image and ask Claude to extract or describe its content.",e:"'Read the handwritten notes in this photo and turn them into a clean bulleted list.'",q:"—"},
+
+{y:"content",m:"m2",t:"Working with Tables and Spreadsheets",b:["Upload an Excel or CSV file directly for Claude to analyze","Ask specific analytical questions rather than 'analyze this' — e.g. 'which region underperformed and by how much?'","Claude can calculate, spot trends, and draft a written summary of a spreadsheet","For anything mission-critical, re-verify key numbers in the actual spreadsheet formulas"],n:"Emphasize that Claude is strong at explaining and summarizing data, but a human should verify any number driving a real decision.",v:"Live demo analyzing a sample spreadsheet.",e:"'Which three products had the steepest revenue decline this quarter, and what's a plausible explanation from the data?'",q:"—"},
+
+{y:"content",m:"m2",t:"Working with Long Documents",b:["Break large tasks into stages: outline → section drafts → full assembly → polish","Use a Project so context persists across multiple chats on the same document","Ask Claude to maintain a consistent structure, tone, and terminology across sections","Periodically ask for a running summary so you (and Claude) don't lose the thread"],n:"This is where Projects genuinely outperform single chats — demonstrate the difference if time allows.",v:"Workflow diagram: Outline → Draft → Assemble → Polish.",e:"Drafting a 20-page strategic plan: generate the outline first, approve it, then draft section by section.",q:"—"},
+
+{y:"content",m:"m2",t:"Claude Best Practices",b:["Be specific: state the audience, purpose, length, and format you want","Give Claude relevant context before asking for output, not after","Review every output critically before using it — treat Claude like a capable but junior colleague","Iterate: your first prompt rarely produces your final answer, and that's expected"],n:"Frame this as the 'house rules' slide participants should photograph or screenshot.",v:"Checklist graphic.",e:"—",q:"—"},
+
+{y:"content",m:"m2",t:"Common Beginner Mistakes",b:["Vague prompts ('write me something about marketing') instead of specific ones","Accepting the first answer without asking for revisions","Pasting confidential data without checking organizational policy first","Treating Claude's confident tone as proof of accuracy"],n:"Ask the room to admit which of these they've already done — this usually gets a laugh and breaks the ice.",v:"—",e:"Compare a vague prompt's output to a specific prompt's output, side by side, live.",q:"Which of these have you caught yourself doing?"},
+
+{y:"content",m:"m2",t:"Privacy and Data Handling",b:["Do not paste passwords, financial account numbers, or other credentials into any AI tool","Check your organization's policy before entering client, patient, or employee personal data","Understand your plan's data-retention and training settings — consumer and enterprise plans differ","When in doubt, anonymize or redact identifying details before pasting"],n:"This slide should be delivered seriously and slowly — it's the single most consequential piece of guidance in the whole course.",v:"—",e:"Instead of pasting a real patient case, describe it with identifying details removed or replaced.",q:"What's one type of data in your job that should never go into a prompt?"},
+
+{y:"content",m:"m2",t:"Security Considerations for Work Use",b:["Prefer your organization's licensed/enterprise account over a personal free account for work tasks","Understand who else in your organization can see shared Projects or chat history","Be cautious with browser extensions or third-party tools that claim to 'enhance' AI chat tools","Report suspicious AI-generated phishing attempts — attackers use the same tools you're learning today"],n:"If the audience is executives, this is a good moment to mention IT/security should be involved in any organization-wide AI rollout.",v:"—",e:"—",q:"—"},
+
+{y:"content",m:"m2",t:"Current Limitations to Keep in Mind",b:["Knowledge has a training cutoff date unless live search or an uploaded document is provided","Not connected to your private company systems unless deliberately integrated","Can be confidently wrong (hallucination) — always verify high-stakes facts and figures","Long, complex multi-step tasks may need to be broken down and checked at each stage"],n:"Recap this list right before moving into prompt engineering — it directly motivates why prompt structure and verification matter so much.",v:"—",e:"—",q:"—"},
+
+{y:"section",m:"m3",t:"Module 3 — Prompt Engineering Mastery",n:"2 hours. Goal: everyone can write, test, and iteratively improve a professional prompt for their own real work.",},
+
+{y:"content",m:"m3",t:"Anatomy of a Great Prompt",b:["<b>Role</b>: who should Claude act as?","<b>Context</b>: what background does Claude need?","<b>Task</b>: what exactly do you want done?","<b>Format & constraints</b>: length, tone, structure, audience, what to avoid"],n:"Introduce this as the 'RCTF' framework participants can carry forward — write it on the whiteboard if in person.",v:"Four-part framework diagram.",e:"'You are a financial analyst (role). Here is our Q2 sales data (context). Identify the three biggest risks to Q3 revenue (task). Answer in under 200 words, in a bulleted list, for a non-financial audience (format).'",q:"—"},
+
+{y:"content",m:"m3",t:"Role Prompting",b:["Assigning Claude a role focuses its tone, vocabulary, and priorities","Works best combined with a real task, not used alone as decoration","Roles can be professional (lawyer, teacher) or functional (skeptical editor, devil's advocate)","Stacking roles can help: 'as both a marketer and a data analyst...'"],n:"Demonstrate the same question asked with and without a role, live, and compare the two answers.",v:"Side-by-side before/after example.",e:"'Act as a skeptical procurement officer and list five questions you'd ask about this vendor proposal.'",q:"—"},
+
+{y:"content",m:"m3",t:"Context Prompting",b:["More relevant background almost always improves output quality","Include audience, purpose, prior decisions, constraints, and what's already been tried","Paste in relevant documents or data rather than describing them from memory","Context can be added mid-conversation — you don't need a perfect first prompt"],n:"Emphasize: context is the highest-leverage lever most beginners underuse.",v:"—",e:"'This report is for our board, who are not technical. We already ruled out Option B due to cost. Focus on Options A and C.'",q:"—"},
+
+{y:"content",m:"m3",t:"Chain-of-Thought Prompting (Conceptual)",b:["Asking Claude to reason through a problem step-by-step in its visible answer, before giving a final conclusion","Especially useful for multi-step analysis, math-adjacent reasoning, or decisions with tradeoffs","Simple phrase: 'walk through your reasoning step by step before giving your final answer'","Lets you catch a flawed assumption partway through, rather than only seeing a final (possibly wrong) answer"],n:"Keep this conceptual and practical — the point is asking for visible reasoning, not any hidden or special mode.",v:"Before/after: direct-answer prompt vs. step-by-step prompt.",e:"'Walk through the pros and cons of each pricing option step by step, then recommend one and explain why.'",q:"—"},
+
+{y:"content",m:"m3",t:"Few-Shot Prompting",b:["Give Claude 2-3 examples of the input/output pattern you want before asking for a new one","Especially powerful for consistent formatting, tone-matching, or classification tasks","Examples teach the pattern faster and more reliably than a paragraph of instructions","Keep examples genuinely representative of the range of cases you'll need"],n:"Demo: classify three sample customer complaints live using two worked examples as a pattern.",v:"Example-pattern diagram: Example 1 → Example 2 → New input → Claude's output.",e:"'Here are two examples of how we tag support tickets: [example 1] [example 2]. Now tag this new ticket the same way: [new ticket]'",q:"—"},
+
+{y:"content",m:"m3",t:"Iterative Prompting and Refinement",b:["Treat the first response as a draft, not a final answer","Refine with specific feedback: 'shorter', 'more formal', 'add a counterargument', 'cite your sources'","Ask Claude to critique its own output, then revise based on that critique","Save a prompt that finally worked — it's the seed of a reusable template"],n:"This is the single habit that most separates confident Claude users from frustrated ones — spend extra time here.",v:"Iteration loop diagram: Prompt → Draft → Feedback → Revised draft.",e:"'Good start, but make this sound more confident and cut it to 150 words.'",q:"—"},
+
+{y:"content",m:"m3",t:"Output Formatting",b:["Specify structure explicitly: bullet points, table, numbered steps, email format, JSON","State length constraints in concrete terms (words, sentences, or paragraphs)","Ask for headers or sections when the output will be long","Request a specific tone: formal, conversational, persuasive, neutral"],n:"Show a table-formatted output live — this is often the single most-requested skill from executive audiences.",v:"Format-request examples: bullets, table, email, JSON.",e:"'Present this as a table with columns: Option, Cost, Timeline, Risk.'",q:"—"},
+
+{y:"content",m:"m3",t:"Prompt Templates You Can Reuse",b:["A template is a prompt with blanks you fill in each time — saves time on recurring tasks","Save your best templates in a note, document, or Claude Project instructions","Build one template per recurring task type: weekly report, meeting recap, email reply","A good template still leaves room to add fresh context for the specific instance"],n:"Have participants draft their first personal template live, based on a real recurring task in their job.",v:"Template structure example with blanks marked [LIKE THIS].",e:"'Summarize this meeting transcript into: 1) Decisions made, 2) Action items with owners, 3) Open questions. Transcript: [PASTE HERE]'",q:"What's one task you do every single week that could become a template?"},
+
+{y:"content",m:"m3",t:"Building Your Personal Prompt Library",b:["Group templates by category: writing, analysis, research, communication","Keep a running document — even a simple one — that grows over the course of the program","Note which prompts worked well and which needed heavy editing","This course's Prompt Library (100+ examples) is a starting point, not a ceiling"],n:"Point participants to the Prompt Library tab on this page as their starting collection to build from.",v:"—",e:"—",q:"—"},
+
+{y:"content",m:"m3",t:"Prompt Engineering Best Practices",b:["Specific beats clever — clear instructions outperform elaborate wording","One task at a time is usually more reliable than five stacked into one prompt","Ask Claude to ask you clarifying questions when a task is genuinely ambiguous","Always leave room to iterate — budget two or three passes, not one"],n:"—",v:"Recap checklist.",e:"—",q:"—"},
+
+{y:"content",m:"m3",t:"Common Prompting Mistakes",b:["Being too vague ('make this better') without saying what 'better' means","Overloading a single prompt with too many unrelated requests at once","Forgetting to give Claude the actual source material, and describing it instead","Not stating the audience, so the tone or technical level misses the mark"],n:"Ask for a show of hands on which mistake feels most familiar.",v:"—",e:"—",q:"—"},
+
+{y:"content",m:"m3",t:"Live Practice: Refining a Weak Prompt Together",b:["Start with a deliberately vague prompt and look at the mediocre result together","Add role, then context, then format constraints — one at a time","Watch the output improve at each step","Close by asking each participant to do the same exercise on their own real task"],n:"This is a full hands-on exercise, not just a demo — budget 15-20 minutes and walk the room.",v:"Live, projected Claude session.",e:"Start: 'write about our company.' End: a fully-specified, role-and-context-rich prompt producing a genuinely usable draft.",q:"—"},
+
+{y:"section",m:"m4",t:"Module 4 — Practical Applications Across Business Functions",n:"2 hours of live demonstrations. Goal: participants see Claude produce twenty real business deliverables and can map at least five to their own job.",},
+
+{y:"content",m:"m4",t:"Demo: Writing a Business Report",b:["Provide the underlying data, prior reports, or notes as context","Ask for a clear structure: executive summary, findings, recommendations","Request a specific length and audience level","Iterate on tone until it matches your organization's house style"],n:"Live demo using a realistic (anonymized) business scenario relevant to the room.",v:"Live Claude session, Artifact panel showing the drafted report.",e:"'Draft a two-page quarterly performance report for our sales leadership, based on this data: [data].'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Summarizing a Long PDF",b:["Upload the PDF directly","Ask for a one-page executive summary plus a detailed section-by-section breakdown","Request key statistics and page references be preserved","Verify pulled numbers against the source"],n:"Reuse the PDF workflow taught in Module 2, now applied to a specific business deliverable.",v:"Live demo.",e:"'Summarize this 60-page industry report into one page for our leadership team, keeping all figures cited with page numbers.'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Analyzing an Excel File",b:["Upload the spreadsheet and ask targeted analytical questions","Request a written narrative interpretation, not just numbers restated","Ask for the top three insights and one recommended action","Cross-check any figure that will inform a real decision"],n:"—",v:"Live demo.",e:"'What are the three biggest cost drivers in this budget, and where would you cut first?'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Reviewing a Contract",b:["Upload the contract and ask Claude to flag unusual, missing, or risky clauses","Ask it to summarize obligations for each party in plain language","Request a comparison against a standard template if one exists","Always route final legal judgment to a qualified lawyer — Claude supports review, it does not replace legal counsel"],n:"State the disclaimer clearly and early: this is a triage and drafting aid, not a substitute for legal advice.",v:"Live demo with a sample (non-sensitive) contract.",e:"'Flag any clauses in this vendor agreement that are unusually one-sided or missing compared to a standard NDA.'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Preparing a SWOT Analysis",b:["Provide company or project background as context","Ask Claude to draft Strengths, Weaknesses, Opportunities, and Threats with brief justifications","Push back on generic points and ask for specifics tied to the actual business","Use the result as a discussion starter, not a final strategic document"],n:"—",v:"Live demo, table-formatted output.",e:"'Based on this business summary, draft a SWOT analysis with two specific, non-generic points per quadrant.'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Developing KPIs and a Balanced Scorecard",b:["Start from strategic objectives, not metrics — ask 'what would prove we succeeded?'","Ask Claude to propose 2-3 KPIs per Balanced Scorecard perspective: Financial, Customer, Process, Learning & Growth","Request a definition, target, and data source for each proposed KPI","Refine based on what your organization can realistically measure today"],n:"Cedars Abroad's dedicated AI-Enhanced Balanced Scorecard certificate goes far deeper into this specific workflow.",v:"Live demo, four-perspective table output.",e:"'Propose three KPIs for our Customer perspective, each with a target and a realistic data source.'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Drafting a Business Plan",b:["Work section by section: executive summary, market analysis, operations, financials, risks","Provide any market research or numbers you already have as context","Ask for realistic, sourced assumptions rather than invented statistics","Assemble and polish once every section has been reviewed"],n:"—",v:"Live demo, multi-section Artifact.",e:"'Draft the market analysis section of a business plan for a boutique consulting firm entering the Beirut market.'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Creating a Marketing Campaign",b:["Define the audience, channel, offer, and goal before asking for creative output","Ask for multiple concept variations, not just one","Request different lengths for different channels (social post vs. email vs. landing page)","Have Claude explain the reasoning behind each concept, not just the copy"],n:"—",v:"Live demo, multi-variant output.",e:"'Write three different social ad concepts for our new online course, targeting working professionals aged 30-45.'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Emails, Meeting Minutes, and Executive Summaries",b:["Paste in rough notes or a transcript rather than summarizing them yourself first","Ask for decisions, action items with owners, and open questions as separate sections","Match tone and formality to your organization's norms","For executive summaries: ask for the 'so what' — what should the reader do differently"],n:"—",v:"Live demo.",e:"'Turn these rough meeting notes into formal minutes with decisions, action items, and owners.'",q:"—"},
+
+{y:"content",m:"m4",t:"Demo: Policies and Training Materials",b:["Provide the goal, audience, and any legal/compliance constraints up front","Ask for a plain-language draft, then a formal policy-language version","Request a short quiz or checklist to accompany training material","Have subject-matter experts review before anything goes live"],n:"—",v:"Live demo.",e:"'Draft a one-page remote work policy in plain language, then rewrite it in formal HR policy language.'",q:"—"},
+
+{y:"content",m:"m4",t:"Chaining Claude Outputs Into One Deliverable",b:["Break big deliverables into stages: research → outline → draft → executive summary","Carry forward each stage's output as context for the next","Use a Project so the whole chain stays in one place","This is how a single conversation becomes a finished, polished document"],n:"Close Module 4 by showing one complete chain end-to-end, from a rough prompt to a polished Artifact.",v:"Workflow diagram: Research → Outline → Draft → Executive Summary.",e:"—",q:"Which of today's twenty demos maps most directly onto your own job?"},
+
+{y:"section",m:"m5",t:"Module 5 — Profession-Specific Deep Dive & Hands-On Workshop",n:"3 hours. Goal: participants apply everything so far to their own profession and begin the capstone project.",},
+
+{y:"content",m:"m5",t:"How Teachers and Professors Use Claude",b:["Drafting lesson plans, rubrics, and differentiated materials for mixed-ability classrooms","Generating quiz and exam questions at a specified difficulty level","Explaining a concept multiple ways when one explanation isn't landing","Getting feedback on syllabus design and course structure"],n:"Full profession detail is in the Profession Playbooks tab — this slide is a preview to spark the room's thinking.",v:"—",e:"'Create a rubric for a 10th-grade persuasive essay, with four criteria and four performance levels each.'",q:"—"},
+
+{y:"content",m:"m5",t:"How Students and Researchers Use Claude",b:["Study aid: explaining difficult concepts, generating practice questions, checking understanding","Literature review support: summarizing papers and identifying themes across sources (always verify citations)","Structuring and outlining papers or theses before writing","Getting critical feedback on a draft before submitting it"],n:"Flag academic integrity explicitly — always follow institutional policy on AI use in coursework.",v:"—",e:"'Summarize the methodology and key findings of this paper in plain language.'",q:"—"},
+
+{y:"content",m:"m5",t:"How Doctors and Clinicians Use Claude",b:["Drafting patient education materials in plain language","Summarizing clinical literature to stay current","Structuring case documentation and referral letters","Never for diagnosis or treatment decisions without full clinical judgment and record review — Claude is a drafting and research aid only"],n:"State the clinical disclaimer explicitly and firmly — this is a non-negotiable limitation to communicate clearly.",v:"—",e:"'Rewrite this discharge instruction in plain language a patient with no medical background can follow.'",q:"—"},
+
+{y:"content",m:"m5",t:"How Lawyers Use Claude",b:["First-pass contract review and clause comparison against a standard template","Summarizing case law or lengthy filings","Drafting routine correspondence and internal memos","Final legal judgment, filing, and client advice always remain with a licensed attorney"],n:"—",v:"—",e:"'Compare this NDA against our standard template and list every clause that differs.'",q:"—"},
+
+{y:"content",m:"m5",t:"How Engineers and Architects Use Claude",b:["Drafting and explaining technical documentation","Reviewing code for readability, bugs, and style — not a replacement for testing","Summarizing technical specifications for non-technical stakeholders","Brainstorming design alternatives against stated constraints"],n:"—",v:"—",e:"'Review this function for possible edge-case bugs and explain each one in plain language.'",q:"—"},
+
+{y:"content",m:"m5",t:"How Executives, Managers, and Consultants Use Claude",b:["Preparing board materials, strategic memos, and executive summaries","Structuring and facilitating decision-making frameworks (SWOT, RACI, decision matrices)","Drafting first-pass client deliverables that a consultant then refines","Getting a fast 'red team' critique of a plan before presenting it"],n:"—",v:"—",e:"'Play devil's advocate: what are the three strongest objections to this strategy?'",q:"—"},
+
+{y:"content",m:"m5",t:"Workshop Instructions: Choosing Your Exercises",b:["Open the Hands-On Workshop tab and pick the domain closest to your role","Complete at least five exercises directly, live, in your own Claude account","Work in pairs where helpful — talk through your prompts before running them","Flag anything surprising (good or bad) to discuss as a group afterward"],n:"This is unstructured working time — circulate the room and help participants who get stuck.",v:"—",e:"—",q:"—"},
+
+{y:"content",m:"m5",t:"Capstone Project Briefing",b:["Choose one real task from your job that Claude can genuinely help with","Use this course's frameworks: structured prompting, iteration, and (where useful) a Project","Produce one finished artifact: a report, plan, campaign, lesson, or analysis","Prepare a two-minute presentation: the task, your approach, and what Claude got right or wrong"],n:"Give participants time now to start drafting — most of the value comes from doing it live with support available.",v:"Capstone brief handout.",e:"—",q:"What real task will you bring to your capstone project?"},
+
+{y:"section",m:"m6",t:"Module 6 — Responsible AI, Assessment & Certification",n:"1 hour. Goal: reinforce responsible use, complete the assessment, present capstones, and certify.",},
+
+{y:"content",m:"m6",t:"Responsible AI in Daily Practice",b:["Always disclose AI assistance where your organization or context requires it","Keep a human reviewer in the loop for anything consequential","Watch for over-reliance — skills atrophy if you stop checking AI output critically","Revisit your organization's AI policy periodically as tools and rules evolve"],n:"—",v:"—",e:"—",q:"—"},
+
+{y:"content",m:"m6",t:"AI Governance for Your Organization",b:["A short written policy beats no policy — start simple and iterate","Define approved tools, approved data types, and required review steps","Assign clear ownership for keeping the policy current","Train new hires on the policy as part of onboarding, not as an afterthought"],n:"If time allows, have participants sketch a one-page draft policy for their own organization.",v:"—",e:"—",q:"—"},
+
+{y:"content",m:"m6",t:"The Future of AI at Work — What to Watch",b:["AI literacy becoming a baseline expectation across roles, not a specialist skill","Growing use of AI agents that complete multi-step tasks with less supervision","Increasing regulation and disclosure requirements across sectors","The durable advantage: people who can direct AI clearly and verify its output well"],n:"Close on the same empowering note as the end of Module 1 — bookend the day.",v:"—",e:"—",q:"—"},
+
+{y:"content",m:"m6",t:"Assessment Instructions",b:["40 multiple-choice questions covering all six modules","70% (28/40) or higher required to pass","Immediate feedback and explanations after each answer","Retakes are available — the goal is learning, not gatekeeping"],n:"Move the group to the Assessment tab now.",v:"—",e:"—",q:"—"},
+
+{y:"content",m:"m6",t:"Capstone Presentation Guidelines",b:["Two minutes per participant: the task, your approach, the result","Name one thing Claude did well and one thing it got wrong or needed correction","Peers and instructor give brief, constructive feedback","Completed capstone + passed assessment = certificate issued"],n:"—",v:"—",e:"—",q:"—"},
+
+{y:"title",t:"Congratulations",sub:"You now have practical, defensible AI skills — and a certificate to prove it.",foot:"Cedars Abroad · Introduction to Artificial Intelligence Using Claude",n:"Close with the enrollment/certificate CTA and next-steps: the Prompt Library, Profession Playbooks, and Workshop bank remain available as an ongoing reference.",v:"—",e:"—",q:"What's the first real task you'll bring to Claude tomorrow?"}
+];
+
+var deckIdx = 0;
+
+function slideKicker(s){ return s.m ? MOD_LABEL[s.m] : ""; }
+
+function slideHTML(s, i){
+  var accentColor = s.m ? "var("+s.m+")" : "var(--accent)";
+  var typeClass = s.y === "title" ? " d-title" : (s.y === "section" ? " d-section" : "");
+  var html = '<div class="dslide'+typeClass+'" data-i="'+i+'">';
+  if (s.y === "title"){
+    html += '<div class="d-t-eyebrow">Cedars Abroad Executive Certificate</div>';
+    html += '<div class="d-t-title">'+s.t+'</div>';
+    html += '<div class="d-t-subtitle">'+(s.sub||"")+'</div>';
+    html += '<div class="d-t-footer">'+(s.foot||"")+'</div>';
+  } else if (s.y === "section"){
+    html += '<div class="d-sec-eyebrow">'+slideKicker(s)+'</div>';
+    html += '<div class="d-sec-title">'+s.t+'</div>';
+  } else {
+    html += '<div class="d-accent" style="background:'+accentColor+'"></div>';
+    if (s.m) html += '<div class="d-kicker" style="color:'+accentColor+'">'+slideKicker(s)+'</div>';
+    html += '<div class="d-heading'+(s.m?'':' no-kicker')+'">'+s.t+'</div>';
+    html += '<ul class="d-bullets">'+(s.b||[]).map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+    html += '<div class="d-footleft">Introduction to AI Using Claude</div>';
+    html += '<div class="d-pageno">'+(i+1)+' / '+SLIDES.length+'</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function renderSlides(){
+  var html = '<p class="eyebrow">Live Instructor Deck</p>';
+  html += '<h1 class="page-title">Full Slide Deck</h1>';
+  html += '<p class="page-sub">'+SLIDES.length+' slides covering every module — built to present directly from this page. Use the arrows or keyboard to navigate, jump to any slide by number, and toggle speaker notes for delivery guidance, suggested visuals, live examples, and discussion questions.</p>';
+
+  html += '<div class="deck-shell">';
+  html += '<div class="deck-viewport" id="deckViewport"><div class="deck-stage" id="deckStage">';
+  SLIDES.forEach(function(s,i){ html += slideHTML(s,i); });
+  html += '</div></div>';
+  html += '<div class="deck-controls">';
+  html += '<button class="btn small" id="deckFirst">⏮ First</button>';
+  html += '<button class="btn small" id="deckPrev">← Prev</button>';
+  html += '<span class="deck-count" id="deckCount"></span>';
+  html += '<button class="btn small" id="deckNext">Next →</button>';
+  html += '<button class="btn small" id="deckLast">Last ⏭</button>';
+  html += '<span class="deck-sep"></span>';
+  html += '<input class="deck-jump" id="deckJump" type="number" min="1" max="'+SLIDES.length+'" value="1">';
+  html += '<button class="btn small" id="deckGo">Go</button>';
+  html += '<span class="deck-sep"></span>';
+  html += '<button class="btn small" id="deckFull">⤢ Fullscreen</button>';
+  html += '<button class="btn small" id="deckNotesBtn">📝 Speaker Notes</button>';
+  html += '</div>';
+  html += '</div>';
+
+  html += '<div class="notes-toggle-wrap"><div class="notes-panel" id="notesPanel"></div></div>';
+
+  html += '<h2 class="sub-title" style="margin-top:32px;">Jump to a Module</h2>';
+  html += '<div class="deck-toc" id="deckToc"></div>';
+
+  document.getElementById("panel-slides").innerHTML = html;
+  wireDeck();
+}
+
+function wireDeck(){
+  var stage = document.getElementById("deckStage");
+  var viewport = document.getElementById("deckViewport");
+  var slides = stage.querySelectorAll(".dslide");
+
+  function fitStage(){
+    var scale = viewport.clientWidth / 1280;
+    stage.style.transform = "scale("+scale+")";
+  }
+  fitStage();
+  window.addEventListener("resize", fitStage);
+
+  function show(i){
+    if (i < 0) i = 0;
+    if (i >= SLIDES.length) i = SLIDES.length - 1;
+    deckIdx = i;
+    slides.forEach(function(sl,idx){ sl.classList.toggle("active", idx===i); });
+    document.getElementById("deckCount").textContent = (i+1)+" / "+SLIDES.length;
+    document.getElementById("deckJump").value = i+1;
+    updateNotes(i);
+    updateToc(i);
+  }
+
+  function updateNotes(i){
+    var s = SLIDES[i];
+    var panel = document.getElementById("notesPanel");
+    var html = '';
+    html += '<div class="nrow"><b>Speaker notes:</b> '+(s.n||"—")+'</div>';
+    if (s.v) html += '<div class="nrow"><b>Suggested visual:</b> '+s.v+'</div>';
+    if (s.e) html += '<div class="nrow"><b>Live example:</b> '+s.e+'</div>';
+    if (s.q) html += '<div class="nrow"><b>Ask the room:</b> '+s.q+'</div>';
+    panel.innerHTML = html;
+  }
+
+  var tocBuilt = false;
+  function updateToc(i){
+    if (tocBuilt) {
+      document.querySelectorAll("#deckToc button").forEach(function(b){
+        b.classList.toggle("cur", parseInt(b.getAttribute("data-i"),10) <= i && (i < SLIDES.length));
+      });
+      return;
+    }
+  }
+
+  var toc = document.getElementById("deckToc");
+  var tocHtml = "";
+  SLIDES.forEach(function(s,i){
+    if (s.y === "section" || s.y === "title"){
+      tocHtml += '<button data-i="'+i+'">'+(i+1)+'. '+s.t+'</button>';
+    }
+  });
+  toc.innerHTML = tocHtml;
+  toc.querySelectorAll("button").forEach(function(b){
+    b.addEventListener("click", function(){ show(parseInt(b.getAttribute("data-i"),10)); });
+  });
+
+  document.getElementById("deckFirst").addEventListener("click", function(){ show(0); });
+  document.getElementById("deckPrev").addEventListener("click", function(){ show(deckIdx-1); });
+  document.getElementById("deckNext").addEventListener("click", function(){ show(deckIdx+1); });
+  document.getElementById("deckLast").addEventListener("click", function(){ show(SLIDES.length-1); });
+  document.getElementById("deckGo").addEventListener("click", function(){
+    var v = parseInt(document.getElementById("deckJump").value,10);
+    if (!isNaN(v)) show(v-1);
+  });
+  document.getElementById("deckFull").addEventListener("click", function(){
+    if (viewport.requestFullscreen) viewport.requestFullscreen();
+    setTimeout(fitStage, 60);
+  });
+  document.getElementById("deckNotesBtn").addEventListener("click", function(){
+    document.getElementById("notesPanel").classList.toggle("show");
+  });
+  document.addEventListener("keydown", function(e){
+    var panel = document.getElementById("panel-slides");
+    if (!panel || !panel.classList.contains("active")) return;
+    if (e.key === "ArrowRight") show(deckIdx+1);
+    if (e.key === "ArrowLeft") show(deckIdx-1);
+  });
+
+  show(0);
+}
+
+renderers.slides = renderSlides;
+document.getElementById("cnt-slides").textContent = SLIDES.length;
+
+/* ======================= PROMPT LIBRARY ======================= */
+var PROMPT_CATS = [
+  {key:"biz",label:"Business & Strategy"},
+  {key:"mkt",label:"Marketing & Sales"},
+  {key:"fin",label:"Finance & Accounting"},
+  {key:"hr",label:"HR & Talent"},
+  {key:"edu",label:"Education & Teaching"},
+  {key:"health",label:"Healthcare"},
+  {key:"legal",label:"Legal"},
+  {key:"eng",label:"Engineering & Technical"},
+  {key:"res",label:"Research & Analysis"},
+  {key:"prod",label:"Productivity & Personal Development"}
+];
+
+var PROMPTS = [
+{cat:"biz",purpose:"SWOT analysis",prompt:"Act as a strategy consultant. Based on this company summary: [PASTE], draft a SWOT analysis with two specific, evidence-based points per quadrant.",output:"A four-quadrant SWOT with two justified bullets per quadrant.",tip:"Push back on generic points — ask for specifics tied to your actual data."},
+{cat:"biz",purpose:"Business plan section",prompt:"Draft the market analysis section of a business plan for [BUSINESS], entering the [MARKET] market. Include target segments, market size estimate, and three competitors.",output:"A structured market analysis section.",tip:"Provide any real market data you have; ask Claude to flag assumptions it had to make."},
+{cat:"biz",purpose:"One-page strategic plan",prompt:"Act as a strategy advisor. Given these three business goals: [GOALS], draft a one-page strategic plan with initiatives, owners, and timelines for each.",output:"One-page strategic plan table.",tip:"Ask for a RACI column if multiple teams are involved."},
+{cat:"biz",purpose:"Weighted decision matrix",prompt:"I'm deciding between these three options: [OPTIONS]. Build a weighted decision matrix using these criteria: [CRITERIA], and recommend one.",output:"Scored matrix plus a recommendation.",tip:"Set your own weights rather than accepting Claude's defaults."},
+{cat:"biz",purpose:"Project risk assessment",prompt:"Identify the top five risks to this project: [DESCRIPTION], rate each by likelihood and impact, and suggest one mitigation per risk.",output:"Risk table with mitigations.",tip:"Ask Claude to consider risks specific to your industry, not generic ones."},
+{cat:"biz",purpose:"Board memo",prompt:"Draft a one-page board memo recommending [DECISION], including the rationale, financial impact, and alternatives considered.",output:"Formal board memo.",tip:"Specify tone: persuasive but balanced, not salesy."},
+{cat:"biz",purpose:"Vendor proposal comparison",prompt:"Compare these three vendor proposals: [PASTE] on cost, scope, and risk, and recommend one with justification.",output:"Comparison table plus recommendation.",tip:"Ask Claude to note any info missing from the proposals that you should request."},
+{cat:"biz",purpose:"Change management plan",prompt:"Draft a change management plan for rolling out [CHANGE] across a 200-person organization, covering communication, training, and resistance points.",output:"Structured change plan.",tip:"Ask for a stakeholder map as a companion output."},
+{cat:"biz",purpose:"OKR drafting",prompt:"Convert this strategic goal into a set of OKRs: [GOAL]. Provide one objective and three measurable key results.",output:"An objective with three measurable key results.",tip:"Ask Claude to sanity-check whether each key result is truly measurable."},
+{cat:"biz",purpose:"Devil's-advocate plan review",prompt:"Play devil's advocate on this plan: [PASTE PLAN]. Give me the five strongest objections a skeptical board member would raise.",output:"Five sharp, specific objections.",tip:"Use this before every major presentation, not just once."},
+
+{cat:"mkt",purpose:"Ad copy variations",prompt:"Write three social ad concepts for [PRODUCT], targeting [AUDIENCE], each under 40 words, with a different emotional angle.",output:"Three distinct ad copy variants.",tip:"Ask which variant is strongest and why."},
+{cat:"mkt",purpose:"Email nurture sequence",prompt:"Draft a 3-email nurture sequence for leads who downloaded [LEAD MAGNET], moving them toward booking a demo.",output:"A 3-email sequence with subject lines.",tip:"Specify send-interval and CTA for each email."},
+{cat:"mkt",purpose:"Buyer persona",prompt:"Build a detailed buyer persona for [PRODUCT]'s ideal customer, including goals, objections, and where they spend time online.",output:"A structured persona profile.",tip:"Base it on real customer interviews if you have them, not just guesses."},
+{cat:"mkt",purpose:"Landing page copy",prompt:"Write landing page copy for [PRODUCT]: headline, subheadline, three benefit bullets, and a call to action.",output:"Landing page copy block.",tip:"Ask for two headline options to A/B test."},
+{cat:"mkt",purpose:"Competitive positioning",prompt:"Compare our product [X] against competitors [Y] and [Z] and draft a one-paragraph positioning statement that highlights our differentiation.",output:"A concise positioning statement.",tip:"Give Claude real competitor feature lists, not just names."},
+{cat:"mkt",purpose:"Sales objection handling",prompt:"List the five most common objections to buying [PRODUCT] and a concise, non-pushy response to each.",output:"Objection and response table.",tip:"Test the responses with your actual sales team and refine."},
+{cat:"mkt",purpose:"Social content calendar",prompt:"Build a 4-week social content calendar for [BRAND], covering [PLATFORMS], with a theme per week.",output:"A four-week calendar table.",tip:"Ask for post copy drafts for week one to start immediately."},
+{cat:"mkt",purpose:"Case study draft",prompt:"Turn this customer success summary into a one-page case study: [PASTE NOTES], following a Challenge, Solution, Result structure.",output:"A formatted one-page case study.",tip:"Get direct customer quotes to paste in rather than inventing them."},
+{cat:"mkt",purpose:"Brand voice guide",prompt:"Based on these three sample pieces of our writing: [PASTE], describe our brand voice in five adjectives and one paragraph of guidance.",output:"A short brand voice guide.",tip:"Use this as a Project instruction so future drafts stay on-voice."},
+{cat:"mkt",purpose:"Campaign brief",prompt:"Draft a campaign brief for launching [PRODUCT], including objective, audience, key message, channels, and success metrics.",output:"A one-page campaign brief.",tip:"Set a hard word limit so it stays skimmable."},
+
+{cat:"fin",purpose:"Budget variance analysis",prompt:"Given this budget vs actuals data: [PASTE], identify the three largest variances and a plausible explanation for each.",output:"A variance analysis narrative.",tip:"Verify explanations against source data before presenting."},
+{cat:"fin",purpose:"Plain-language P&L summary",prompt:"Summarize this P&L statement in plain language for a non-financial department head, in under 150 words: [PASTE].",output:"A plain-language summary.",tip:"Ask Claude to avoid finance jargon entirely, then check it did."},
+{cat:"fin",purpose:"Expense policy draft",prompt:"Draft a concise employee expense policy covering meals, travel, and approvals, appropriate for a 50-person company.",output:"A draft policy document.",tip:"Have finance and legal review before publishing."},
+{cat:"fin",purpose:"Cost-cutting ideas",prompt:"Based on this expense breakdown: [PASTE], suggest five specific, realistic cost-reduction ideas ranked by estimated impact.",output:"A ranked list with rationale.",tip:"Ask for the tradeoffs or risks of each suggestion too."},
+{cat:"fin",purpose:"Invoice vs contract check",prompt:"Review this vendor invoice against the signed contract terms: [PASTE BOTH] and flag any discrepancies.",output:"A discrepancy list.",tip:"Always confirm discrepancies manually before disputing an invoice."},
+{cat:"fin",purpose:"Forecast narrative",prompt:"Given this revenue forecast data: [PASTE], write a two-paragraph narrative explaining the trend for an investor update.",output:"A forecast narrative.",tip:"Ask Claude to state its confidence and key assumptions explicitly."},
+{cat:"fin",purpose:"Financial ratio explainer",prompt:"Explain what our current ratio of [X] and quick ratio of [Y] mean for our short-term liquidity, in plain language.",output:"A plain-language explanation.",tip:"Cross-check formulas against your actual accounting standard."},
+{cat:"fin",purpose:"Audit prep checklist",prompt:"Build a pre-audit readiness checklist for a mid-sized company's annual financial audit.",output:"A readiness checklist.",tip:"Have your auditor confirm the checklist matches their actual requirements."},
+{cat:"fin",purpose:"KPI dashboard proposal",prompt:"Propose five financial KPIs a CFO should track monthly, each with a definition and target-setting approach.",output:"A KPI list with definitions.",tip:"Align proposed KPIs to your actual strategic goals, not generic finance metrics."},
+{cat:"fin",purpose:"Grant budget justification",prompt:"Draft a budget justification narrative for this proposed project budget: [PASTE LINE ITEMS], for a grant application.",output:"A budget justification narrative.",tip:"Match the tone and structure to the specific funder's guidelines."},
+
+{cat:"hr",purpose:"Job description",prompt:"Write a job description for a [ROLE] at a [COMPANY TYPE], including responsibilities, required skills, and a compelling opening paragraph.",output:"A full job description.",tip:"Ask Claude to check the description for exclusionary or biased language."},
+{cat:"hr",purpose:"Behavioral interview questions",prompt:"Generate eight behavioral interview questions for a [ROLE] candidate, each targeting a specific competency.",output:"A question bank with competencies labeled.",tip:"Add follow-up probing questions for the top three."},
+{cat:"hr",purpose:"30-60-90 onboarding plan",prompt:"Draft a 30-60-90 day onboarding plan for a new [ROLE] hire.",output:"A structured onboarding timeline.",tip:"Customize milestones to your actual team's tools and processes."},
+{cat:"hr",purpose:"Performance review draft",prompt:"Help me draft performance review comments for an employee who [SUMMARY OF PERFORMANCE], balancing strengths and growth areas constructively.",output:"Draft review comments.",tip:"Personalize with specific examples before finalizing — never send AI text unedited."},
+{cat:"hr",purpose:"Plain-language policy rewrite",prompt:"Rewrite this HR policy in plain, friendly language an employee with no HR background can understand: [PASTE POLICY].",output:"A plain-language policy version.",tip:"Keep the formal version on file for legal reference."},
+{cat:"hr",purpose:"Engagement survey questions",prompt:"Draft ten employee engagement survey questions covering culture, management, and growth opportunities.",output:"A ten-question survey set.",tip:"Pilot the survey with a small group before full rollout."},
+{cat:"hr",purpose:"Exit interview theme summary",prompt:"Summarize themes across these five exit interview notes: [PASTE] and suggest two retention actions.",output:"A theme summary with recommendations.",tip:"Look for patterns across multiple exits, not one anecdote."},
+{cat:"hr",purpose:"Compensation communication",prompt:"Draft a message explaining this year's compensation adjustment approach to employees in a transparent, reassuring tone.",output:"A draft employee communication.",tip:"Have legal/comp team review before sending, especially language around raises."},
+{cat:"hr",purpose:"D&I training outline",prompt:"Outline a 90-minute D&I training session for managers, with objectives and three interactive exercises.",output:"A training session outline.",tip:"Localize examples to your organization's actual context."},
+{cat:"hr",purpose:"Org structure explainer",prompt:"Given this list of roles and reporting lines: [PASTE], write a one-paragraph plain-language explanation of the team structure for new hires.",output:"A structure narrative.",tip:"Pair with an actual visual org chart, not text alone."},
+
+{cat:"edu",purpose:"Lesson plan",prompt:"Create a 45-minute lesson plan on [TOPIC] for [GRADE LEVEL], including objectives, activities, and an exit ticket.",output:"A full lesson plan.",tip:"Ask for a version differentiated for struggling and advanced students."},
+{cat:"edu",purpose:"Grading rubric",prompt:"Create a 4-criteria, 4-level rubric for grading a [ASSIGNMENT TYPE] on [TOPIC].",output:"A rubric table.",tip:"Test the rubric on a real sample submission to check it discriminates well."},
+{cat:"edu",purpose:"Quiz generator",prompt:"Generate ten multiple-choice questions on [TOPIC] at a [DIFFICULTY] level, with an answer key.",output:"A ten-question quiz with key.",tip:"Verify each question has exactly one clearly correct answer."},
+{cat:"edu",purpose:"Concept explainer, three ways",prompt:"Explain [CONCEPT] three different ways: as a simple analogy, a step-by-step breakdown, and a real-world example.",output:"Three distinct explanations.",tip:"Ask which explanation best fits a specific struggling student's profile."},
+{cat:"edu",purpose:"Syllabus feedback",prompt:"Review this course syllabus: [PASTE] and suggest three improvements to pacing or clarity.",output:"A feedback list.",tip:"Ask specifically about workload balance across weeks."},
+{cat:"edu",purpose:"Differentiated reading passage",prompt:"Take this reading passage: [PASTE] and rewrite it at a lower reading level while keeping the key content.",output:"A simplified passage.",tip:"Compare reading levels using a tool to confirm the target grade was hit."},
+{cat:"edu",purpose:"Parent communication",prompt:"Draft a parent email explaining [SITUATION] in a warm, professional, non-alarmist tone.",output:"A draft parent email.",tip:"Personalize with the student's name and specific context before sending."},
+{cat:"edu",purpose:"Discussion questions",prompt:"Generate five open-ended discussion questions about [TOPIC/TEXT] that encourage critical thinking, not recall.",output:"A discussion question set.",tip:"Ask Claude to avoid yes/no-answerable questions."},
+{cat:"edu",purpose:"Student writing feedback",prompt:"Give constructive feedback on this student essay: [PASTE], focused on argument structure, not just grammar.",output:"Structured, constructive feedback.",tip:"Set the tone explicitly — encouraging but specific."},
+{cat:"edu",purpose:"Curriculum mapping",prompt:"Map these five learning standards: [PASTE] to specific lesson topics across a semester.",output:"A mapping table.",tip:"Cross-check against your institution's official standards document."},
+
+{cat:"health",purpose:"Patient education handout",prompt:"Rewrite this clinical instruction in plain language a patient with no medical background can follow: [PASTE].",output:"A plain-language patient handout.",tip:"Have a clinician review for accuracy before distribution."},
+{cat:"health",purpose:"Literature summary",prompt:"Summarize the methodology and key findings of this clinical paper in plain language: [PASTE ABSTRACT].",output:"A plain-language research summary.",tip:"Always verify against the original paper — never cite AI's summary as the source."},
+{cat:"health",purpose:"Referral letter draft",prompt:"Draft a referral letter to a specialist for a patient with [CONDITION SUMMARY], following standard referral letter structure.",output:"A draft referral letter.",tip:"A clinician must review and finalize before it's used in any patient record."},
+{cat:"health",purpose:"Discharge instructions",prompt:"Turn these clinical discharge notes into patient-friendly discharge instructions: [PASTE NOTES].",output:"A plain-language discharge sheet.",tip:"Confirm all medication names, doses, and follow-up dates are unchanged from the original."},
+{cat:"health",purpose:"Shift handoff summary",prompt:"Summarize this patient's case history for handoff to the next shift, in under 150 words: [PASTE NOTES].",output:"A concise handoff summary.",tip:"Cross-check the summary against the chart before handoff, every time."},
+{cat:"health",purpose:"Patient FAQ",prompt:"Draft an FAQ answering the five most common patient questions about [CONDITION], in plain language.",output:"A patient-facing FAQ.",tip:"Clinical review required before any public or patient-facing use."},
+{cat:"health",purpose:"Consent form summary",prompt:"Summarize this informed consent form in plain language a patient can read in two minutes: [PASTE].",output:"A plain-language consent summary.",tip:"Use only as a supplement to, never a replacement for, the full legal consent form."},
+{cat:"health",purpose:"Clinical guideline comparison",prompt:"Compare these two clinical guidelines on [TOPIC]: [PASTE BOTH] and list where they agree and differ.",output:"A comparison table.",tip:"Confirm both guidelines' publication dates and applicability to your setting."},
+{cat:"health",purpose:"Staff training summary",prompt:"Draft a one-page training summary on [NEW PROTOCOL] for nursing staff.",output:"A one-page training summary.",tip:"Have clinical leadership sign off before distribution."},
+{cat:"health",purpose:"Follow-up outreach message",prompt:"Draft a friendly, non-judgmental patient message encouraging a follow-up appointment for [CONDITION].",output:"A draft outreach message.",tip:"Personalize before sending; avoid generic tone in sensitive health contexts."},
+
+{cat:"legal",purpose:"Contract clause comparison",prompt:"Compare this vendor agreement: [PASTE] against our standard template: [PASTE] and list every clause that differs.",output:"A clause-by-clause difference list.",tip:"A licensed attorney must review before any clause is accepted or rejected."},
+{cat:"legal",purpose:"Plain-language contract summary",prompt:"Summarize this contract's key obligations for each party in plain language, under 200 words: [PASTE].",output:"A plain-language obligations summary.",tip:"Use for internal triage only, never as the governing document."},
+{cat:"legal",purpose:"Mutual NDA first draft",prompt:"Draft a mutual NDA between [PARTY A] and [PARTY B] for the purpose of [PURPOSE], using standard mutual NDA structure.",output:"A draft mutual NDA.",tip:"Have counsel review jurisdiction-specific clauses before use."},
+{cat:"legal",purpose:"Case law summary",prompt:"Summarize the holding and reasoning of this case in plain language, in under 150 words: [PASTE CASE TEXT].",output:"A plain-language case summary.",tip:"Always verify citations against the original source — never cite an AI-generated case summary as authority."},
+{cat:"legal",purpose:"Internal risk memo",prompt:"Draft an internal memo summarizing the legal risk of [SCENARIO], for a partner's review.",output:"A draft risk memo.",tip:"Treat this as a first draft for attorney revision, not a final work product."},
+{cat:"legal",purpose:"Policy compliance gap check",prompt:"Compare this company policy: [PASTE] against these regulatory requirements: [PASTE] and flag any gaps.",output:"A compliance gap list.",tip:"Confirm with compliance counsel before treating any gap as resolved or unresolved."},
+{cat:"legal",purpose:"Formal correspondence draft",prompt:"Draft a formal letter to opposing counsel requesting [ACTION], in a firm but professional tone.",output:"A draft formal letter.",tip:"Review tone carefully — formality norms vary by jurisdiction and relationship."},
+{cat:"legal",purpose:"Deposition question prep",prompt:"Suggest ten deposition questions to establish the timeline of events in this fact pattern: [PASTE].",output:"A ten-question prep list.",tip:"Have the lead attorney vet every question before use."},
+{cat:"legal",purpose:"Client-facing legal glossary",prompt:"Explain these five legal terms from our engagement letter in plain language a first-time client would understand: [TERMS].",output:"A plain-language glossary.",tip:"Keep definitions general — avoid giving specific legal advice through the glossary."},
+{cat:"legal",purpose:"Contract risk flagging",prompt:"Read this contract: [PASTE] and flag any clauses that are unusually one-sided or missing compared to industry norms.",output:"A flagged-clause list.",tip:"Use as a first-pass triage step before full attorney review, not a substitute for it."},
+
+{cat:"eng",purpose:"Code review",prompt:"Review this function for readability, edge-case bugs, and style issues: [PASTE CODE]. Explain each issue in plain language.",output:"An annotated issue list.",tip:"Still run your test suite — this supplements, not replaces, testing."},
+{cat:"eng",purpose:"API documentation draft",prompt:"Write developer documentation for this function or API: [PASTE], including parameters, return values, and one usage example.",output:"Draft developer documentation.",tip:"Verify examples actually run before publishing."},
+{cat:"eng",purpose:"Architecture explainer for execs",prompt:"Explain what this system architecture diagram does in plain language for a non-technical executive: [DESCRIBE].",output:"A plain-language explanation.",tip:"Ask Claude to avoid all jargon, then check it did."},
+{cat:"eng",purpose:"Bug report triage",prompt:"Given these five bug reports: [PASTE], group them by likely root cause and suggest a priority order.",output:"A grouped, prioritized list.",tip:"Confirm groupings with the engineer who owns the affected system."},
+{cat:"eng",purpose:"Design alternatives",prompt:"Given these constraints: [PASTE], propose three alternative technical approaches with tradeoffs for each.",output:"Three options with tradeoffs.",tip:"Push for specifics on cost, complexity, and risk for each option."},
+{cat:"eng",purpose:"Test case generation",prompt:"Generate ten test cases, including edge cases, for this function: [PASTE FUNCTION SIGNATURE AND DESCRIPTION].",output:"A ten-item test case list.",tip:"Confirm coverage against your actual testing framework's conventions."},
+{cat:"eng",purpose:"Blameless postmortem draft",prompt:"Draft a blameless postmortem for this incident: [PASTE TIMELINE/NOTES], covering impact, root cause, and follow-up actions.",output:"A postmortem document.",tip:"Keep language blameless and factual — review tone before sharing widely."},
+{cat:"eng",purpose:"Architecture decision record",prompt:"Draft an Architecture Decision Record for choosing [OPTION] over [ALTERNATIVE], including context, decision, and consequences.",output:"An ADR document.",tip:"Keep it concise — one page is the target for most ADRs."},
+{cat:"eng",purpose:"New-engineer onboarding doc",prompt:"Draft a getting-started doc for a new engineer joining the [SYSTEM] team, covering setup, key concepts, and where to ask for help.",output:"An onboarding document.",tip:"Have a recent hire review it for gaps you've forgotten."},
+{cat:"eng",purpose:"Requirements clarification",prompt:"Given this feature request: [PASTE], list ten clarifying questions you'd need answered before estimating the work.",output:"A clarifying-question list.",tip:"Use this before every estimate to surface hidden scope early."},
+
+{cat:"res",purpose:"Literature summary",prompt:"Summarize the key findings and methodology of this paper in plain language: [PASTE ABSTRACT/PAPER].",output:"A structured research summary.",tip:"Always verify claims and citations against the original source."},
+{cat:"res",purpose:"Research question refinement",prompt:"Help me sharpen this research question into something specific and testable: [PASTE ROUGH QUESTION].",output:"One or more refined questions.",tip:"Ask for two or three alternative framings to compare."},
+{cat:"res",purpose:"Survey design",prompt:"Draft ten survey questions to measure [CONSTRUCT], mixing Likert-scale and open-ended items.",output:"A ten-question survey draft.",tip:"Pilot test before full deployment to catch confusing wording."},
+{cat:"res",purpose:"Data pattern interpretation",prompt:"Given this dataset summary: [PASTE], what are the three most notable patterns and one plausible explanation for each?",output:"A pattern list with explanations.",tip:"Treat explanations as hypotheses to test, not conclusions."},
+{cat:"res",purpose:"Methodology critique",prompt:"Critique the methodology of this study for potential weaknesses or confounds: [PASTE METHODS SECTION].",output:"A methodology critique list.",tip:"Cross-check critiques against a colleague's independent read."},
+{cat:"res",purpose:"Annotated bibliography entry",prompt:"Write an annotated bibliography entry for this source: [PASTE CITATION AND SUMMARY], in [CITATION STYLE].",output:"A formatted bibliography entry.",tip:"Verify the citation format against the current style guide edition."},
+{cat:"res",purpose:"Research proposal outline",prompt:"Outline a research proposal on [TOPIC], including background, question, methodology, and significance.",output:"A structured proposal outline.",tip:"Tailor structure to your specific funder's or institution's template."},
+{cat:"res",purpose:"Comparative study analysis",prompt:"Compare these two studies' findings on [TOPIC]: [PASTE BOTH SUMMARIES] and explain where they agree and diverge.",output:"A comparison writeup.",tip:"Note differences in sample size or methodology that might explain divergence."},
+{cat:"res",purpose:"Executive summary of findings",prompt:"Summarize this 20-page research report into one page for a non-academic audience: [PASTE].",output:"A one-page executive summary.",tip:"Ask for the 'so what' — practical implications, not just findings restated."},
+{cat:"res",purpose:"Pre-submission self-check",prompt:"Before I submit this paper, check it for unsupported claims, unclear methodology descriptions, or missing citations: [PASTE DRAFT].",output:"An issue list for revision.",tip:"Use as a pre-submission check, not a substitute for real peer review."},
+
+{cat:"prod",purpose:"Realistic weekly plan",prompt:"Given this list of tasks and deadlines: [PASTE], help me build a realistic priority plan for the week.",output:"A prioritized weekly plan.",tip:"Be honest about your actual available hours, not your ideal ones."},
+{cat:"prod",purpose:"Meeting prep notes",prompt:"I have a meeting about [TOPIC] with [STAKEHOLDERS]. Help me prepare three key points and two questions to ask.",output:"Concise meeting prep notes.",tip:"Ask Claude to anticipate likely pushback too."},
+{cat:"prod",purpose:"Difficult conversation script",prompt:"Help me plan a difficult conversation with a colleague about [ISSUE], including an opening line and how to handle likely reactions.",output:"A conversation outline.",tip:"Practice out loud, don't just read from the script."},
+{cat:"prod",purpose:"4-week learning plan",prompt:"Build me a 4-week learning plan to get functional at [SKILL], assuming 3 hours a week.",output:"A structured learning plan.",tip:"Ask for free or low-cost resources specifically, if budget matters."},
+{cat:"prod",purpose:"Email triage replies",prompt:"Help me draft short, clear replies to these five emails: [PASTE], each under 80 words.",output:"Five draft replies.",tip:"Adjust tone per recipient before sending — don't send verbatim to everyone."},
+{cat:"prod",purpose:"Decision journal entry",prompt:"Help me think through this decision using a simple pros, cons, and unknowns framework: [DESCRIBE DECISION].",output:"A structured decision framework.",tip:"Revisit the entry after the decision plays out to calibrate your judgment."},
+{cat:"prod",purpose:"Weekly reflection prompts",prompt:"Ask me five reflective questions to help me process how this week went at work.",output:"Five reflective questions.",tip:"Actually answer them in writing — the value is in your response, not Claude's questions."},
+{cat:"prod",purpose:"Personal AI usage audit",prompt:"Based on these five tasks I do weekly: [LIST], which ones could Claude meaningfully help with, and how?",output:"A task-by-task recommendation.",tip:"Start with just one recommendation and build the habit before adding more."},
+{cat:"prod",purpose:"Feedback request framing",prompt:"Help me write a short message asking my manager for specific feedback on [SKILL/PROJECT].",output:"A draft feedback-request message.",tip:"Ask for behavior-specific feedback, not just how am I doing."},
+{cat:"prod",purpose:"90-day application plan",prompt:"Help me draft a 90-day plan for applying what I learned in this AI certificate to my actual job.",output:"A structured 90-day plan.",tip:"Make the first two weeks very concrete — momentum matters most early on."}
+];
+
+var promptFilter = "all";
+var promptSearch = "";
+
+function renderPrompts(){
+  var html = '<p class="eyebrow">Ready-to-Use Prompt Library</p>';
+  html += '<h1 class="page-title">'+PROMPTS.length+' Professional Prompts</h1>';
+  html += '<p class="page-sub">Every prompt includes its purpose, the exact prompt text, the expected output, and a tip for improving it further. Filter by category or search, then copy any prompt straight into Claude.</p>';
+  html += '<input class="search-box" id="promptSearch" type="text" placeholder="Search prompts by purpose or keyword...">';
+  html += '<div class="filter-row" id="promptFilters"></div>';
+  html += '<div class="prompt-grid" id="promptGrid"></div>';
+  document.getElementById("panel-prompts").innerHTML = html;
+
+  var filterRow = document.getElementById("promptFilters");
+  var chips = '<button class="filter-chip active" data-cat="all">All ('+PROMPTS.length+')</button>';
+  PROMPT_CATS.forEach(function(c){
+    var n = PROMPTS.filter(function(p){return p.cat===c.key;}).length;
+    chips += '<button class="filter-chip" data-cat="'+c.key+'">'+c.label+' ('+n+')</button>';
+  });
+  filterRow.innerHTML = chips;
+  filterRow.querySelectorAll(".filter-chip").forEach(function(b){
+    b.addEventListener("click", function(){
+      promptFilter = b.getAttribute("data-cat");
+      filterRow.querySelectorAll(".filter-chip").forEach(function(x){ x.classList.toggle("active", x===b); });
+      drawPromptGrid();
+    });
+  });
+  document.getElementById("promptSearch").addEventListener("input", function(e){
+    promptSearch = e.target.value.toLowerCase();
+    drawPromptGrid();
+  });
+  drawPromptGrid();
+}
+
+function catLabel(key){ var c = PROMPT_CATS.filter(function(x){return x.key===key;})[0]; return c ? c.label : key; }
+
+function drawPromptGrid(){
+  var grid = document.getElementById("promptGrid");
+  var list = PROMPTS.filter(function(p){
+    if (promptFilter !== "all" && p.cat !== promptFilter) return false;
+    if (promptSearch && (p.purpose+" "+p.prompt).toLowerCase().indexOf(promptSearch) === -1) return false;
+    return true;
+  });
+  if (!list.length){ grid.innerHTML = '<p style="font-size:13px;color:var(--ink-muted);">No prompts match that search.</p>'; return; }
+  var html = "";
+  list.forEach(function(p,idx){
+    html += '<div class="prompt-card">';
+    html += '<div class="prompt-cat">'+catLabel(p.cat)+'</div>';
+    html += '<div class="prompt-purpose">'+p.purpose+'<button class="copy-btn" data-idx="'+PROMPTS.indexOf(p)+'">Copy</button></div>';
+    html += '<div class="prompt-text">'+p.prompt+'</div>';
+    html += '<div class="prompt-meta"><b>Expected output:</b> '+p.output+'</div>';
+    html += '<div class="prompt-tip"><b>Tip:</b> '+p.tip+'</div>';
+    html += '</div>';
+  });
+  grid.innerHTML = html;
+  grid.querySelectorAll(".copy-btn").forEach(function(b){
+    b.addEventListener("click", function(){
+      var idx = parseInt(b.getAttribute("data-idx"),10);
+      var text = PROMPTS[idx].prompt;
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){ b.textContent = "Copied!"; setTimeout(function(){ b.textContent="Copy"; },1400); });
+      }
+    });
+  });
+}
+
+renderers.prompts = renderPrompts;
+document.getElementById("cnt-prompts").textContent = PROMPTS.length;
+
+/* ======================= PROFESSION PLAYBOOKS ======================= */
+var PROFESSIONS = [
+{name:"Teachers",how:"Claude accelerates lesson planning, differentiation, and grading feedback, freeing time for actual teaching.",workflow:["Draft lesson objectives and structure","Generate differentiated materials for mixed-ability classes","Create quizzes, rubrics, and exit tickets","Get feedback drafts for student work to personalize before sending"],prompt:"Create a 45-minute lesson plan on photosynthesis for 7th grade, including a hands-on activity and an exit ticket.",output:"A structured lesson plan with timing, activity instructions, and an assessment question.",best:["Always review generated content for grade-level accuracy","Use Projects to keep a running library of your course materials","Personalize AI-drafted feedback before giving it to students"],limits:["Can misjudge grade-level reading difficulty — verify against your curriculum","Not a substitute for knowing your specific students' needs"]},
+{name:"Students",how:"Claude supports studying, concept explanation, and structuring written work, always within institutional integrity rules.",workflow:["Ask for concept explanations in multiple ways until one clicks","Generate practice questions to self-test","Get outline feedback before writing a full draft","Get critical feedback on a completed draft"],prompt:"Explain the concept of opportunity cost three different ways: a simple analogy, a step-by-step breakdown, and a real-world example.",output:"Three distinct explanations tailored to different learning styles.",best:["Follow your institution's AI use policy for coursework, without exception","Use Claude to check understanding, not to write graded work for you","Verify any factual claim before citing it"],limits:["Can misstate facts confidently — always verify","Using it to write submitted work outright is an academic integrity violation at most institutions"]},
+{name:"Researchers",how:"Claude accelerates literature review, drafting, and structuring analysis, while final verification and interpretation remain the researcher's responsibility.",workflow:["Summarize papers to decide what's worth a full read","Draft methodology and structure sections for feedback","Treat data-pattern suggestions as hypotheses to test further","Check a draft for unsupported claims before submission"],prompt:"Summarize the methodology and key findings of this paper in plain language, in under 150 words: [paste abstract].",output:"A concise, plain-language research summary.",best:["Always verify AI-summarized findings and citations against the original source","Use Claude to sharpen research questions, not to generate conclusions"],limits:["Cannot access paywalled or unpublished data unless you provide it","May fabricate plausible-sounding citations — always verify independently"]},
+{name:"University Professors",how:"Claude supports course design, assessment creation, and scaling feedback across large classes.",workflow:["Design or refine a syllabus for pacing and clarity","Generate exam questions at a specified difficulty level","Draft rubrics for consistent grading across sections","Summarize student feedback themes from evaluations"],prompt:"Review this course syllabus and suggest three improvements to pacing or workload balance: [paste syllabus].",output:"A structured feedback list with specific, actionable suggestions.",best:["Keep a Project per course to maintain consistent materials","Cross-check generated exam questions for a single correct answer"],limits:["Doesn't know your institution's specific policies unless told","Can't replace direct knowledge of your students' progress"]},
+{name:"Doctors & Clinicians",how:"Claude drafts patient-facing materials and supports documentation and research, strictly as a drafting aid, never for diagnosis or treatment decisions.",workflow:["Draft plain-language patient education handouts","Summarize clinical literature to stay current","Draft referral letters and discharge instructions for clinician review","Summarize case notes for shift handoff"],prompt:"Rewrite this discharge instruction in plain language a patient with no medical background can follow: [paste].",output:"A clear, plain-language patient handout, pending clinical review.",best:["A licensed clinician must review and approve any output before patient-facing or record use","Never use Claude for diagnosis or treatment decisions"],limits:["No access to patient records or real-time clinical data unless provided","Cannot be held clinically accountable — the treating clinician always is"]},
+{name:"Lawyers",how:"Claude speeds up first-pass drafting, contract triage, and legal research support — final judgment stays with licensed counsel.",workflow:["Compare a contract against a standard template for deviations","Summarize case law or lengthy filings in plain language","Draft routine correspondence and internal memos for review","Flag unusually one-sided or missing clauses for attorney attention"],prompt:"Compare this vendor agreement against our standard template and list every clause that differs: [paste both].",output:"A clause-by-clause difference list to guide attorney review.",best:["Every AI-drafted legal document requires attorney review before use","Never rely on AI-generated case citations without independent verification"],limits:["Cannot provide legal advice or represent clients","May generate plausible-sounding but incorrect case law — verify always"]},
+{name:"Engineers",how:"Claude supports documentation, code review assistance, and technical communication to non-technical stakeholders.",workflow:["Get a first-pass code review for readability and edge cases","Draft technical documentation and usage examples","Translate technical concepts for non-technical stakeholders","Generate test cases including edge cases"],prompt:"Review this function for readability, edge-case bugs, and style issues, and explain each issue in plain language: [paste code].",output:"An annotated list of issues with plain-language explanations.",best:["Always run your actual test suite — AI review supplements, not replaces, testing","Verify generated code against your team's style guide"],limits:["Can miss context-specific bugs tied to your full codebase","Not a substitute for a human code review on critical systems"]},
+{name:"Architects",how:"Claude supports early-stage design communication, documentation, and stakeholder-facing explanations.",workflow:["Draft design rationale narratives for client presentations","Summarize building codes or zoning requirements for a project","Brainstorm design alternatives against stated constraints","Draft project specification documents"],prompt:"Given these constraints: [paste], propose three alternative design approaches with tradeoffs for each.",output:"Three design directions with explicit tradeoffs.",best:["Verify all code and zoning information against current official sources","Use for communication and ideation, not structural or code compliance sign-off"],limits:["Cannot verify structural safety or code compliance — licensed review required","No access to your specific jurisdiction's current regulations unless provided"]},
+{name:"Accountants",how:"Claude helps explain financial data, draft policies, and prepare for audits.",workflow:["Explain financial statements in plain language for non-finance stakeholders","Analyze budget variances and draft explanatory narratives","Draft or refine internal financial policies","Build an audit-readiness checklist"],prompt:"Given this budget vs actuals data, identify the three largest variances and a plausible explanation for each: [paste].",output:"A variance analysis with narrative explanations.",best:["Verify every figure against source records before presenting","Use Claude for narrative and communication, not for final calculations on critical filings"],limits:["Not reliable for precise, high-stakes arithmetic on large datasets without verification","Doesn't know your specific accounting system or chart of accounts unless told"]},
+{name:"Auditors",how:"Claude supports documentation review, checklist creation, and summarizing findings.",workflow:["Build audit checklists tailored to a specific standard or process","Summarize findings across multiple documents or interviews","Draft audit report narratives from raw notes","Compare a policy against a regulatory requirement for gaps"],prompt:"Compare this company policy against these regulatory requirements and flag any gaps: [paste both].",output:"A structured gap list to guide the audit.",best:["Confirm every flagged gap with the actual regulatory text and current version","Maintain independence — use Claude for drafting, not for professional judgment"],limits:["Cannot independently verify facts in source documents — always cross-check","Not a substitute for professional skepticism and testing"]},
+{name:"Marketing Professionals",how:"Claude accelerates campaign ideation, copywriting, and content calendars.",workflow:["Generate multiple creative concepts for a campaign","Draft copy across formats: ads, email, landing pages","Build content calendars with themes","Draft case studies from customer success notes"],prompt:"Write three social ad concepts for [product], targeting [audience], each under 40 words, with a different emotional angle.",output:"Three distinct ad copy variants ready for review.",best:["Always fact-check claims and statistics before publishing","Keep a brand voice guide as a Project instruction for consistency"],limits:["May produce generic copy without specific brand or audience context","Can't predict real campaign performance — test and measure"]},
+{name:"HR Professionals",how:"Claude speeds up job descriptions, policy drafts, and structuring sensitive communications.",workflow:["Draft job descriptions and interview question banks","Draft onboarding plans and training outlines","Summarize themes across surveys or exit interviews","Draft sensitive communications for tone review"],prompt:"Generate eight behavioral interview questions for a [role] candidate, each targeting a specific competency.",output:"A structured question bank with competencies labeled.",best:["Check all generated content for bias or exclusionary language","Never send AI-drafted sensitive communications (compensation, termination) without human review"],limits:["Doesn't know your specific employment law jurisdiction unless told","Not a substitute for legal review on compliance-sensitive documents"]},
+{name:"CEOs",how:"Claude supports strategic thinking, board communication, and rapid first-draft materials.",workflow:["Draft board memos and strategic narratives","Get a devil's-advocate critique of a plan before presenting it","Structure decision frameworks for major choices","Draft executive summaries of long reports"],prompt:"Play devil's advocate on this plan and give me the five strongest objections a skeptical board member would raise: [paste plan].",output:"Five sharp, specific objections to pressure-test the plan.",best:["Use as a thinking partner and first-draft generator, not a decision-maker","Verify any competitive or market claim independently"],limits:["Has no access to confidential internal data unless provided","Cannot be accountable for strategic decisions — that remains with leadership"]},
+{name:"Managers",how:"Claude supports team communication, performance feedback drafting, and meeting facilitation.",workflow:["Draft performance review comments for personalization","Prepare meeting agendas and follow-up summaries","Draft difficult-conversation scripts to practice with","Turn rough notes into clear action-item lists"],prompt:"Turn these rough meeting notes into formal minutes with decisions, action items, and owners: [paste notes].",output:"Structured meeting minutes ready to distribute.",best:["Always personalize AI-drafted feedback with specific examples","Practice sensitive conversations rather than reading a script verbatim"],limits:["Doesn't know team dynamics or history unless you provide it","Not a substitute for direct, human judgment in people management"]},
+{name:"Project Managers",how:"Claude helps structure plans, track risks, and communicate status clearly.",workflow:["Draft project charters and scope documents","Identify and rate project risks with mitigations","Turn raw status updates into a clean stakeholder report","Draft RACI matrices for cross-functional projects"],prompt:"Identify the top five risks to this project, rate each by likelihood and impact, and suggest one mitigation per risk: [paste description].",output:"A risk register with ratings and mitigations.",best:["Validate risk ratings with your actual project team","Keep a live Project per initiative for consistent context"],limits:["Doesn't know real-time project status unless you provide updates","Can't replace stakeholder judgment on prioritization tradeoffs"]},
+{name:"Business Analysts",how:"Claude supports requirements gathering, data interpretation, and documentation.",workflow:["Draft clarifying questions for a new feature request","Treat dataset patterns as hypotheses to validate","Draft business requirements documents from stakeholder notes","Compare options against weighted criteria"],prompt:"Given this feature request, list ten clarifying questions you'd need answered before estimating the work: [paste].",output:"A clarifying-question list to sharpen requirements.",best:["Validate all data interpretations against the actual source data","Use structured frameworks (weighted criteria, RACI) rather than open-ended asks"],limits:["No access to your live systems or databases unless data is provided","Pattern suggestions are hypotheses, not confirmed insights"]},
+{name:"Entrepreneurs",how:"Claude accelerates business plan drafting, market research synthesis, and early positioning work.",workflow:["Draft business plan sections iteratively","Synthesize market research into a positioning statement","Brainstorm and pressure-test business ideas","Draft investor-facing one-pagers"],prompt:"Brainstorm ten possible business ideas at the intersection of [industry A] and [industry B], with a one-line pitch for each.",output:"Ten distinct, one-line business concepts to evaluate further.",best:["Validate market assumptions with real customer conversations, not just AI output","Use Claude to move fast on drafts, then get expert human review before big decisions"],limits:["Cannot validate real market demand — only real customers can","May generate generic ideas without deep, specific context"]},
+{name:"Consultants",how:"Claude speeds up first-draft client deliverables, frameworks, and research synthesis.",workflow:["Draft first-pass client deliverables for consultant refinement","Structure findings using standard frameworks (SWOT, 7S, etc.)","Synthesize interview or workshop notes into themes","Draft executive summaries for client leadership"],prompt:"Summarize this 20-page research report into one page for a non-academic audience, focused on practical implications: [paste].",output:"A one-page, decision-focused executive summary.",best:["Always route final deliverables through your firm's quality review process","Disclose AI assistance per your firm's and client's policies"],limits:["No access to proprietary client systems or confidential data unless provided","Cannot replace deep, context-specific client knowledge"]},
+{name:"Data Analysts",how:"Claude supports data interpretation narratives, documentation, and communicating findings to non-technical audiences.",workflow:["Draft plain-language narratives explaining a dataset's patterns","Generate hypotheses to test from an initial data summary","Draft documentation for a dashboard or analysis methodology","Turn a technical finding into an executive-ready insight"],prompt:"Given this dataset summary, what are the three most notable patterns and one plausible explanation for each: [paste].",output:"A pattern list with plausible explanations, framed as hypotheses.",best:["Verify all patterns against the actual underlying data, not just the summary","Treat AI-suggested explanations as hypotheses to test, not conclusions"],limits:["Cannot run your actual statistical analysis unless given full data and asked explicitly","Weak at precise computation on large datasets — verify key numbers"]},
+{name:"Content Creators",how:"Claude accelerates ideation, scripting, and repurposing content across formats.",workflow:["Brainstorm content angles and hooks for a topic","Draft scripts or outlines for video, podcast, or written content","Repurpose one long piece into multiple shorter formats","Draft captions and titles optimized for a specific platform"],prompt:"Take this blog post and repurpose it into a 5-post social thread, a 60-second video script, and three short captions: [paste].",output:"Three repurposed formats derived from a single source piece.",best:["Keep your authentic voice — use AI drafts as a starting point, not a final product","Fact-check any claim before publishing"],limits:["Can produce generic-sounding content without a strong voice guide","Doesn't know current platform trends beyond its training data"]}
+];
+
+function renderProfessions(){
+  var html = '<p class="eyebrow">Profession Playbooks</p>';
+  html += '<h1 class="page-title">'+PROFESSIONS.length+' Profession-Specific Workflows</h1>';
+  html += '<p class="page-sub">For each profession: how Claude helps, a typical workflow, a worked example prompt and expected output, best practices, and honest limitations. Click any profession to expand it.</p>';
+  html += '<div class="prof-grid" id="profGrid"></div>';
+  var grid_html = "";
+  PROFESSIONS.forEach(function(p,i){
+    grid_html += '<div class="prof-card" data-idx="'+i+'">';
+    grid_html += '  <div class="prof-head"><span class="pname">'+p.name+'</span><span class="parrow">▸</span></div>';
+    grid_html += '  <div class="prof-body">';
+    grid_html += '    <div class="prof-sec"><h4>How Claude helps</h4><p>'+p.how+'</p></div>';
+    grid_html += '    <div class="prof-sec"><h4>Typical workflow</h4><ul>'+p.workflow.map(function(w){return '<li>'+w+'</li>';}).join('')+'</ul></div>';
+    grid_html += '    <div class="prof-sec"><h4>Example prompt</h4><div class="pex">'+p.prompt+'</div></div>';
+    grid_html += '    <div class="prof-sec"><h4>Expected output</h4><p>'+p.output+'</p></div>';
+    grid_html += '    <div class="prof-sec"><h4>Best practices</h4><ul>'+p.best.map(function(w){return '<li>'+w+'</li>';}).join('')+'</ul></div>';
+    grid_html += '    <div class="prof-sec"><h4>Limitations</h4><ul>'+p.limits.map(function(w){return '<li>'+w+'</li>';}).join('')+'</ul></div>';
+    grid_html += '  </div>';
+    grid_html += '</div>';
+  });
+  document.getElementById("panel-professions").innerHTML = html;
+  document.getElementById("profGrid").innerHTML = grid_html;
+  document.querySelectorAll(".prof-head").forEach(function(h){
+    h.addEventListener("click", function(){ h.closest(".prof-card").classList.toggle("open"); });
+  });
+}
+
+renderers.professions = renderProfessions;
+document.getElementById("cnt-professions").textContent = PROFESSIONS.length;
+
+/* ======================= HANDS-ON WORKSHOP EXERCISE BANK ======================= */
+var DOMAINS = [
+{name:"Business & Strategy",ex:["Draft a one-page strategic plan for a real initiative at your organization","Build a SWOT analysis for your team, department, or company","Create a weighted decision matrix for a decision you're currently facing","Draft a board-ready memo recommending a real decision you need to make","Identify and rate the top five risks on a current project","Convert one of your team's goals into an OKR with measurable key results","Get Claude to play devil's advocate on a plan you're about to present","Draft a change management plan for a process change at your organization","Compare two real vendor proposals you've received and get a recommendation"]},
+{name:"Marketing & Sales",ex:["Write three ad concepts for a real product or service you work with","Draft a 3-email nurture sequence for a real lead magnet or offer","Build a buyer persona for your actual ideal customer","Write landing page copy for a real offer","Draft a positioning statement comparing your product to two real competitors","List five real objections your sales team hears and draft responses","Build a 4-week content calendar for your organization's social channels","Turn a real customer success story into a one-page case study","Define your brand voice from three samples of your existing writing"]},
+{name:"Finance & Accounting",ex:["Analyze a real budget-vs-actuals report and identify the top variances","Summarize a financial statement in plain language for a non-finance colleague","Draft or improve your organization's expense policy","Suggest five realistic cost-cutting ideas from a real expense breakdown","Draft a forecast narrative from real or sample revenue data","Explain what your organization's key financial ratios mean in plain language","Build a pre-audit readiness checklist for your function","Propose five KPIs your finance team should track monthly","Draft a budget justification for a real funding or grant request"]},
+{name:"Human Resources",ex:["Write a job description for a role you're actually hiring for","Generate eight behavioral interview questions for that role","Draft a 30-60-90 day onboarding plan for a new hire","Draft performance review comments for a real (anonymized) employee","Rewrite a real HR policy in plain language","Draft ten employee engagement survey questions","Summarize themes across sample exit interview notes","Outline a 90-minute D&I training session for managers","Draft a compensation communication message in a transparent, reassuring tone"]},
+{name:"Education & Training",ex:["Create a full lesson plan on a topic you actually teach or present","Build a grading rubric for a real assignment type","Generate a ten-question quiz with an answer key on a real topic","Explain a difficult concept from your field three different ways","Get feedback on a real syllabus or training outline","Simplify a dense reading passage or document to a lower reading level","Draft a parent or stakeholder communication about a real situation","Generate five discussion questions that go beyond simple recall","Give structured feedback on a real piece of student or trainee writing"]},
+{name:"Healthcare",ex:["Rewrite a real clinical instruction into plain patient-facing language","Summarize a clinical paper or guideline relevant to your practice","Draft a referral letter template for a common condition you see","Turn discharge notes into patient-friendly instructions","Draft a shift-handoff summary format for your team","Build a patient FAQ for a condition you frequently manage","Summarize an informed consent form in plain language","Compare two clinical guidelines on the same topic for agreement and difference","Draft a one-page staff training summary on a new protocol"]},
+{name:"Engineering & Technical",ex:["Get a code review on a real function you've written","Draft documentation for a real API or function","Explain a real system architecture to a non-technical stakeholder","Triage a batch of real or sample bug reports by likely root cause","Propose three design alternatives for a real technical constraint you face","Generate ten test cases, including edge cases, for a real function","Draft a blameless postmortem for a real or hypothetical incident","Write an Architecture Decision Record for a real technical choice","Draft a getting-started doc for a new team member"]},
+{name:"Law",ex:["Compare a real (non-privileged) contract against your standard template","Summarize a contract's obligations in plain language","Draft a first-pass NDA for a real or hypothetical deal","Summarize a case relevant to your practice area in plain language","Draft an internal risk memo for a real scenario","Compare a policy against a real regulatory requirement for gaps","Draft a formal letter for a real correspondence need","Prepare ten deposition-style questions for a hypothetical fact pattern","Draft a plain-language glossary of terms from a real engagement letter"]},
+{name:"Research & Analysis",ex:["Summarize a real paper relevant to your work","Sharpen a rough research question you're currently exploring","Draft ten survey questions for something you want to measure","Interpret patterns in a real or sample dataset summary","Critique the methodology of a study in your field","Write an annotated bibliography entry for a real source","Outline a research proposal for a real project idea","Compare two studies' findings on the same topic","Run a pre-submission self-check on a real draft you're working on"]},
+{name:"Project Management & Consulting",ex:["Draft a project charter for a real initiative","Build a risk register for a real project","Turn raw status notes into a clean stakeholder report","Draft a RACI matrix for a real cross-functional project","Structure a real client or stakeholder problem using a standard framework","Synthesize notes from a real meeting or workshop into themes","Draft an executive summary for a real report or deliverable","Compare vendor or partner options against weighted criteria","Draft a status update email for a real project you're running"]},
+{name:"Customer Service, Government & NGOs",ex:["Draft a template response for a common customer complaint","Build an FAQ for a service your organization provides","Draft a public-facing plain-language summary of a policy or program","Summarize real (or sample) citizen or beneficiary feedback into themes","Draft a grant or funding proposal narrative for a real program","Build a training outline for frontline staff on a new process","Draft a service-update communication for real stakeholders","Turn a technical regulation into a plain-language public explainer","Draft an outreach message inviting community participation in a program"]},
+{name:"Productivity & Personal Development",ex:["Build a realistic priority plan for your actual week","Prepare talking points for a real upcoming meeting","Plan a real difficult conversation you need to have","Build a 4-week learning plan for a skill you want to develop","Draft quick replies to five real emails sitting in your inbox","Think through a real decision using a pros, cons, and unknowns framework","Answer five reflective questions about your work this week","Audit your own weekly tasks for where Claude could realistically help","Draft your personal 90-day plan for applying this course on the job"]}
+];
+
+function totalExercises(){ return DOMAINS.reduce(function(a,d){return a+d.ex.length;},0); }
+
+function renderWorkshop(){
+  var total = totalExercises();
+  var html = '<p class="eyebrow">Hands-On Workshop</p>';
+  html += '<h1 class="page-title">'+total+' Practical Exercises</h1>';
+  html += '<p class="page-sub">Organized into twelve domains. In Module 5, participants pick the domain closest to their role and complete at least five exercises live, in their own Claude account, before starting the capstone project.</p>';
+  html += '<div class="stat-strip">';
+  html += statTile(total,"Total exercises");
+  html += statTile(DOMAINS.length,"Domains");
+  html += statTile("5+","Exercises to complete live");
+  html += statTile("1","Capstone project result");
+  html += '</div>';
+  html += '<div id="domainList"></div>';
+  document.getElementById("panel-workshop").innerHTML = html;
+
+  var listHtml = "";
+  DOMAINS.forEach(function(d,i){
+    listHtml += '<div class="domain-card" data-idx="'+i+'">';
+    listHtml += '  <div class="domain-head"><span class="dname">'+d.name+'</span><span class="dcount">'+d.ex.length+' exercises ▾</span></div>';
+    listHtml += '  <div class="domain-body"><ol class="ex-list">'+d.ex.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ol></div>';
+    listHtml += '</div>';
+  });
+  document.getElementById("domainList").innerHTML = listHtml;
+  document.querySelectorAll(".domain-head").forEach(function(h){
+    h.addEventListener("click", function(){ h.closest(".domain-card").classList.toggle("open"); });
+  });
+}
+
+renderers.workshop = renderWorkshop;
+document.getElementById("cnt-workshop").textContent = totalExercises();
+
+/* ======================= ASSESSMENT: QUIZ + CAPSTONE + RUBRIC ======================= */
+var QUIZ = [
+{q:"Which of the following best describes machine learning?",opts:["A system that follows only hand-written rules","A subset of AI where systems learn patterns from data","A synonym for artificial intelligence","A type of computer hardware"],c:1,exp:"ML is a subset of AI where the system learns patterns from data instead of following hand-written rules."},
+{q:"What architecture, published by Google in 2017, underlies most modern LLMs including Claude?",opts:["The Perceptron","The Transformer","The Expert System","The Decision Tree"],c:1,exp:"The Transformer architecture, from the 'Attention Is All You Need' paper, underlies today's LLMs."},
+{q:"What is a 'hallucination' in the context of AI language models?",opts:["A visual glitch in an AI-generated image","When the model refuses to answer","When the model states something false with confident, plausible-sounding language","A type of training technique"],c:2,exp:"Hallucination is confident, plausible but false output — always verify."},
+{q:"Which best describes the relationship between AI, machine learning, and deep learning?",opts:["They are unrelated fields","Deep learning contains machine learning, which contains AI","AI contains machine learning, which contains deep learning","They are all exactly the same thing"],c:2,exp:"AI is the broadest category; ML is a subset; deep learning is a subset of ML."},
+{q:"What does an LLM primarily do when generating a response?",opts:["Looks up the answer in a live database","Predicts the most likely next token based on patterns learned during training","Runs a symbolic logic solver","Queries the internet in real time by default"],c:1,exp:"LLMs predict the next token based on learned patterns; they aren't connected live to the internet by default."},
+{q:"Which is an example of narrow AI, not general-purpose generative AI?",opts:["Claude drafting a report","A chess engine that only plays chess","ChatGPT answering varied questions","Gemini summarizing a document"],c:1,exp:"A chess engine performs one task only — narrow AI."},
+{q:"What is 'AI governance' primarily concerned with?",opts:["The technical architecture of a neural network","Rules and oversight for how an organization uses AI responsibly","The speed of model training","Choosing a marketing strategy for an AI product"],c:1,exp:"Governance means organizational rules, oversight, and accountability for AI use."},
+{q:"Which statement about today's AI assistants (Claude, ChatGPT, Gemini, Copilot) is most accurate?",opts:["They use fundamentally different, incompatible core technologies","Only one of them is 'real' AI","They are all LLM-based generative AI assistants, differing mainly in integration and specific strengths","They cannot be compared to each other"],c:2,exp:"All four are LLM-based, differing mainly in ecosystem/integration and specific strengths."},
+{q:"What is a key current limitation of large language models?",opts:["They cannot generate text at all","They are perfectly accurate on all factual questions","They can be confidently wrong and lack guaranteed real-time knowledge past training cutoff","They require no human review ever"],c:2,exp:"Hallucination risk and training cutoff are real limitations requiring human review."},
+{q:"What is the main advantage of a Claude Project over a single Chat?",opts:["Projects are faster to load","Projects persist context, instructions, and files across multiple conversations","Projects cannot use file uploads","There is no difference"],c:1,exp:"Projects maintain persistent context, files, and instructions across many chats."},
+{q:"What is an Artifact in Claude?",opts:["A file format Claude cannot open","A side-by-side panel showing a generated document, code, or visual you can view and iterate on","A type of error message","A security vulnerability"],c:1,exp:"Artifacts render generated content in a dedicated, iterable panel."},
+{q:"Which of these is a Claude best practice when working with a long PDF?",opts:["Always retype the entire document manually","Ask Claude to analyze the whole document at once with no structure","Break the task into stages, such as a summary first then section-by-section detail","Never upload PDFs"],c:2,exp:"Long documents work best broken into stages."},
+{q:"What should you NEVER paste into a Claude prompt for work use?",opts:["A public press release","Your own writing sample","Passwords or other credentials","A generic industry statistic"],c:2,exp:"Never paste passwords or credentials into any AI tool."},
+{q:"What is the correct professional practice with AI-generated numbers from a spreadsheet analysis?",opts:["Trust them completely without checking","Cross-verify key figures against the source before using them in a decision","Delete the original spreadsheet","Ignore the analysis entirely"],c:1,exp:"Always verify high-stakes numbers against source data."},
+{q:"Which file types can Claude typically work with when uploaded?",opts:["Only .txt files","PDFs, Word docs, Excel/CSV, images, and PowerPoint files","Only images","No file uploads are supported"],c:1,exp:"Claude supports a broad range of common work file types."},
+{q:"What is a common beginner mistake when starting to use Claude?",opts:["Giving too much relevant context","Iterating on a first draft","Writing vague prompts without specifying audience, format, or goal","Using a Project for recurring work"],c:2,exp:"Vague prompts are the most common beginner mistake."},
+{q:"In the RCTF prompt framework taught in this course, what does the 'C' stand for?",opts:["Confidence","Context","Creativity","Compliance"],c:1,exp:"RCTF = Role, Context, Task, Format."},
+{q:"What is 'role prompting'?",opts:["Assigning yourself a nickname in the chat","Asking Claude to act as a specific persona or professional role to shape tone and focus","A way to bypass Claude's safety training","A method for uploading files"],c:1,exp:"Role prompting assigns Claude a persona or professional role."},
+{q:"What is 'few-shot prompting'?",opts:["Asking a question in as few words as possible","Providing a few worked examples of the input/output pattern before asking for a new one","Limiting Claude to five responses","Refusing to give Claude any context"],c:1,exp:"Few-shot means giving a few examples showing the desired pattern."},
+{q:"What does 'chain-of-thought prompting' ask Claude to do?",opts:["Generate a random chain of unrelated ideas","Reason through a problem step-by-step visibly before giving a final answer","Link to external websites","Chain multiple Claude accounts together"],c:1,exp:"Chain-of-thought means visible, step-by-step reasoning before the final answer."},
+{q:"What is the recommended approach to a disappointing first response from Claude?",opts:["Give up on the task","Iterate with specific feedback to refine the response","Assume Claude cannot help with this task","Restart your computer"],c:1,exp:"Iterative refinement is expected and effective."},
+{q:"Which of these is an example of specifying output formatting in a prompt?",opts:["'Tell me about marketing'","'Present this as a table with columns: Option, Cost, Timeline, Risk'","'Write something'","'Help'"],c:1,exp:"Explicit structure requests are output formatting."},
+{q:"What is a 'prompt template'?",opts:["A one-time-use prompt that can never be reused","A reusable prompt structure with blanks you fill in for each specific instance","A Claude subscription plan","A type of file format"],c:1,exp:"Templates are reusable structures with fill-in blanks."},
+{q:"Which of the following is the biggest lever most beginners underuse in prompting?",opts:["Providing sufficient context","Using all capital letters","Asking extremely short questions","Avoiding any examples"],c:0,exp:"More relevant context nearly always improves output quality."},
+{q:"What should you do if a task is genuinely ambiguous?",opts:["Guess silently and hope for the best","Ask Claude to ask clarifying questions before proceeding","Abandon the task","Provide contradictory instructions"],c:1,exp:"Asking for clarifying questions resolves genuine ambiguity."},
+{q:"When using Claude to help review a contract, what is the correct professional stance?",opts:["Treat Claude's review as final legal sign-off","Use it as a first-pass triage aid; a licensed attorney must still review","Skip legal review entirely to save time","Only use it for contracts under one page"],c:1,exp:"AI supports triage; final legal judgment stays with counsel."},
+{q:"In the Balanced Scorecard demo, KPIs should be developed starting from:",opts:["Randomly chosen metrics","Whatever competitors are measuring","Strategic objectives — asking what would prove success","The longest possible list of metrics"],c:2,exp:"KPIs should trace back to strategic objectives."},
+{q:"What is the benefit of 'chaining' Claude outputs across a workflow (research to outline to draft to summary)?",opts:["It has no benefit over a single prompt","It lets each stage's output become context for the next, building a polished final deliverable","It only works for coding tasks","It requires a different AI tool for each stage"],c:1,exp:"Chaining stages produces higher-quality, more complete deliverables."},
+{q:"When summarizing a long report with Claude, what should you request to make figures verifiable?",opts:["Nothing extra is needed","Ask Claude to cite the page or section for each figure or claim","Ask Claude to remove all numbers","Ask Claude to guess the numbers"],c:1,exp:"Requesting citations or page references supports verification."},
+{q:"Which of these is NOT one of the demonstrated Module 4 use cases?",opts:["Drafting meeting minutes","Performing brain surgery","Preparing a SWOT analysis","Creating a marketing campaign"],c:1,exp:"Claude is not used for physical medical procedures — a deliberately absurd distractor."},
+{q:"For doctors and clinicians, what is the correct use of Claude regarding diagnosis?",opts:["Claude may be used to make final diagnoses independently","Claude should never be used for diagnosis or treatment decisions — it is a drafting and research aid only","Claude replaces the need for clinical judgment","Claude should diagnose first, then a doctor confirms"],c:1,exp:"This is a firm limitation: never for diagnosis or treatment decisions."},
+{q:"What is the recommended first step for a lawyer using Claude on a contract?",opts:["Sign the contract based on Claude's summary","Use Claude for first-pass clause comparison, then route to attorney review","Skip legal review of AI-flagged clauses","Ignore any flagged clauses"],c:1,exp:"AI triage plus mandatory attorney review is the correct workflow."},
+{q:"For engineers, what should always accompany an AI-assisted code review?",opts:["Nothing further is needed","Running your actual test suite — AI review supplements, not replaces, testing","Immediate deployment to production","Deleting the original code"],c:1,exp:"Testing remains essential regardless of AI review."},
+{q:"What is the purpose of the Module 5 capstone project?",opts:["To replace the final assessment","To apply course frameworks to one real task from the participant's own job, producing a finished artifact","To test typing speed","To rank participants against each other competitively"],c:1,exp:"The capstone is an applied, real-task project with a finished output."},
+{q:"When working in pairs or small groups during the workshop, what is most valuable?",opts:["Working in total silence","Talking through prompts and comparing approaches before running them","Avoiding any discussion of results","Only one person touching the keyboard the entire time"],c:1,exp:"Discussion strengthens prompting skill-building."},
+{q:"What is a core principle of responsible AI use highlighted in this course?",opts:["A human remains accountable for any AI-assisted decision or output","AI output requires no review once generated","Disclosure is never necessary","Privacy policies do not apply to AI tools"],c:0,exp:"Human accountability is a core responsible-AI principle."},
+{q:"What is the recommended first step for an organization with no AI policy yet?",opts:["Wait until regulation forces a policy","Write a short, simple policy and iterate over time","Ban all AI tools indefinitely","Assume no policy is needed"],c:1,exp:"A short first policy beats no policy."},
+{q:"What passing score is required on this course's 40-question assessment?",opts:["50% (20/40)","60% (24/40)","70% (28/40) or higher","100% (40/40)"],c:2,exp:"70% (28/40) or higher is required to pass."},
+{q:"What two things are required to receive the Cedars Abroad Certificate of Completion?",opts:["Attendance only, nothing else","Passing the assessment and completing/presenting the capstone project","Paying an additional fee","Perfect attendance and a written essay"],c:1,exp:"The certificate requires a passed assessment plus a completed, presented capstone project."},
+{q:"What is the most durable professional advantage described in the course's closing message?",opts:["Owning the most expensive AI subscription","The ability to direct AI clearly and verify its output well","Avoiding AI tools altogether","Memorizing every AI company's history"],c:1,exp:"Directing AI well and verifying its output is the durable skill advantage."}
+];
+
+var quizAnswers = {};
+
+function renderAssessment(){
+  var html = '<p class="eyebrow">Certification</p>';
+  html += '<h1 class="page-title">Final Assessment & Capstone</h1>';
+  html += '<p class="page-sub">A 40-question knowledge check (70% / 28 correct required to pass), a capstone project brief, and the grading rubric used to certify participants.</p>';
+
+  html += '<div class="quiz-shell">';
+  html += '<div class="quiz-score" id="quizScore"><div class="qs-num" id="qsNum">0 / '+QUIZ.length+'</div><div class="qs-lbl" id="qsLbl">Answer questions below — your score updates live. 28/40 (70%) is a pass.</div></div>';
+  html += '<div class="quiz-progress" id="quizProgress"></div>';
+  html += '<div id="quizList"></div>';
+  html += '</div>';
+
+  html += '<h2 class="sub-title" style="margin-top:36px;">Capstone Project Brief</h2>';
+  html += '<div class="card" style="margin-bottom:20px;"><p>Choose one real, recurring task from your own job that Claude can genuinely help with. Using the frameworks from this course — structured prompting (Role, Context, Task, Format), iterative refinement, and a Claude Project where useful — produce one finished artifact: a report, plan, campaign, lesson, analysis, or equivalent deliverable in your field.</p>';
+  html += '<p style="margin-top:10px;">Prepare a two-minute presentation covering: (1) the task you chose and why it matters, (2) your approach and the prompts you used, (3) the finished result, and (4) one thing Claude got right and one thing it got wrong or needed correction. Presentations happen in Module 6, and a completed, presented capstone is required for certification.</p></div>';
+
+  html += '<h2 class="sub-title">Grading Rubric</h2>';
+  html += '<div style="overflow-x:auto;"><table class="rubric-table"><thead><tr><th>Criterion</th><th>Excellent (4)</th><th>Good (3)</th><th>Developing (2)</th><th>Needs Work (1)</th></tr></thead><tbody>';
+  html += rubricRow("Task relevance","Directly tied to a real, recurring work task with clear value","Relevant task, value is plausible","Task is somewhat generic or hypothetical","Task is unclear or trivial");
+  html += rubricRow("Prompt quality","Prompts show role, context, task, and format applied deliberately, with visible iteration","Prompts are clear and mostly well-structured","Prompts are usable but under-specified","Prompts are vague or copy-pasted without adaptation");
+  html += rubricRow("Output quality","Finished artifact is genuinely usable with minimal further editing","Finished artifact is solid, needs light editing","Artifact is a rough draft only","Artifact is incomplete or unusable");
+  html += rubricRow("Critical evaluation","Specific, credible account of what Claude got right and wrong, with verification shown","Reasonable account of strengths and limitations","Limited or vague reflection","No critical evaluation offered");
+  html += rubricRow("Presentation","Clear, concise, two minutes, confidently answers questions","Clear and within time","Runs long or lacks clarity","Unprepared or missing");
+  html += '</tbody></table></div>';
+
+  document.getElementById("panel-assessment").innerHTML = html;
+  drawQuiz();
+}
+
+function rubricRow(name,e,g,d,n){
+  return '<tr><td><b>'+name+'</b></td><td>'+e+'</td><td>'+g+'</td><td>'+d+'</td><td>'+n+'</td></tr>';
+}
+
+function drawQuiz(){
+  var list = document.getElementById("quizList");
+  var html = "";
+  QUIZ.forEach(function(item,i){
+    html += '<div class="quiz-q" data-i="'+i+'">';
+    html += '  <div class="qn">Question '+(i+1)+' of '+QUIZ.length+'</div>';
+    html += '  <div class="qtext">'+item.q+'</div>';
+    item.opts.forEach(function(o,oi){
+      html += '  <div class="quiz-opt" data-oi="'+oi+'">'+o+'</div>';
+    });
+    html += '  <div class="quiz-explain" id="exp-'+i+'"><b>Explanation:</b> '+item.exp+'</div>';
+    html += '</div>';
+  });
+  list.innerHTML = html;
+
+  list.querySelectorAll(".quiz-q").forEach(function(qEl){
+    var qi = parseInt(qEl.getAttribute("data-i"),10);
+    qEl.querySelectorAll(".quiz-opt").forEach(function(optEl){
+      optEl.addEventListener("click", function(){
+        if (quizAnswers.hasOwnProperty(qi)) return; // already answered
+        var oi = parseInt(optEl.getAttribute("data-oi"),10);
+        quizAnswers[qi] = oi;
+        qEl.querySelectorAll(".quiz-opt").forEach(function(x,xi){
+          var cls = xi===QUIZ[qi].c ? "correct" : (xi===oi ? "incorrect" : "");
+          if (cls) x.classList.add(cls);
+          if (xi===oi) x.classList.add("selected");
+        });
+        document.getElementById("exp-"+qi).classList.add("show");
+        updateScore();
+      });
+    });
+  });
+  updateScore();
+}
+
+function updateScore(){
+  var answered = Object.keys(quizAnswers).length;
+  var correct = 0;
+  Object.keys(quizAnswers).forEach(function(k){ if (quizAnswers[k] === QUIZ[k].c) correct++; });
+  document.getElementById("qsNum").textContent = correct+" / "+QUIZ.length;
+  var progress = document.getElementById("quizProgress");
+  if (answered === 0){
+    document.getElementById("qsLbl").textContent = "Answer questions below — your score updates live. 28/40 (70%) is a pass.";
+    progress.textContent = "";
+  } else if (answered < QUIZ.length){
+    document.getElementById("qsLbl").textContent = correct+" correct so far, out of "+answered+" answered.";
+    progress.textContent = answered+" of "+QUIZ.length+" questions answered.";
+  } else {
+    var pass = correct/QUIZ.length >= 0.7;
+    document.getElementById("qsLbl").textContent = pass ? "Passed — "+correct+"/"+QUIZ.length+" (70% or higher). Certificate-eligible pending capstone." : "Not yet passing — "+correct+"/"+QUIZ.length+". Review the modules above and retake.";
+    progress.textContent = "All "+QUIZ.length+" questions answered.";
+  }
+}
+
+renderers.assessment = renderAssessment;
+
+window.__cert = { selectTab: selectTab, renderers: renderers, rendered: rendered };
+
+})();
+</script>
+</body>
+</html>
