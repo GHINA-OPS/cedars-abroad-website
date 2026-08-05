@@ -79,6 +79,7 @@
     <p class="eyebrow">Executive Workshop &middot; Registration</p>
     <h1>AI-Enhanced Balanced Scorecard</h1>
     <p class="sub">A 3-day live online executive workshop on measurement, strategy, and artificial intelligence. Register your seat below.</p>
+    <p class="sub" style="margin-top:-20px;"><a href="poster.pdf" download style="color:var(--accent-ink);font-weight:600;">Download the workshop poster (PDF) &darr;</a></p>
 
     <div class="infostrip">
       <div class="info-card"><div class="lbl">Dates</div><div class="val">Aug 20&ndash;22</div><div class="sub2">Thu &middot; Fri &middot; Sat, 2026</div></div>
@@ -147,6 +148,10 @@
           <label>Email address</label>
           <input type="email" id="rEmail" required>
         </div>
+        <div>
+          <label>LinkedIn profile (optional)</label>
+          <input type="url" id="rLinkedin" placeholder="linkedin.com/in/yourname">
+        </div>
         <button class="btn" type="submit">Send Registration</button>
       </form>
       <p class="note">Submitting opens your email app with a pre-filled message to ghenakamilawad@hotmail.com. We'll reply with your Zoom link and Whish Money payment instructions.</p>
@@ -161,8 +166,10 @@ document.getElementById("regForm").addEventListener("submit", function(e){
   var age = document.getElementById("rAge").value;
   var org = document.getElementById("rOrg").value;
   var email = document.getElementById("rEmail").value;
+  var linkedin = document.getElementById("rLinkedin").value;
   var subject = "AI-Enhanced Balanced Scorecard Workshop - Registration: " + first + " " + last;
   var body = "First name: " + first + "\nFamily name: " + last + "\nAge: " + age + "\nCompany: " + org + "\nEmail: " + email +
+    "\nLinkedIn: " + (linkedin || "(not provided)") +
     "\n\nWorkshop: AI-Enhanced Balanced Scorecard, Aug 20-22 2026, 3-7 PM Beirut Time, Live Online\nFee: $100 USD (Zoom link and Whish Money payment instructions to be sent by reply)\n";
   window.location.href = "mailto:ghenakamilawad@hotmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 });
